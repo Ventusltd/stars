@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-27 19:39 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (123 KB, 137 cards, 437 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-28 02:10 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (125 KB, 139 cards, 446 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (42)
+## Repositories (44)
 
 ```mermaid
 flowchart TD
@@ -49,6 +49,8 @@ flowchart TD
   estate --> n_Ventusltd_grid_distance_maths
   n_Ventusltd_lightning["lightning · 2 blocks"]:::ok
   estate --> n_Ventusltd_lightning
+  n_Ventusltd_seed_data["seed-data · 2 blocks"]:::ok
+  estate --> n_Ventusltd_seed_data
   n_Ventusltd_teleprinter["teleprinter · 2 blocks"]:::ok
   estate --> n_Ventusltd_teleprinter
   n_Ventusltd_youengineer_code_review["youengineer-code-review · 2 blocks"]:::ok
@@ -81,6 +83,8 @@ flowchart TD
   estate --> n_Ventusltd_kuiper_belt
   n_Ventusltd_kuiper_drawing_engine["kuiper-drawing-engine · 1 blocks"]:::ok
   estate --> n_Ventusltd_kuiper_drawing_engine
+  n_Ventusltd_legislation["legislation · 1 blocks"]:::ok
+  estate --> n_Ventusltd_legislation
   n_Ventusltd_sld["sld · 1 blocks"]:::ok
   estate --> n_Ventusltd_sld
   n_Ventusltd_solar_electrical_topology_analysis_engine_text_based["solar-electrical-topology-analysis-engine-text-based · 1 blocks"]:::ok
@@ -241,6 +245,9 @@ flowchart LR
   n_block_Sa --> n_block_Dc
   n_block_Sa --> n_block_Ie
   n_block_Sa --> n_block_Ss
+  n_block_Dc --> n_block_Pr
+  n_block_Dc --> n_block_Ss
+  n_block_Dc --> n_block_St
   n_block_Dt --> n_block_Ps
   n_block_Dt --> n_block_Pr
   n_block_Dt --> n_block_Gp
@@ -294,11 +301,11 @@ flowchart LR
   n_block_Cg --> n_block_Pn
   n_block_Cg --> n_block_Ln
   n_block_Cg --> n_block_Gn
+  n_block_Cg --> n_block_Dc
   n_block_Cg --> n_block_Ss
   n_block_Cg --> n_block_D
   n_block_Cg --> n_block_Dt
   n_block_Cg --> n_block_Wf
-  n_block_Cg --> n_block_Dc
   n_block_Cg --> n_block_St
   n_block_Cg --> n_block_Ps
   n_block_Cg --> n_block_Sb
@@ -323,6 +330,7 @@ flowchart LR
   n_block_St --> n_block_Pn
   n_block_St --> n_block_Em
   n_block_St --> n_block_Gn
+  n_block_St --> n_block_Dc
   n_block_St --> n_block_D
   n_block_Tp --> n_block_Pr
   n_block_Tp --> n_block_Ss

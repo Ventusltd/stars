@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-483,085 unique lines, numbered 1 to 862,339. Generated 2026-11-27T19:39:46.247Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+489,399 unique lines, numbered 1 to 870,877. Generated 2026-11-28T02:10:16.499Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -483088,4 +483088,6318 @@
 862337	        for entry in idx["entries"]:
 862338	            for record in entry["code_sources"]:
 862339	                self.assertEqual(set(record["source"]),{"repo","commit","path","first","last"})
+862350	class RegisterTest(unittest.TestCase):
+862351	    def test_all_reviewed_repositories_have_pinned_readmes(self):
+862352	        rows = json.loads(Path(__file__).with_name("repositories.json").read_bytes())
+862353	        self.assertEqual(len({r["repository"] for r in rows}), 10)
+862355	            self.assertRegex(row["reviewed_commit"], "^[0-9a-f]{40}$")
+862356	            self.assertTrue(row["readme"].endswith("/" + row["reviewed_commit"] + "/README.md"))
+862357	"""Run each suite in its own directory, then check repository-level references."""
+862361	tests = sorted(root.rglob("test_*.py"))
+862362	if not tests:
+862363	    sys.exit("No regression tests found")
+862364	for directory in sorted({test.parent for test in tests}):
+862365	    subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-v"], cwd=directory, check=True)
+862366	for document in sorted(root.rglob("*.json")):
+862367	    json.loads(document.read_bytes())
+862368	print(f"Verified {len(tests)} test modules and repository JSON syntax.")
+862369	"""Verify the original repository PDF and optionally compare Parliament's bytes."""
+862374	def identity(data):
+862375	    header = b"blob " + str(len(data)).encode() + b"\0"
+862379	        "git_blob_sha1": hashlib.sha1(header + data).hexdigest(),
+862381	def verify(data, expected):
+862382	    actual = identity(data)
+862383	    if any(expected[key] != value for key, value in actual.items()):
+862384	        raise ValueError(f"PDF identity mismatch: {actual}")
+862388	    parser.add_argument("--repository", type=Path, default=HERE.parent)
+862391	    doc = json.loads((HERE / "ia6.json").read_text())["document"]
+862392	    local = (args.repository / doc["repository_file"]).read_bytes()
+862393	    result = {"repository": verify(local, doc)}
+862395	        request = Request(doc["url"], headers={"User-Agent": "Ventus-Legislation-IA6/1"})
+862397	            official = response.read(doc["bytes"] + 1)
+862398	        result["official"] = verify(official, doc)
+862399	        if official != local:
+862400	            raise ValueError("Official and repository bytes differ")
+862401	        result["identical"] = True
+862405	"""Replay one fictional civilian screening question. Data never grants permission."""
+862408	REQUIRED = {
+862409	    "planning_decision": "planning",
+862410	    "land_agreement": "land",
+862411	    "engineering_record": "physical_connectivity",
+862412	    "connection_contract": "commercial_agreement",
+862413	    "capacity_assessment": "electrical_capacity",
+862415	STATES = {"satisfied", "contradicted", "unknown"}
+862416	def appraisal(rows, annual_real_discount_rate):
+862417	    """Present value for a bounded fictional, two-period real-GBP comparison."""
+862418	    rate = Decimal(annual_real_discount_rate)
+862419	    if not rate.is_finite() or rate < 0:
+862420	        raise ValueError("Expected a finite non-negative real discount rate")
+862421	    if len(rows) != 2 or [r["year"] for r in rows] != [0, 1]:
+862422	        raise ValueError("Expected exactly one cash flow for each of years zero and one")
+862423	    if any(r["unit"] != "GBP real base year zero" for r in rows):
+862424	        raise ValueError("Inconsistent currency or price basis")
+862425	    amounts = {}
+862426	    for scenario in ("baseline", "option"):
+862427	        values = [r[scenario] for r in rows]
+862428	        if None in values:
+862429	            amounts[scenario] = None
+862431	        numbers = [Decimal(v) for v in values]
+862432	        if any(not n.is_finite() for n in numbers):
+862433	            raise ValueError("Cash flows must be finite")
+862434	        amounts[scenario] = numbers[0] + numbers[1] / (1 + rate)
+862435	    delta = None if None in amounts.values() else amounts["option"] - amounts["baseline"]
+862436	    return {key: None if value is None else str(value.quantize(Decimal("0.01")))
+862437	            for key, value in {**amounts, "delta": delta}.items()}
+862438	def evaluate(case):
+862439	    if case["scope"] != "fictional civilian screening":
+862440	        raise ValueError("Only fictional civilian screening fixtures are accepted")
+862441	    as_of = date.fromisoformat(case["as_of"])
+862443	    for kind, gate in REQUIRED.items():
+862444	        observations = []
+862445	        for row in case["evidence"]:
+862446	            if row["kind"] != kind:
+862448	            if row["gate"] != gate or row["state"] not in STATES:
+862449	                raise ValueError("Mismatched evidence type or state")
+862450	            if not row["source"].startswith("fixture:") or not row["source"][8:]:
+862451	                raise ValueError("Expected an identified fixture observation")
+862452	            if (row["asset_class"], row["territory"], row["project"]) != (
+862453	                case["asset_class"], case["territory"], case["project"]
+862455	            if row["basis"] != "assumed_baseline":
+862456	            start, end = (date.fromisoformat(row[k]) for k in ("from", "through"))
+862457	            if start > end:
+862458	                raise ValueError("Reversed validity interval")
+862459	            if start <= as_of <= end:
+862460	                observations.append(row)
+862461	        states = {row["state"] for row in observations}
+862462	        state = next(iter(states)) if len(states) == 1 else "unknown"
+862463	        ledger[gate] = {"state": state, "conflict": len(states) > 1,
+862464	                        "sources": sorted({row["source"] for row in observations})}
+862465	    blockers = sorted(k for k, v in ledger.items() if v["state"] == "contradicted")
+862466	    unknowns = sorted(k for k, v in ledger.items() if v["state"] == "unknown")
+862467	    result = "blocked" if blockers else "insufficient_evidence" if unknowns else "screen_passed"
+862468	    return {"scope": case["scope"], "result": result, "blockers": blockers,
+862469	            "unknowns": unknowns, "ledger": ledger,
+862470	            "scenario_pv_gbp": appraisal(case["annual_flows"], case["real_discount_rate"])}
+862471	    parser.add_argument("fixture", type=Path)
+862472	    data = parser.parse_args().fixture.read_bytes()
+862473	    print(json.dumps({"fixture_sha256": hashlib.sha256(data).hexdigest(),
+862474	                      **evaluate(json.loads(data))}, indent=2, sort_keys=True))
+862475	from itertools import product
+862476	from screen import evaluate
+862477	class ScreeningTest(unittest.TestCase):
+862479	        self.case = json.loads((HERE / "fictional_solar.json").read_text())
+862480	    def test_fixture(self):
+862481	        result = evaluate(self.case)
+862482	        self.assertEqual(result["unknowns"], ["electrical_capacity", "land"])
+862483	        self.assertEqual(result["result"], "insufficient_evidence")
+862484	    def test_two_gate_reference_truth_table(self):
+862485	        variants = ("unknown", "contradicted", "satisfied")
+862486	        reference = [
+862487	            "insufficient_evidence", "blocked", "insufficient_evidence",
+862488	            "blocked", "blocked", "blocked",
+862489	            "insufficient_evidence", "blocked", "screen_passed",
+862491	        for (land, capacity), expected in zip(product(variants, repeat=2), reference):
+862492	            self.case["evidence"][2]["state"] = land
+862493	            self.case["evidence"][5]["state"] = capacity
+862494	            result = evaluate(self.case)
+862495	            self.assertEqual(result["result"], expected)
+862496	            self.assertEqual(len(result["blockers"]), (land, capacity).count("contradicted"))
+862497	            self.assertEqual(len(result["unknowns"]), (land, capacity).count("unknown"))
+862498	    def test_stale_proposed_wrong_territory_or_wrong_project(self):
+862499	        row = self.case["evidence"][1]
+862500	        for field, value in [("through", "2026-11-27"), ("basis", "proposed"),
+862501	                             ("territory", "B"), ("project", "another project")]:
+862502	            self.case["evidence"][1] = dict(row, **{field: value})
+862503	            self.assertIn("planning", evaluate(self.case)["unknowns"])
+862504	    def test_conflicting_evidence(self):
+862505	        original = self.case["evidence"][1]
+862506	        self.case["evidence"].append(dict(original, source="fixture:second", state="contradicted"))
+862507	        result = evaluate(self.case)["ledger"]["planning"]
+862508	        self.assertEqual(result["state"], "unknown")
+862509	        self.assertTrue(result["conflict"])
+862510	        self.assertEqual(len(result["sources"]), 2)
+862511	    def test_positive_appraisal_cannot_clear_unknowns(self):
+862512	        self.assertEqual(result["scenario_pv_gbp"]["delta"], "10.00")
+862513	        self.case["annual_flows"][1]["option"] = None
+862514	        self.assertIsNone(evaluate(self.case)["scenario_pv_gbp"]["delta"])
+862515	        self.case["annual_flows"][1]["unit"] = "GBP nominal"
+862516	        with self.assertRaisesRegex(ValueError, "price basis"):
+862517	            evaluate(self.case)
+862518	    def test_nearby_feature_alone(self):
+862519	        self.case["evidence"] = self.case["evidence"][:1]
+862520	        self.assertEqual(len(evaluate(self.case)["unknowns"]), 5)
+862521	    def test_mislabelled_source_or_scope(self):
+862522	        self.case["evidence"][1]["gate"] = "land"
+862524	        self.case["scope"] = "live asset"
+862525	        with self.assertRaisesRegex(ValueError, "fictional"):
+862527	"""Verify every preserved introduction against its record without network access."""
+862530	DATA = Path(__file__).resolve().parent
+862531	def verify():
+862532	    records = json.loads((DATA / 'catalogue.json').read_text())
+862534	        raise ValueError('Empty instrument catalogue')
+862535	    ids = [row['id'] for row in records]
+862537	        raise ValueError('Duplicate instrument identifier')
+862538	    with zipfile.ZipFile(DATA / 'introductions-20261128.zip') as archive:
+862539	        members = [row['snapshot_sha256'] + '.xml' for row in records]
+862540	        if sorted(archive.namelist()) != sorted(members):
+862541	            raise ValueError('Archive and catalogue membership differ')
+862542	        for row, name in zip(records, members):
+862543	            data = archive.read(name)
+862544	            root = ET.fromstring(data)
+862545	            title = root.findtext('.//{http://purl.org/dc/elements/1.1/}title')
+862546	            if (len(data) != row['snapshot_bytes']
+862547	                    or hashlib.sha256(data).hexdigest() != row['snapshot_sha256']
+862548	                    or root.get('IdURI') != row['external_id']
+862549	                    or row['external_id'].split('/id/')[-1] != row['id']
+862550	                    or ' '.join(title.split()) != row['title']):
+862551	                raise ValueError(f'Archive evidence mismatch for {row["id"]}')
+862554	    print(f'{verify()} instrument snapshots verified.')
+862555	"""Compare exact publisher editions of one addressed CLML provision."""
+862557	DC = "{http://purl.org/dc/elements/1.1/}"
+862558	CLML = "{http://www.legislation.gov.uk/namespaces/legislation}"
+862559	def digest(body):
+862560	    return hashlib.sha256(body).hexdigest()
+862561	def read_edition(path, expected):
+862564	        raise ValueError("Edition digest mismatch")
+862566	    identifier = root.findtext(".//" + DC + "identifier")
+862567	    if not identifier:
+862568	        raise ValueError("Missing publisher identifier")
+862569	    uri = urlsplit(identifier)
+862570	    if uri.hostname != "www.legislation.gov.uk" or uri.query or uri.fragment:
+862571	        raise ValueError("Unrecognised publisher identifier")
+862572	    provision, edition = uri.path.rsplit("/", 1)
+862573	    if edition not in ("enacted", "made"):
+862574	        date.fromisoformat(edition)
+862575	    nodes = [n for n in root.iter() if n.get("DocumentURI") == identifier and n.get("IdURI")]
+862576	    if len(nodes) != 1 or urlsplit(nodes[0].get("IdURI")).path != "/id" + provision:
+862577	        raise ValueError("Edition lacks a unique matching provision")
+862578	    # Keep inline amendments and editorial marks as supplied by the publisher.
+862579	    lines = [" ".join("".join(n.itertext()).split()) for n in nodes[0].iter(CLML + "Text")]
+862581	        raise ValueError("Empty provision")
+862582	    return {"provision": provision, "edition": edition, "url": identifier.replace("http:", "https:", 1),
+862583	            "sha256": expected, "text_blocks": lines}
+862584	def compare(before, after):
+862585	    import difflib
+862586	    if before["provision"] != after["provision"] or before["edition"] == after["edition"]:
+862587	        raise ValueError("Comparison requires one provision and distinct editions")
+862588	    a, b = before["text_blocks"], after["text_blocks"]
+862589	    changes = [{"operation": op, "old_blocks": [i, j], "new_blocks": [k, m]}
+862590	               for op, i, j, k, m in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes() if op != "equal"]
+862591	    return {"provision": before["provision"], "editions": [before["edition"], after["edition"]],
+862592	            "source_sha256": [before["sha256"], after["sha256"]], "changed_block_ranges": changes,
+862593	            "block_numbering": "zero-based, end-exclusive", "applicability": "requires separate legal evidence"}
+862594	def replay(source_directory=None):
+862595	    base = Path(__file__).resolve().parent
+862596	    manifest = json.loads((base / "manifest.json").read_text())
+862597	    editions = []
+862598	    for row in manifest["snapshots"]:
+862599	        projection = row["projection"]
+862600	        if source_directory is not None:
+862601	            raw = read_edition(source_directory / (projection["edition"] + ".xml"), row["sha256"])
+862602	            raw["text_blocks"] = [digest(line.encode()) for line in raw["text_blocks"]]
+862603	            if raw != projection:
+862604	                raise ValueError("Projection differs from publisher evidence")
+862605	        editions.append(projection)
+862606	    return [compare(a, b) for a, b in zip(editions, editions[1:])]
+862608	    parser.add_argument("--source-directory", type=Path)
+862609	    print(json.dumps(replay(parser.parse_args().source_directory), indent=2))
+862610	from compare import compare, read_edition, replay
+862611	class EditionTests(unittest.TestCase):
+862612	    def test_real_historical_editions(self):
+862613	        expected = json.loads(Path(__file__).with_name("receipt.json").read_bytes())
+862614	        self.assertEqual(replay(), expected)
+862615	        self.assertEqual(expected[0]["changed_block_ranges"], [])
+862616	        self.assertEqual(len(expected[1]["changed_block_ranges"]), 3)
+862617	    def test_reject_changed_input(self):
+862618	        with self.assertRaisesRegex(ValueError, "digest"):
+862619	            read_edition(Path(__file__).with_name("manifest.json"), "0" * 64)
+862620	    def test_reject_unrelated_provisions(self):
+862621	        with self.assertRaisesRegex(ValueError, "one provision"):
+862622	            compare({"provision": "/A"}, {"provision": "/B"})
+862623	"""Replay the Electricity Act 1989 whole-source vs selective retrieval experiment."""
+862624	from argparse import ArgumentParser
+862627	from time import process_time_ns
+862628	import tracemalloc
+862629	from xml.parsers import expat
+862630	from legal import get, ingest, sha, tag_end
+862631	URL = 'https://www.legislation.gov.uk/ukpga/1989/29/enacted/data.xml'
+862632	EXPECTED = '24c7ab3c6fe208103c7a902679ffaf2735aa9fe8a0cb3c64b26ae27b8f1c1711'
+862633	LOCATOR = 'schedule/4/paragraph/6'
+862634	def measure(fn):
+862635	    tracemalloc.start()
+862636	    start = process_time_ns()
+862637	    result = fn()
+862638	    cpu = process_time_ns() - start
+862639	    _, peak = tracemalloc.get_traced_memory()
+862640	    tracemalloc.stop()
+862641	    return result, dict(cpu_ns=cpu, python_peak_allocated_bytes=peak)
+862642	def scan(path):
+862644	    if sha(data) != EXPECTED:
+862645	        raise ValueError('upstream manifestation differs from the measured specimen')
+862646	    parser = expat.ParserCreate()
+862649	    selected = None
+862650	    target = 'http://www.legislation.gov.uk/id/ukpga/1989/29/' + LOCATOR
+862651	    def start(_name, attrs):
+862652	        nonlocal depth, selected
+862653	        depth += 1
+862654	        if attrs.get('IdURI') == target:
+862655	            selected = depth, parser.CurrentByteIndex
+862656	    def end(_name):
+862657	        if selected and selected[0] == depth:
+862658	            found.append(data[selected[1]:tag_end(data, parser.CurrentByteIndex)])
+862659	            selected = None
+862660	        depth -= 1
+862661	    parser.StartElementHandler = start
+862662	    parser.EndElementHandler = end
+862663	    parser.Parse(data, True)
+862664	    if len(found) != 1:
+862665	        raise ValueError('absent or ambiguous provision')
+862666	    return found[0]
+862667	    parser = ArgumentParser(description=__doc__)
+862668	    parser.add_argument('xml',type=Path)
+862669	    parser.add_argument('retrieved',help='actual retrieval date, ISO format')
+862670	    with TemporaryDirectory() as tmp:
+862671	        path = Path(tmp)/'store.sqlite'
+862672	        with sqlite3.connect(path) as db:
+862673	            data, full = measure(lambda: scan(args.xml))
+862674	            digest, build = measure(lambda: ingest(db,args.xml.read_bytes(),URL,args.retrieved))
+862675	            (fragment,receipt), selective = measure(lambda: get(db,digest,LOCATOR))
+862676	            if data != fragment or fragment != Path(__file__).with_name('wayleave-enacted.fragment.xml').read_bytes():
+862677	                raise ValueError('known-answer comparison failed')
+862678	            count = db.execute('SELECT count(*) FROM provisions').fetchone()[0]
+862679	        print(json.dumps(dict(receipt=receipt,source_bytes=args.xml.stat().st_size,provision_count=count,
+862680	                              sqlite_bytes=path.stat().st_size,full_reparse=full,build=build,
+862681	                              selective=selective,comparison='byte-identical to full scan and checked-in excerpt',
+862682	                              network_bytes_during_benchmark=0,ai_calls_during_benchmark=0),indent=2))
+862684	"""Exact byte-range retrieval for publisher-identified CLML provisions. Python >=3.11."""
+862688	SCHEMA = """
+862689	CREATE TABLE IF NOT EXISTS snapshots(digest TEXT UNIQUE NOT NULL, instrument TEXT NOT NULL,
+862690	 version TEXT NOT NULL, source_url TEXT NOT NULL, xml BLOB NOT NULL);
+862691	CREATE TABLE IF NOT EXISTS observations(digest TEXT, retrieved TEXT, PRIMARY KEY(digest,retrieved));
+862692	CREATE TABLE IF NOT EXISTS provisions(digest TEXT, locator TEXT, source_url TEXT NOT NULL,
+862693	 start INTEGER NOT NULL, size INTEGER NOT NULL, sha256 TEXT NOT NULL,
+862694	 PRIMARY KEY(digest,locator));
+862695	CREATE VIRTUAL TABLE IF NOT EXISTS terms USING fts5(digest UNINDEXED,locator UNINDEXED,body);
+862699	def official_path(url):
+862700	    parts = urlsplit(url)
+862701	    if parts.scheme not in ('http', 'https') or parts.netloc != 'www.legislation.gov.uk' or parts.query or parts.fragment:
+862702	        raise ValueError(f'unsupported official identifier: {url}')
+862703	    return parts.path
+862704	def tag_end(data, start):
+862705	    quoted = None
+862706	    for offset in range(start + 1, len(data)):
+862707	        b = data[offset]
+862708	        if b == quoted:
+862709	            quoted = None
+862710	        elif quoted is None:
+862711	            if b in (34, 39):
+862712	                quoted = b
+862713	            elif b == 62:
+862714	                return offset + 1
+862715	    raise ValueError('unterminated element')
+862716	def locate(data, source_url):
+862717	    parser = expat.ParserCreate(namespace_separator=' ')
+862718	    stack = []
+862720	    owners = []
+862722	    instrument = version = None
+862723	    def start_element(name, attrs):
+862724	        nonlocal instrument, version
+862725	        if not stack:
+862726	            if name != 'http://www.legislation.gov.uk/namespaces/legislation Legislation':
+862727	                raise ValueError('expected UK legislation XML')
+862728	            identity = official_path(attrs['IdURI'])
+862729	            if not re.fullmatch(r'/id/[a-z]+/[0-9]{4}/[0-9]+', identity):
+862730	                raise ValueError('unsupported instrument identity')
+862731	            instrument = identity.removeprefix('/id/')
+862732	            document = official_path(attrs['DocumentURI'])
+862733	            if official_path(source_url) != document + '/data.xml':
+862734	                raise ValueError('source and XML manifestation disagree')
+862735	            version = document.removeprefix('/' + instrument).lstrip('/') or 'revised-undated'
+862736	            if document != '/' + instrument and document != '/' + instrument + '/' + version:
+862737	                raise ValueError('source document identity mismatch')
+862738	            if version not in ('enacted','made','revised-undated'):
+862739	                date.fromisoformat(version)
+862740	        identity = attrs.get('IdURI')
+862741	        record = None
+862742	        if identity and attrs.get('DocumentURI'):
+862743	            path = official_path(identity)
+862744	            prefix = '/id/' + instrument
+862745	            if path == prefix or path.startswith(prefix + '/'):
+862746	                locator = path[len(prefix):].lstrip('/')
+862747	                url = attrs['DocumentURI']
+862748	                destination = official_path(url)
+862749	                expected = path.removeprefix('/id')
+862750	                if version != 'revised-undated':
+862751	                    expected += '/' + version
+862752	                if destination != expected:
+862753	                    raise ValueError('provision source path disagrees with its version or identity')
+862754	                begin = parser.CurrentByteIndex
+862755	                end = tag_end(data, begin)
+862756	                record = locator, url.replace('http://', 'https://', 1), begin, end
+862757	                owners.append((locator, []))
+862758	        stack.append(record)
+862759	    def end_element(_name):
+862760	        record = stack.pop()
+862761	        if record:
+862762	            owner, chunks = owners.pop()
+862763	            words = ' '.join(''.join(chunks).split())
+862764	            if words and owner:
+862765	                terms.append((owner, words))
+862766	            locator, url, begin, end = record
+862767	            if data[end-2:end] != b'/>':
+862768	                end = tag_end(data, parser.CurrentByteIndex)
+862769	            rows.append((locator, url, begin, end-begin, sha(memoryview(data)[begin:end])))
+862770	    def reject_doctype(*_args):
+862771	        raise ValueError('DTD unsupported')
+862772	    def characters(value):
+862773	        if owners:
+862774	            owners[-1][1].append(value)
+862775	    parser.CharacterDataHandler = characters
+862776	    parser.StartElementHandler = start_element
+862777	    parser.EndElementHandler = end_element
+862778	    parser.StartDoctypeDeclHandler = reject_doctype
+862779	    return instrument, version, rows, terms
+862780	def ingest(db, data, url, retrieved):
+862781	    day = date.fromisoformat(retrieved).isoformat()
+862782	    digest = sha(data)
+862783	    db.executescript(SCHEMA)
+862784	    with db:
+862785	        db.execute('BEGIN IMMEDIATE')
+862786	        previous = db.execute('SELECT source_url FROM snapshots WHERE digest=?', (digest,)).fetchone()
+862787	        if previous and previous[0] != url:
+862788	            raise ValueError('source differs from registered manifestation')
+862789	        if not previous:
+862790	            instrument, version, rows, terms = locate(data, url)
+862791	            db.execute('INSERT INTO snapshots VALUES(?,?,?,?,?)', (digest, instrument, version, url, data))
+862792	            db.executemany('INSERT INTO provisions VALUES(?,?,?,?,?,?)', ((digest, *row) for row in rows))
+862793	            db.executemany('INSERT INTO terms VALUES(?,?,?)', ((digest, *term) for term in terms))
+862794	        db.execute('INSERT OR IGNORE INTO observations VALUES(?,?)', (digest, day))
+862795	    return digest
+862796	def get(db, digest, locator):
+862797	    row = db.execute("""SELECT s.rowid,s.instrument,s.version,s.source_url,p.source_url,p.start,p.size,p.sha256
+862798	        FROM provisions p JOIN snapshots s ON p.digest=s.digest WHERE p.digest=? AND p.locator=?""",
+862799	        (digest, locator)).fetchone()
+862801	        raise LookupError('exact provision and source digest absent')
+862802	    rowid, instrument, version, source, uri, start, size, expected = row
+862803	    with db.blobopen('snapshots','xml',rowid,readonly=True) as stream:
+862804	        stream.seek(start)
+862805	        data = stream.read(size)
+862806	    if sha(data) != expected:
+862807	        raise ValueError('provision digest mismatch')
+862808	    days = [x[0] for x in db.execute('SELECT retrieved FROM observations WHERE digest=? ORDER BY retrieved',(digest,))]
+862809	    receipt = dict(instrument=instrument, version=version, locator=locator, document_url=source,
+862810	                   provision_url=uri, document_sha256=digest, provision_sha256=expected,
+862811	                   retrieved_dates=days, byte_offset=start, logical_bytes=size, applicability='unassessed')
+862812	    return data, receipt
+862813	def search(records, query, jurisdiction=None, status=None, dated=None):
+862816	        if jurisdiction and jurisdiction.casefold() not in json.dumps(record['jurisdiction']).casefold():
+862817	        if status and status.casefold() != str(record['status']).casefold():
+862818	        if dated and dated not in [str(value) for key,value in record.items() if 'date' in key or key=='year']:
+862819	        exact = query.casefold() in (record['id'].casefold(), record['title'].casefold())
+862820	        haystack = json.dumps(record, ensure_ascii=False).casefold()
+862821	        if exact or all(word in haystack for word in query.casefold().split()):
+862822	            results.append(dict(match='exact_reference' if exact else 'keyword', record=record))
+862823	    return sorted(results, key=lambda result:(result['match'],result['record']['id']))
+862824	    sub = parser.add_subparsers(dest='cmd', required=True)
+862825	    find = sub.add_parser('search')
+862826	    find.add_argument('query')
+862827	    find.add_argument('--catalogue',type=Path,default=ROOT/'data/catalogue.json')
+862828	    for name in ('jurisdiction','status','date'):
+862829	        find.add_argument('--'+name)
+862830	    capture = sub.add_parser('ingest')
+862831	    capture.add_argument('db')
+862832	    capture.add_argument('xml',type=Path)
+862833	    capture.add_argument('source_url')
+862834	    capture.add_argument('retrieved_date')
+862835	    lookup = sub.add_parser('terms',help='find literal words within captured provisions')
+862836	    lookup.add_argument('db')
+862837	    lookup.add_argument('document_sha256')
+862838	    lookup.add_argument('query')
+862839	    example = sub.add_parser('bootstrap', help='index the bundled enacted Electricity Act archive')
+862840	    example.add_argument('db')
+862841	    read = sub.add_parser('get')
+862842	    read.add_argument('db')
+862843	    read.add_argument('document_sha256')
+862844	    read.add_argument('locator')
+862845	    read.add_argument('--xml',action='store_true',help='write exact XML fragment bytes to stdout')
+862846	    if args.cmd == 'search':
+862847	        print(json.dumps(search(json.loads(args.catalogue.read_text()),args.query,args.jurisdiction,args.status,args.date),indent=2))
+862849	    if args.cmd == 'bootstrap':
+862850	        folder = Path(__file__).resolve().parent
+862851	        known = json.loads((folder/'benchmark-receipt.json').read_text())['receipt']
+862852	        with gzip.open(folder/'electricity-1989-enacted.xml.gz', 'rb') as source:
+862853	            data = source.read()
+862854	        if sha(data) != known['document_sha256']:
+862855	            raise ValueError('archive digest mismatch')
+862856	        with sqlite3.connect(args.db) as db:
+862857	            print(ingest(db, data, known['document_url'], known['retrieved_dates'][0]))
+862858	    if args.cmd == 'ingest':
+862859	            print(ingest(db,args.xml.read_bytes(),args.source_url,args.retrieved_date))
+862860	    with sqlite3.connect(Path(args.db).resolve().as_uri()+'?mode=ro',uri=True) as db:
+862861	        if args.cmd == 'terms':
+862862	            words = args.query.split()
+862863	            if not words:
+862864	                parser.error('a search term is required')
+862865	            literal = ' AND '.join('"'+word.replace('"','""')+'"' for word in words)
+862866	            matches = db.execute("""SELECT locator,snippet(terms,2,'[',']','…',14)
+862867	                FROM terms WHERE digest=? AND terms MATCH ? ORDER BY rank,locator LIMIT 50""",
+862868	                (args.document_sha256,literal))
+862869	            print(json.dumps([dict(match='keyword',locator=k,context=v) for k,v in matches],indent=2))
+862871	        data, receipt = get(db,args.document_sha256,args.locator)
+862872	    if args.xml:
+862873	        sys.stdout.buffer.write(data)
+862875	        print(json.dumps(receipt,indent=2))
+862876	sys.path.insert(0,str(Path(__file__).resolve().parent))
+862877	from legal import get, ingest, search, sha
+862878	BASE = 'https://www.legislation.gov.uk'
+862879	ID = 'ukpga/1989/29'
+862880	URL = f'{BASE}/{ID}/enacted/data.xml'
+862881	DATE = '2026-11-28'
+862882	CHILD = f'<P2 IdURI="{BASE}/id/{ID}/section/1/1" DocumentURI="{BASE}/{ID}/section/1/1/enacted"/>'
+862883	SECTION = f'<P1 IdURI="{BASE}/id/{ID}/section/1" DocumentURI="{BASE}/{ID}/section/1/enacted"><Text test=">">A £1 fixture.</Text>{CHILD}</P1>'
+862884	XML = f'<Legislation xmlns="http://www.legislation.gov.uk/namespaces/legislation" DocumentURI="{URL[:-9]}" IdURI="{BASE}/id/{ID}">{SECTION}</Legislation>'.encode()
+862885	class Retrieval(unittest.TestCase):
+862886	        self.db = sqlite3.connect(':memory:')
+862887	        self.addCleanup(self.db.close)
+862888	        self.digest = ingest(self.db,XML,URL,DATE)
+862889	    def test_exact_multibyte_nested_and_empty(self):
+862890	        for locator, expected in [('section/1',SECTION),('section/1/1',CHILD),('',XML.decode())]:
+862891	            data, receipt = get(self.db,self.digest,locator)
+862892	            self.assertEqual(data,expected.encode())
+862893	            self.assertEqual(receipt['provision_sha256'],sha(data))
+862894	            self.assertEqual(receipt['applicability'],'unassessed')
+862895	    def test_unknown_does_not_return_parent(self):
+862896	        with self.assertRaises(LookupError):
+862897	            get(self.db,self.digest,'section/1/2')
+862898	    def test_digest_pinned_through_reimport(self):
+862899	        ingest(self.db,XML,URL,'2026-11-29')
+862900	        altered = ingest(self.db,XML.replace(b'fixture',b'example'),URL,DATE)
+862901	        self.assertNotEqual(altered,self.digest)
+862902	        old, receipt = get(self.db,self.digest,'section/1')
+862903	        self.assertEqual(receipt['retrieved_dates'],[DATE,'2026-11-29'])
+862904	        self.assertEqual(old,SECTION.encode())
+862905	    def test_source_mismatch_and_duplicate_identity_atomic(self):
+862906	        for data,url in [(XML,URL.replace('enacted','2020-01-01')),
+862907	                         (XML.replace(SECTION.encode(),SECTION.encode()*2),URL),
+862908	                         (b'<!DOCTYPE Legislation>'+XML,URL)]:
+862909	            with self.assertRaises((sqlite3.IntegrityError,ValueError)):
+862910	                ingest(self.db,data,url,DATE)
+862911	        self.assertEqual(self.db.execute('SELECT count(*) FROM snapshots').fetchone()[0],1)
+862912	    def test_corruption(self):
+862913	        self.db.execute('UPDATE snapshots SET xml=?',(XML.replace(b'fixture',b'failure'),))
+862914	            get(self.db,self.digest,'section/1')
+862915	    def test_indexed_terms(self):
+862916	        rows=self.db.execute("SELECT locator FROM terms WHERE terms MATCH ?",('"fixture"',)).fetchall()
+862917	        self.assertEqual(rows,[('section/1',)])
+862918	    def test_search(self):
+862919	        base=dict(id=ID,title='Electricity Act 1989',subjects=['wayleaves'],jurisdiction='unknown',
+862920	                  status='unassessed',enactment_date='1989-07-27',source_url=URL)
+862921	        self.assertEqual(search([base],ID)[0]['match'],'exact_reference')
+862922	        self.assertEqual(search([base],'wayleaves',dated='1989-07-27')[0]['match'],'keyword')
+862923	        self.assertEqual(search([base],'Electricity',jurisdiction='NI'),[])
+862924	        self.assertEqual(search([base],'Electricity',status='in force'),[])
+862925	    def test_golden_excerpt(self):
+862926	        root=Path(__file__).parent
+862927	        expected=json.loads((root/'benchmark-receipt.json').read_text())['receipt']
+862928	        self.assertEqual(expected['provision_sha256'],sha((root/'wayleave-enacted.fragment.xml').read_bytes()))
+862929	// A receipt checks the support recorded for a screening result. It cannot confer a right.
+862930	export default ({ controlContracts }) => {
+862931	  const file = 'legal-evidence.json';
+862932	  const receipt = controlContracts.find(item => item.file === file);
+862933	  if (!receipt) return [];
+862934	  const data = receipt.document;
+862935	  if (receipt.error || data?.schema !== 'ventus.legal-evidence.v1') return ['invalid-receipt'];
+862936	  const { claim, evidence } = data;
+862937	  if (!claim || !evidence || !Array.isArray(claim.open_questions)) return ['incomplete-receipt'];
+862938	  if (claim.result === 'unresolved') return claim.open_questions.some(q => typeof q === 'string' && q.trim()) ? [] : ['unexplained-uncertainty'];
+862939	  if (claim.result !== 'supported-screening' || claim.open_questions.length) return ['unsupported-conclusion'];
+862941	  const hasText = value => typeof value === 'string' && value.trim().length > 0;
+862942	  const date = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+862943	    && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+862944	  const within = (from, until, when) => date(when) && date(from) && from <= when && (until === null || (date(until) && when < until));
+862945	  if (!date(claim.as_of) || !hasText(claim.provision) || claim.provision !== evidence.provision) problems.push('provision-identity');
+862946	  if (evidence.kind !== 'enacted-legislation') problems.push('source-kind');
+862947	  if (!within(evidence.commenced_on, evidence.repealed_on, claim.as_of)) problems.push('commencement-or-repeal');
+862948	  if (!within(evidence.version_from, evidence.version_until, claim.as_of)) problems.push('outdated-version');
+862949	  if (!hasText(claim.territory) || !Array.isArray(evidence.territories) || !evidence.territories.includes(claim.territory)) problems.push('territory');
+862950	  if (!hasText(claim.actor) || !Array.isArray(evidence.actors) || !evidence.actors.includes(claim.actor)) problems.push('actor');
+862951	  if (!hasText(claim.land_interest) || !Array.isArray(evidence.land_interests) || !evidence.land_interests.includes(claim.land_interest)) problems.push('land-interest');
+862952	  if (!hasText(claim.authority) || claim.authority !== evidence.authority) problems.push('authority');
+862953	  if (evidence.exceptions !== 'reviewed-and-resolved') problems.push('exceptions');
+862954	  if (evidence.amendments !== 'verified-through-query-date') problems.push('amendments');
+862955	  if (!date(evidence.checked_through) || evidence.checked_through < claim.as_of) problems.push('stale-review');
+862956	  if (evidence.conflicts !== 'reviewed-and-resolved') problems.push('conflicting-evidence');
+862957	  if (!/^https:\/\/www\.legislation\.gov\.uk\/(?:[a-z]+)\/[0-9]{4}\/[^\s?#]+$/.test(evidence.source_url)) problems.push('source-url');
+862958	  if (!hasText(evidence.citation) || !hasText(evidence.review_reference)) problems.push('missing-citation');
+862959	  if (evidence.last_http_status !== 200 || !date(evidence.retrieved_on) || evidence.retrieved_on < claim.as_of) problems.push('source-unverified');
+862960	  if (!/^[a-f0-9]{64}$/.test(evidence.sha256)) problems.push('missing-digest');
+862961	  if (claim.basis !== 'documentary-review') problems.push('unsupported-basis');
+862962	  return problems;
+862964	// Usage: node protections/screen.mjs RECEIPT CONTENT_STORE [PRIOR_RECEIPT]
+862968	import screen from './legal-evidence.mjs';
+862969	export function check(receipt, directory, prior) {
+862970	  const problems = screen({controlContracts: [{file: 'legal-evidence.json', document: receipt}]});
+862971	  if (receipt?.claim?.result !== 'supported-screening' || problems.length) return problems;
+862972	  const source = receipt.evidence;
+862974	    const digest = createHash('sha256').update(readFileSync(join(directory, source.sha256))).digest('hex');
+862975	    if (digest !== source.sha256) problems.push('source-corrupted');
+862977	    problems.push('source-missing');
+862979	  if (prior && prior.evidence.provision === source.provision && prior.evidence.version_from === source.version_from
+862980	      && prior.evidence.source_url === source.source_url && prior.evidence.sha256 !== source.sha256)
+862981	    problems.push('historical-bytes-changed');
+862982	if (process.argv[1] && import.meta.url === (await import('node:url')).pathToFileURL(process.argv[1]).href) {
+862983	  const [path, directory, previous] = process.argv.slice(2);
+862984	  const load = name => JSON.parse(readFileSync(name, 'utf8'));
+862985	  const findings = check(load(path), directory, previous && load(previous));
+862986	  console.log(JSON.stringify({findings}));
+862987	  process.exitCode = findings.length ? 1 : 0;
+862990	import { readFileSync, writeFileSync, rmSync, mkdtempSync } from 'node:fs';
+862993	import { check } from './screen.mjs';
+862994	const source = fileURLToPath(new URL('./fixtures/', import.meta.url));
+862995	const fixture = name => JSON.parse(readFileSync(join(source, name)));
+862996	const fresh = () => fixture('healthy.json');
+862997	test('synthetic support is internally consistent', () => assert.deepEqual(check(fresh(), source), []));
+862998	test('documented uncertainty stays unresolved', () => {
+862999	  const receipt = fresh();
+863000	  receipt.claim = {result: 'unresolved', open_questions: ['Territorial commencement evidence is absent.']};
+863001	  receipt.evidence = {};
+863002	  assert.deepEqual(check(receipt, source), []);
+863004	for (const [part, key, replacement, expected] of fixture('diseases.json')) {
+863005	  test(`${expected} rejects ${part}.${key} = ${JSON.stringify(replacement)}`, () => {
+863006	    const receipt = fresh();
+863007	    receipt[part][key] = replacement;
+863008	    assert.ok(check(receipt, source).includes(expected));
+863010	test('unknown source bytes and damaged bytes fail independently', () => {
+863011	  const directory = mkdtempSync(join(tmpdir(), 'legal-screen-'));
+863012	    assert.deepEqual(check(receipt, directory), ['source-missing']);
+863013	    writeFileSync(join(directory, receipt.evidence.sha256), 'damaged');
+863014	    assert.deepEqual(check(receipt, directory), ['source-corrupted']);
+863015	  } finally { rmSync(directory, {recursive: true, force: true}); }
+863016	test('unchanged historical identity with replacement bytes fails', () => {
+863017	  const old = fresh();
+863018	  old.evidence.sha256 = 'a'.repeat(64);
+863019	  assert.deepEqual(check(fresh(), source, old), ['historical-bytes-changed']);
+863020	subprocess.run(["node", "--test", "protections/test.mjs"], cwd=root, check=True)
+863021	subprocess.run([sys.executable, "case/verify_ia6.py"], cwd=root, check=True)
+863023	from unittest.mock import Mock, patch
+863025	import track
+863026	class TrackerTests(unittest.TestCase):
+863027	        tmp = tempfile.TemporaryDirectory()
+863028	        self.addCleanup(tmp.cleanup)
+863029	        self.root = Path(tmp.name)
+863030	        self.source = json.loads((track.HERE / "sources.json").read_bytes())[2]
+863031	    def response(self, title="Energy consultation", link="/government/test"):
+863032	        body = {"results":[{"title":title, "link":link, "content_store_document_type":"open_consultation",
+863033	                            "public_timestamp":"2026-01-02T12:00:00Z"}]}
+863034	        return 200, {"ETag":'"abc"'}, json.dumps(body).encode()
+863035	    def run_once(self, stamp, response):
+863036	        return track.run(self.root, [self.source], stamp, Mock(return_value=response))["sources"][self.source["id"]]
+863037	    def test_versions_and_reversion(self):
+863038	        a = self.run_once("a", self.response())
+863039	        self.assertTrue(a["initial"])
+863040	        b = self.run_once("b", self.response("Revised consultation"))
+863041	        c = self.run_once("c", self.response())
+863042	        self.assertEqual(b["changes"][0]["previous_window_version"], a["changes"][0]["version"])
+863043	        self.assertEqual(c["changes"][0]["version"], a["changes"][0]["version"])
+863044	        self.assertEqual(len(list((self.root/"objects").rglob("*.json"))),2)
+863045	        self.assertEqual(len(list((self.root/"receipts").glob("*.json"))),3)
+863046	    def test_conditional_and_digest(self):
+863047	        self.run_once("a", self.response())
+863048	        self.assertEqual(self.run_once("b", self.response())["state"],"same_digest")
+863049	        self.assertEqual(self.run_once("c", (304,{},b""))["state"],"not_modified")
+863050	        error = HTTPError(self.source["url"], 304, "", {}, None)
+863051	        with patch.object(track, "urlopen", side_effect=error) as opened:
+863052	            result = track.fetch(self.source["url"], {"etag":'"abc"',"body_sha256":"stored"})
+863053	            self.assertEqual(result[0], 304)
+863054	            self.assertEqual(dict(opened.call_args.args[0].header_items())["If-none-match"], '"abc"')
+863055	    def test_malformed_source_preserves_checkpoint(self):
+863056	        checkpoint = (self.root / "checkpoint.json").read_bytes()
+863057	        self.assertEqual(self.run_once("b", (200,{},b"<html>"))["state"],"failed")
+863058	        self.assertEqual((self.root / "checkpoint.json").read_bytes(),checkpoint)
+863059	    def test_gap_and_bad_url(self):
+863060	        self.assertTrue(self.run_once("b",self.response(link="/different"))["window_gap_possible"])
+863061	        self.assertEqual(self.run_once("c",self.response(link="https://example.com/item"))["state"],"failed")
+863062	    def test_budget_preserves_old_receipts(self):
+863063	        with patch.object(track, "MAX_ARCHIVE", 100), self.assertRaisesRegex(ValueError, "watermark"):
+863064	            self.run_once("b", self.response("Changed"))
+863065	        self.assertFalse((self.root/"receipts/b.json").exists())
+863066	    def test_atom_selects_relevant_legislation(self):
+863067	        source = json.loads((track.HERE / "sources.json").read_bytes())[0]
+863068	        body = b'<feed xmlns="http://www.w3.org/2005/Atom"><entry><id>http://www.legislation.gov.uk/id/uksi/2020/1</id><title type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><span>Electricity Act (Commencement) Order</span> / <span>Gorchymyn</span></div></title></entry><entry><id>http://www.legislation.gov.uk/id/uksi/2020/2</id><title>Bicycles</title></entry></feed>'
+863069	        receipt = track.run(self.root, [source], "a", lambda u,p:(200,{},body))
+863070	        self.assertEqual(receipt["sources"][source["id"]]["relevant"],1)
+863071	        obj = next((self.root / "objects").rglob("*.json"))
+863072	        self.assertEqual(json.loads(obj.read_bytes())["kind"],"commencement_title_candidate")
+863073	    def test_failures_are_isolated(self):
+863074	        other = dict(self.source, id="second", url="https://www.gov.uk/api/other")
+863075	        def getter(url, previous):
+863076	            if url == self.source["url"]:
+863077	                raise OSError("temporarily unavailable")
+863078	            return self.response()
+863079	        receipt = track.run(self.root, [self.source, other], "one", getter)
+863080	        self.assertEqual(receipt["sources"][other["id"]]["state"], "observed")
+863081	        self.assertEqual(receipt["sources"][self.source["id"]]["state"], "failed")
+863082	"""Observe official listing metadata. Source documents and legal status are separate evidence."""
+863091	MAX_RESPONSE = 1_048_576
+863092	MAX_ARCHIVE = 64 * 1024 * 1024
+863094	SUBJECT = re.compile(
+863095	    r"electric|energy|wind farm|solar|batter|substation|wayleave|easement|"
+863096	    r"infrastructure|planning|environment|water|telecommunication|procurement|"
+863097	    r"subsid|compulsory purchase|construction|health and safety|data cent", re.I
+863100	    return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode()
+863101	def put(path, data, immutable=False):
+863103	    if immutable and path.exists():
+863104	        if path.read_bytes() != data:
+863105	            raise ValueError(f"immutable object mismatch: {path.name}")
+863106	    with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as tmp:
+863107	        tmp.write(data)
+863108	    os.replace(tmp.name, path)
+863109	def legal_link(url, host):
+863111	    if parsed.scheme not in ("http", "https") or parsed.netloc not in {host, host.removeprefix("www.")}:
+863112	        raise ValueError("non-authoritative listing link")
+863114	def parse(source, body):
+863115	    host = urlsplit(source["url"]).netloc
+863116	    if source["parser"] == "atom":
+863118	        if root.tag != ATOM + "feed":
+863119	            raise ValueError("unexpected feed type")
+863120	        for entry in root.findall(ATOM + "entry"):
+863121	            links = [el.get("href") for el in entry.findall(ATOM + "link")
+863122	                     if el.get("rel", "alternate") == "alternate" and el.get("href")]
+863123	            identity = entry.findtext(ATOM + "id")
+863124	            element = entry.find(ATOM + "title")
+863125	            title = " ".join("".join(element.itertext()).split()) if element is not None else None
+863126	            if not identity or not title:
+863127	                raise ValueError("missing Atom id or title")
+863128	            instrument = entry.findtext("{http://purl.org/dc/elements/1.1/}identifier")
+863129	            locator = legal_link(urljoin(source["url"], links[0] if links else instrument or identity), host)
+863130	            kind = source["category"]
+863131	            if kind == "legislation_publication":
+863132	                if "commencement" in title.lower():
+863133	                    kind = "commencement_title_candidate"
+863134	                elif "amendment" in title.lower():
+863135	                    kind = "amendment_title_candidate"
+863136	            rows.append({"identity":identity,"title":title,"url":locator,"kind":kind,
+863137	                         "publisher_timestamp":entry.findtext(ATOM + "updated") or entry.findtext(ATOM + "published")})
+863138	        payload = json.loads(body)
+863139	        if not isinstance(payload.get("results"), list):
+863140	            raise ValueError("unexpected search response")
+863141	        for item in payload["results"]:
+863142	            if not item.get("link") or not item.get("title"):
+863143	                raise ValueError("missing GOV.UK title or link")
+863144	            url = legal_link(urljoin(source["url"], item["link"]), host)
+863145	            rows.append({"identity":url,"title":item["title"],"url":url,
+863146	                         "kind":item.get("content_store_document_type") or source["category"],
+863147	                         "publisher_timestamp":item.get("public_timestamp")})
+863148	    if len(rows) > 250:
+863149	        raise ValueError("listing exceeds entry limit")
+863151	def fetch(url, previous):
+863152	    headers = {"User-Agent":"Ventus-Legislation/1.0 (+https://github.com/Ventusltd/legislation)"}
+863153	    for key, header in [("etag","If-None-Match"), ("modified","If-Modified-Since")]:
+863154	        if previous.get(key):
+863155	            headers[header] = previous[key]
+863156	    for attempt in range(2):
+863158	            with urlopen(Request(url, headers=headers), timeout=12) as response:
+863159	                if urlsplit(response.geturl()).netloc != urlsplit(url).netloc:
+863160	                    raise ValueError("unexpected feed redirect")
+863161	                body = response.read(MAX_RESPONSE + 1)
+863162	                if len(body) > MAX_RESPONSE:
+863163	                    raise ValueError("response exceeds byte budget")
+863164	                return 200, response.headers, body
+863165	        except HTTPError as exc:
+863166	            if exc.code == 304 and previous.get("body_sha256"):
+863167	                return 304, {}, b""
+863168	            if exc.code not in (500, 502, 503, 504) or attempt == 1 or exc.headers.get("Retry-After"):
+863170	        except (URLError, socket.timeout):
+863171	            if attempt == 1:
+863172	        time.sleep(1)
+863173	def observe(root, source, previous, getter=fetch):
+863174	    if previous.get("url") != source["url"]:
+863175	        previous = {}
+863176	    code, headers, body = getter(source["url"], previous)
+863177	    if code == 304:
+863178	        return previous, {"state":"not_modified","response_bytes":0}
+863179	    digest = sha256(body).hexdigest()
+863180	    current = {**previous, "url":source["url"], "etag":headers.get("ETag"),
+863181	               "modified":headers.get("Last-Modified"), "body_sha256":digest}
+863182	    if previous.get("body_sha256") == digest:
+863183	        return current, {"state":"same_digest","response_bytes":len(body)}
+863184	    rows = parse(source, body)
+863185	    ids = [sha256(item["identity"].encode()).hexdigest() for item in rows]
+863186	    overlap = set(ids).intersection(previous.get("window", []))
+863188	    current_versions = {}
+863189	    for identity, row in zip(ids, rows):
+863190	        if source["filter_subject"] and not SUBJECT.search(row["title"]):
+863191	        data = encode({"source":source["id"], **row})
+863192	        version = sha256(data).hexdigest()
+863193	        current_versions[identity] = version
+863194	        path = root / "objects" / version[:2] / (version + ".json")
+863195	        if previous.get("versions", {}).get(identity) != version:
+863196	            put(path, data, immutable=True)
+863197	            changes.append({"id":identity,"previous_window_version":previous.get("versions",{}).get(identity),
+863198	                            "version":version})
+863199	    current.update(window=ids, versions=current_versions)
+863200	    return current, {"state":"observed","listing_sha256":digest,"response_bytes":len(body),
+863201	                     "listed":len(rows),"relevant":len(current_versions),"initial":not previous,
+863202	                     "window_gap_possible":bool(previous.get("window")) and not overlap,"changes":changes}
+863203	def run(root, sources, stamp, getter=fetch):
+863204	    checkpoint = root / "checkpoint.json"
+863205	    old = json.loads(checkpoint.read_bytes()) if checkpoint.exists() else {}
+863206	    new = dict(old)
+863208	    archive_bytes = sum(p.stat().st_size for p in root.rglob("*.json"))
+863209	    # Reserve the full bounded attempt before writing any new object.
+863210	    reserve = (len(sources) * MAX_RESPONSE * 4) + MAX_RESPONSE
+863211	    if archive_bytes + reserve > MAX_ARCHIVE:
+863212	        raise ValueError("journal storage watermark reached; retain history and review capacity")
+863214	        key = source["id"]
+863215	            new[key], results[key] = observe(root, source, old.get(key, {}), getter)
+863216	        except (OSError, ValueError, KeyError, ET.ParseError) as exc:
+863217	            results[key] = {"state":"failed","error":str(exc)[:200]}
+863218	    receipt = {"observed_at":stamp,"sources":results,"evidence_kind":"listing_metadata"}
+863219	    name = stamp.replace(":", "-")
+863220	    put(root / "receipts" / (name + ".json"), encode(receipt), immutable=True)
+863221	    put(checkpoint, encode(new))
+863223	    parser.add_argument("archive", type=Path)
+863224	    sources = json.loads((HERE / "sources.json").read_bytes())
+863225	    stamp = datetime.now(timezone.utc).isoformat(timespec="microseconds")
+863226	    receipt = run(args.archive, sources, stamp)
+863227	    print(json.dumps({k:v["state"] for k,v in receipt["sources"].items()}, sort_keys=True))
+863228	    return int(any(v["state"] == "failed" for v in receipt["sources"].values()))
+863230	"""Replay one canonical partition, select one project identity and discard its fields."""
+863231	from urllib.parse import urlencode, urljoin
+863233	def verified_json(url, digest):
+863234	    with urlopen(url, timeout=30) as response:
+863235	        body = response.read(4_000_001)
+863236	    if len(body) > 4_000_000 or sha256(body).hexdigest() != digest:
+863237	        raise ValueError(f"Canonical source size or digest changed: {url}")
+863239	def replay():
+863240	    spec = json.loads(Path(__file__).with_name("contract.json").read_text())
+863241	    manifest = verified_json(spec["manifest"], spec["manifest_sha256"])
+863242	    partition, = [p for p in manifest["project_partitions"] if p["path"] == spec["reference_partition"]]
+863243	    if partition["sha256"] != spec["partition_sha256"]:
+863244	        raise ValueError("Unexpected partition digest")
+863245	    data = verified_json(urljoin(spec["edition_url"], partition["path"]), partition["sha256"])
+863246	    row, = [p for p in data["projects"] if p["repd_ref"] == spec["reference"]]
+863247	    if data["schema"] != spec["partition_schema"] or row["gg_project_id"] != "GG2050-REPD-" + row["repd_ref"]:
+863248	        raise ValueError("Unexpected source schema or record identity")
+863249	    if not set(spec["date_fields"]).issubset(row):
+863250	        raise ValueError("Project date fields changed")
+863251	    return spec["edition_url"] + "?" + urlencode({"q": row["repd_ref"]})
+863252	    print(replay())
+863253	"""Browser acceptance for the static legal evidence reader (requires Playwright + Chromium)."""
+863260	    def log_message(self, *args):
+863262	    root = Path(__file__).resolve().parents[1]
+863263	    statute_count = len(json.loads((root / "data/catalogue.json").read_text()))
+863264	    external_count = len(json.loads((root / "data/regulatory-references.json").read_text()))
+863265	    total = statute_count + external_count
+863266	    handler = partial(Quiet, directory=root)
+863267	    with ThreadingHTTPServer(('127.0.0.1', 0), handler) as server, sync_playwright() as playwright:
+863268	        Thread(target=server.serve_forever, daemon=True).start()
+863269	        browser = playwright.chromium.launch(executable_path=os.environ.get('LEGISLATION_CHROMIUM'), headless=True)
+863270	        address = f'http://127.0.0.1:{server.server_port}/legal-evidence/'
+863271	        page = browser.new_page(viewport={'width':390,'height':844})
+863273	        page.on('pageerror', lambda err: errors.append(str(err)))
+863274	        payload = '<img src=x onerror=alert(1)>'
+863275	        page.goto(address + '?' + urlencode(dict(project=payload, repd_ref='REF-42',technology='Solar PV',
+863276	                  status='Planning submitted',source_app='PipelineNews',mw='49.9')))
+863277	        expect(page.locator('#context')).to_contain_text('Unknown')
+863278	        expect(page.locator('#context')).to_contain_text(payload)
+863279	        expect(page.locator('#context img')).to_have_count(0)
+863280	        expect(page.locator('#context')).to_contain_text('49.9')
+863281	        expect(page.locator('#count')).to_have_text(f'{total} sources')
+863282	        expect(page.get_by_role('link',name='Published impact assessment')).to_have_attribute('href',
+863283	            'https://publications.parliament.uk/pa/bills/cbill/59-02/0176/IA6Electricitynetworkinfrastructure-consentslandaccessandrights.pdf')
+863284	        page.get_by_role('button',name='solar photovoltaic development').click()
+863285	        assert page.locator('article').count() > 0
+863286	        assert page.locator('article').count() < total
+863287	        page.locator('#subject').select_option('')
+863288	        page.locator('#query').fill('ukpga/1989/29')
+863289	        expect(page.locator('article')).to_have_count(1)
+863290	        expect(page.get_by_role('link',name='Electricity Act 1989')).to_have_attribute('href','https://www.legislation.gov.uk/ukpga/1989/29')
+863291	        page.get_by_text('Evidence details').click()
+863292	        expect(page.get_by_role('link',name='Changes recorded')).to_be_visible()
+863293	        page.locator('#query').fill('')
+863294	        page.locator('#kind').select_option('other')
+863295	        expect(page.locator('article')).to_have_count(external_count)
+863296	        page.locator('#query').fill('zzzzz')
+863297	        expect(page.locator('#results')).to_contain_text('No sources match')
+863298	        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+863299	        page.goto(address + '?source_app=GridAtlas&jurisdiction=Wales&repd_ref=9873&source_release=202611222343')
+863300	        expect(page.locator('#context')).to_contain_text('202611222343')
+863301	        expect(page.locator('#pipeline')).to_have_attribute('href', 'https://globalgrid2050.com/uk_renewables_pipeline/202611232245/?q=9873')
+863302	        expect(page.locator('#context')).to_contain_text('Wales')
+863303	        page.route('**/data/catalogue.json', lambda route: route.fulfill(status=503,body='unavailable'))
+863304	        page.goto(address)
+863305	        expect(page.locator('#project-context')).to_be_hidden()
+863306	        expect(page.locator('#count')).to_contain_text(f'{external_count} sources Unavailable: legislation')
+863307	        expect(page.locator('#case')).to_contain_text('impact assessment')
+863308	        assert errors == [], errors
+863311	    print('PASS: catalogue, named links, source context, mobile layout, filtering, partial failure and safe rendering')
+863317	<meta name="color-scheme" content="light">
+863318	<meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'self';object-src 'none';base-uri 'none'">
+863319	<meta name="referrer" content="no-referrer">
+863320	<title>Legal evidence | GlobalGrid2050</title>
+863321	<link rel="stylesheet" href="reader.css">
+863322	<script src="reader.js" defer></script>
+863325	<header><div class="wrap"><span>GlobalGrid2050</span> / Legislation</div></header>
+863326	<main class="wrap">
+863327	<h1>Legal evidence</h1>
+863328	<section id="project-context" hidden><h2>Project context</h2><dl id="context"></dl></section>
+863329	<p class="notice"><strong>Legal applicability is unassessed.</strong> A mapped asset or project record establishes no land right, planning permission, electrical capacity or connection agreement. Check the provision, relevant date, territory and project evidence.</p>
+863330	<nav class="registers" aria-label="Project registers">
+863331	<a id="pipeline" href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Pipeline News · 202611232245</a>
+863332	<a href="https://ventusltd.github.io/gridatlas/atlas/v/202611222343/">GridAtlas · 202611222343</a>
+863333	<a href="https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract">DESNZ · Official REPD extract</a>
+863334	<a id="example" href="?source_app=pipelinenews&amp;source_release=202611232245&amp;repd_ref=9873">Open REPD 9873 example</a>
+863336	<section aria-labelledby="source-heading">
+863337	<h2 id="source-heading">Find official sources</h2>
+863339	<label>Search titles, references or subjects<input type="search" id="query" autocomplete="off"></label>
+863340	<label>Subject<select id="subject"><option value="">All subjects</option></select></label>
+863341	<label>Source class<select id="kind"><option value="">All classes</option><option value="legislation">Legislation</option><option value="other">Guidance, policy and other references</option></select></label>
+863343	<div id="suggestion" hidden></div>
+863344	<p id="count" role="status">Loading catalogue…</p>
+863347	<section aria-labelledby="case-heading" class="case"><h2 id="case-heading">IA6 · Consents, land access and rights</h2><div id="case" aria-live="polite">Loading case study…</div></section>
+863348	<noscript>Enable JavaScript to search, or open the <a href="../data/catalogue.json">legislation catalogue</a> and <a href="../case/ia6.json">IA6 case record</a>.</noscript>
+863353	const byId = id => document.getElementById(id);
+863354	const query = new URLSearchParams(location.search);
+863355	const catalogue = [];
+863357	function element(name, text) {
+863358	  const result = document.createElement(name);
+863361	function officialLink(label, address) {
+863362	  const url = new URL(address);
+863363	  const official = ['gov.uk', 'parliament.uk'].some(host => url.hostname === host || url.hostname.endsWith('.' + host));
+863364	  if (url.protocol !== 'https:' || !official || url.username || url.password) return element('span', label);
+863365	  const anchor = element('a', label);
+863366	  anchor.href = url.href;
+863367	  return anchor;
+863368	async function getJson(path) {
+863369	  const response = await fetch(path);
+863370	  if (!response.ok) throw new Error('HTTP ' + response.status);
+863372	function context() {
+863373	  const fields = [
+863374	    ['Project', 'project'], ['REPD reference', 'repd_ref'], ['Source release', 'source_release'], ['Technology', 'technology'],
+863375	    ['Project status', 'status'], ['Capacity (MW)', query.has('mw') ? 'mw' : 'MW'],
+863376	    ['Jurisdiction supplied by source', 'jurisdiction'], ['Source application', 'source_app']
+863378	  const ref = query.get('repd_ref');
+863379	  if (/^[1-9]\d{0,11}$/.test(ref || '')) {
+863380	    const link = byId('pipeline');
+863382	    target.searchParams.set('q',ref);
+863384	    link.textContent = 'Search Pipeline News 202611232245 for REPD ' + ref;
+863385	  if (!fields.some(([, key]) => query.get(key)?.trim())) return;
+863386	  byId('project-context').hidden = false;
+863387	  byId('example').hidden = true;
+863388	  for (const [label, key] of fields) {
+863389	    const value = query.get(key)?.trim();
+863390	    if (key === 'source_release' && !/^\d{12}$/.test(value || '')) continue;
+863391	    if (!value && key !== 'jurisdiction') continue;
+863392	    const pair = element('div');
+863393	    pair.append(element('dt',label),element('dd',value?.slice(0,300) || 'Unknown'));
+863394	    byId('context').append(pair);
+863395	function subjectChoice(subjects) {
+863396	  for (const subject of subjects) {
+863397	    const option = element('option',subject);
+863398	    option.value = subject;
+863399	    byId('subject').append(option);
+863400	  const technology = query.get('technology') || '';
+863401	  const choices = [
+863402	    [/solar|photovoltaic/i,'solar photovoltaic development'],
+863403	    [/battery|bess/i,'battery energy storage'],
+863404	    [/offshore.*wind|wind.*offshore/i,'offshore wind'],
+863405	    [/onshore.*wind|wind.*onshore/i,'onshore wind'],
+863406	    [/data cent(?:er|re)/i,'data centre planning']
+863407	  ].filter(([regex, subject]) => regex.test(technology) && subjects.includes(subject));
+863408	  if (choices.length) {
+863409	    const box = byId('suggestion');
+863410	    box.hidden = false;
+863411	    box.append(document.createTextNode('Explore by technology '));
+863412	    for (const [, subject] of choices) {
+863413	      const button = element('button',subject);
+863415	      button.addEventListener('click',() => {
+863416	        byId('subject').value = subject;
+863419	      box.append(button,document.createTextNode(' '));
+863420	function sourceCard(record) {
+863421	  const article = element('article');
+863422	  const heading = element('h3');
+863423	  heading.append(officialLink(record.title, record.source_url));
+863424	  const type = record.document_class ? record.document_class.replaceAll('_',' ') : 'legislation';
+863425	  const labels = [type, record.id, record.responsible_authority, record.retrieval_date && 'Retrieved ' + record.retrieval_date].filter(Boolean);
+863426	  const meta = element('p',labels.join(' · '));
+863427	  meta.className = 'meta';
+863428	  const detail = element('details');
+863429	  detail.append(element('summary','Evidence details'),element('p',record.subjects.join(' · ')));
+863430	  if (record.id) {
+863431	    detail.append(element('p','Published extent: ' + (record.extent_as_published || 'unknown') + '. Project applicability: unassessed.'));
+863432	    if (record.original_version_url) detail.append(officialLink('Original version',record.original_version_url));
+863433	    if (record.changes_url) detail.append(document.createTextNode(' · '),officialLink('Changes recorded',record.changes_url));
+863435	    detail.append(element('p','Legal effect for this project: unassessed.'));
+863436	  article.append(heading,meta,detail);
+863437	  return article;
+863439	  const words = byId('query').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+863440	  const subject = byId('subject').value;
+863441	  const kind = byId('kind').value;
+863442	  const records = catalogue.filter(record => {
+863443	    if (subject && !record.subjects.includes(subject)) return false;
+863444	    if (kind && (record.document_class ? 'other' : 'legislation') !== kind) return false;
+863445	    const terms = [record.id,record.title,record.jurisdiction,...record.subjects].filter(Boolean).join(' ').toLowerCase();
+863446	    return words.every(word => terms.includes(word));
+863447	  const note = failed.length ? ' Unavailable: ' + failed.join(', ') + '.' : '';
+863448	  byId('count').textContent = records.length + (records.length === 1 ? ' source' : ' sources') + note;
+863449	  byId('results').replaceChildren(...records.map(sourceCard));
+863450	  if (!records.length) byId('results').append(element('p',failed.length ? 'Some evidence could not be loaded.' : 'No sources match these filters.'));
+863451	async function loadCatalogue() {
+863452	  const datasets = [['legislation','../data/catalogue.json'],['regulatory references','../data/regulatory-references.json']];
+863453	  const loads = await Promise.allSettled(datasets.map(([,url]) => getJson(url)));
+863454	  loads.forEach((load,i) => {
+863455	    if (load.status === 'fulfilled') catalogue.push(...load.value);
+863456	    else failed.push(datasets[i][0]);
+863457	  catalogue.sort((a,b) => a.title.localeCompare(b.title,'en-GB'));
+863458	  subjectChoice([...new Set(catalogue.flatMap(record => record.subjects))].sort());
+863459	  for (const id of ['query','subject','kind']) byId(id).addEventListener('input',render);
+863461	async function loadCase() {
+863462	  const region = byId('case');
+863463	    const evidence = await getJson('../case/ia6.json');
+863464	    const doc = evidence.document;
+863465	    const bill = evidence.bill;
+863466	    const links = element('nav');
+863467	    links.setAttribute('aria-label','IA6 source documents');
+863468	    links.append(officialLink('Published impact assessment',doc.url),officialLink('Bill text',bill.text),
+863469	      officialLink('Parliamentary stages',bill.stages),officialLink('Consultation response',evidence.policy.response));
+863470	    region.replaceChildren(element('p',doc.author + ' · ' + doc.type + ' · ' + doc.identity),
+863471	      element('p',bill.title + ' · ' + bill.status + ' as recorded ' + evidence.research_date + '.'),
+863472	      element('p','The assessment describes proposed reforms. Check the Parliamentary record and commencement evidence before relying on a change.'),links);
+863473	    region.textContent = 'The IA6 case record could not be loaded.';
+863474	context();
+863475	loadCatalogue();
+863476	loadCase();
+863480	const vm = require('node:vm');
+863481	const {createHash} = require('node:crypto');
+863482	const pin = require('./adapter-pin.json');
+863483	const path = process.env.GRIDATLAS_LEGAL_ADAPTER;
+863484	if (!path) throw Error('Set GRIDATLAS_LEGAL_ADAPTER to the GridAtlas module named in adapter-pin.json');
+863485	const code = fs.readFileSync(path);
+863486	assert.equal(createHash('sha256').update(code).digest('hex'),pin.sha256);
+863487	const script = {module:{exports:{}},URL};
+863488	vm.runInNewContext(code.toString('utf8'),script);
+863489	const {evidenceUrl,render} = script.module.exports;
+863490	const fixture = require('./exercise.json');
+863491	const arrival = fixture.gridatlas_arrival;
+863492	const ref = fixture.test_only_ref;
+863493	test('synthetic Solar/BESS arrival keeps identity and drops map coordinates and unsupported legal assertions', () => {
+863494	  const url = new URL(evidenceUrl(arrival,ref));
+863495	  assert.equal(url.origin + url.pathname,'https://ventusltd.github.io/legislation/legal-evidence/');
+863496	  assert.deepEqual(Object.fromEntries(url.searchParams),fixture.expected_context);
+863497	test('immutable release label follows the inspected path and is absent on the moving current route', () => {
+863498	  const versioned = arrival.replace('/atlas/?','/atlas/v/202611222343/?');
+863499	  assert.equal(new URL(evidenceUrl(versioned,ref)).searchParams.get('source_release'),'202611222343');
+863500	  assert.equal(new URL(evidenceUrl(arrival+'&source_release=000000000000',ref)).searchParams.has('source_release'),false);
+863501	test('duplicate refs, neighbouring assets, false coordinates and non-REPD arrivals refuse', () => {
+863502	  assert.equal(evidenceUrl(arrival,'1'),null);
+863503	  for (const [key,value] of [['repd_ref','1'],['latitude','3'],['origin_type','substation']]) {
+863504	    const u = new URL(arrival); u.searchParams.append(key,value);
+863505	    assert.equal(evidenceUrl(u.href,ref),null);
+863506	  for (const [key,value] of [['latitude','NaN'],['longitude','-99'],['origin_type','substation'],['origin_id','repd:1']]) {
+863507	    const u = new URL(arrival); u.searchParams.set(key,value);
+863508	  assert.equal(evidenceUrl(arrival.replace('ventusltd.github.io','example.org'),ref),null);
+863509	test('Vicinity adds once on the origin and drops the link when the user swipes', () => {
+863510	  let link;
+863511	  const box = {querySelector:()=>link,ownerDocument:{createElement:()=>({dataset:{},remove(){link=null;}})},
+863512	               appendChild:l=>{assert.ok(!link);link=l;}};
+863513	  const card = {isConnected:true,project:true,r:{p:{repd_ref:ref}},__vicFocus:{box,origin:true}};
+863514	  render(card,arrival);render(card,arrival);
+863515	  assert.equal(link.textContent,'Legal evidence');
+863516	  card.__vicFocus.origin=false;
+863517	  render(card,arrival);assert.equal(link,null);
+863518	"""Protect the separation between project lookup, legal collection and app-owned REPD data."""
+863520	class OwnershipTests(unittest.TestCase):
+863521	    def test_tracker_sources_are_legal_publishers(self):
+863522	        sources = json.loads((ROOT / "tracking/sources.json").read_bytes())
+863523	        for row in sources:
+863524	            url = urlparse(row["url"])
+863525	            self.assertNotIn("repd", url.geturl().lower())
+863526	            self.assertNotIn("renewable-energy-planning-database", url.geturl().lower())
+863527	            self.assertNotIn(url.hostname, {"globalgrid2050.com", "ventusltd.github.io"})
+863528	    def test_app_reference_contract_has_no_project_partition(self):
+863529	        contract = json.loads((ROOT / "apps/pipelinenews/contract.json").read_bytes())
+863530	        self.assertRegex(contract["reference"], r"^[1-9][0-9]*$")
+863531	        self.assertNotIn("projects", contract)
+863532	        self.assertEqual(urlparse(contract["manifest"]).hostname, "globalgrid2050.com")
+863533	        self.assertFalse(list((ROOT / "apps").rglob("part-*.json")))
+863534	const {chromium}=require('playwright'),assert=require('node:assert/strict');
+863535	const fs=require('node:fs'),path=require('node:path'),{createHash}=require('node:crypto');
+863536	const pin=require('./adapter-pin.json'), fixture=require('./exercise.json');
+863537	const adapter=process.env.GRIDATLAS_LEGAL_ADAPTER, focus=process.env.GRIDATLAS_VICINITY_FOCUS;
+863539	for (const [file,digest] of [[adapter,pin.sha256],[focus,pin.focus_sha256]]) {
+863540	  assert.equal(createHash('sha256').update(fs.readFileSync(file)).digest('hex'),digest);
+863542	 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_EXECUTABLE_PATH,args:['--no-sandbox']});
+863544	  const page=await browser.newPage({viewport:{width:393,height:852},isMobile:true,hasTouch:true});
+863546	  const f=fixture;
+863547	  await page.context().route('**/*',route=>{
+863548	    const u=new URL(route.request().url());
+863549	    if (u.origin!=='https://ventusltd.github.io') return route.abort();
+863550	    if (u.pathname==='/gridatlas/atlas/') return route.fulfill({body:'<!DOCTYPE html><html><head></head><body></body></html>',contentType:'text/html'});
+863551	    const relative=u.pathname.slice('/legislation/'.length);
+863552	    const allowed={'legal-evidence/':'legal-evidence/index.html','legal-evidence/reader.js':'legal-evidence/reader.js','legal-evidence/reader.css':'legal-evidence/reader.css','data/catalogue.json':'data/catalogue.json','data/regulatory-references.json':'data/regulatory-references.json','case/ia6.json':'case/ia6.json'};
+863553	    if (!u.pathname.startsWith('/legislation/') || !Object.hasOwn(allowed,relative)) return route.abort();
+863554	    return route.fulfill({path:path.join(root,allowed[relative])});
+863555	  await page.goto(f.gridatlas_arrival);
+863556	  await page.evaluate(ref=>{
+863557	    const d=document,e=(parent,tag)=>parent.appendChild(d.createElement(tag)),card=e(d.body,'section');
+863558	    const head=e(card,'div'),nav=e(head,'div'),prev=e(nav,'button'),label=e(nav,'span'),next=e(nav,'button');
+863559	    prev.textContent='Previous';next.textContent='Next';
+863560	    const tl=e(head,'div'),pn=e(head,'div'),csv=e(head,'div'),details=e(head,'details');
+863561	    Object.assign(card,{project:true,r:{n:'Training Meadow',p:{repd_ref:ref,technology:'Solar PV + battery',capacity_mw:48}},head,tl,pn,csv,d:details,swipe:{prev,label,next,index:0,entries:[{tab:'s',name:'Synthetic neighbour',km:2.1}]},k:[{name:'Synthetic neighbour',kv:33}]});
+863562	    next.addEventListener('click',()=>{label.textContent='1 of 1';});
+863563	    window.__GRIDATLAS_MODULES__={ukOfftakers:{state:{pp:card}}};
+863564	  },f.test_only_ref);
+863565	  await page.addScriptTag({path:focus});
+863566	  await page.addScriptTag({path:adapter});
+863567	  const anchor=page.getByRole('link',{name:'Legal evidence'});await anchor.waitFor();
+863568	  assert.deepEqual(Object.fromEntries(new URL(await anchor.getAttribute('href')).searchParams),f.expected_context);
+863569	  const [reader] = await Promise.all([page.context().waitForEvent('page'),anchor.click()]);
+863570	  await reader.locator('#context').getByText(f.test_only_ref,{exact:true}).waitFor();
+863571	  for(const text of ['solar photovoltaic development','battery energy storage']) {
+863572	    await reader.getByRole('button',{name:text,exact:true}).click();
+863573	    await reader.locator('#results article').first().waitFor();
+863574	  assert.equal(await reader.locator('#context').getByText('Unknown',{exact:true}).count(),1);
+863575	  await page.getByRole('button',{name:'Next'}).click();
+863576	  await anchor.waitFor({state:'detached',timeout:5000});
+863577	  assert.equal(await page.locator('[data-vicinity-focus-title]').innerText(),'Synthetic neighbour');
+863579	  console.log('PASS Chromium mobile-sized fixture, actual GridAtlas focus cartridge + candidate. Opened the local reader, checked exact identity and both technology filters; neighbour removes link. No JS errors.');
+863581	})().catch(e=>{console.error(e);process.exitCode=1});
+863582	"""Bounded replay of a fictional evidence gap against one dated XML manifestation."""
+863584	from time import perf_counter_ns, process_time_ns
+863586	sys.path.insert(0, str(ROOT / 'engine'))
+863587	from legal import get, ingest
+863588	DATE = '2024-01-01'
+863589	DOCUMENT = 'http://www.legislation.gov.uk/ukpga/1989/29'
+863590	URI = f'{DOCUMENT}/{LOCATOR}/{DATE}'
+863591	URL = f'{DOCUMENT}/{DATE}/data.xml'.replace('http:', 'https:')
+863592	XML_SHA = '9fccdeb8430d2accbc1299ae24d793270577d1e1efd1bb91eddea2f7f458cccb'
+863593	FRAGMENT_SHA = '6246a910e5cbfc52e8f1b0fa3b1b64cb0fc8c5e808ccdf72c59033516af5b88c'
+863594	CASE_SHA = '1529585a56354fe11ad3f20e0fc0b3357c6c1102d2fc05d3ca237df6146617d9'
+863595	QUESTION_SHA = '4fc31dc9081b80dec3015136e551fa6082dc428394728d170a51245b1a4db02c'
+863596	CASE = ROOT / 'case/ia6.json'
+863597	QUESTION = ROOT / '.cvaa/contracts/legal-evidence.json'
+863598	REQUIRED = ('assessed licence', 'grant', 'signed easement')
+863599	    if hashlib.sha256(data).hexdigest() != expected:
+863600	        raise ValueError('changed source or fixture')
+863602	def full_scan(xml, target_uri):
+863603	    stack, spans = [], []
+863604	    def start(_, attrs):
+863605	        stack.append(parser.CurrentByteIndex if attrs.get('DocumentURI') == target_uri else None)
+863606	    def end(_):
+863607	        start_at = stack.pop()
+863608	        if start_at is not None:
+863609	            stop_at = parser.CurrentByteIndex
+863610	            if xml[stop_at:stop_at+2] != b'</':
+863611	                raise ValueError('expected a non-empty provision')
+863612	            spans.append(xml[start_at:xml.index(b'>', stop_at) + 1])
+863613	    parser.StartElementHandler, parser.EndElementHandler = start, end
+863614	    parser.Parse(xml, True)
+863615	    if len(spans) != 1:
+863616	        raise ValueError('expected exactly one matching dated provision')
+863617	    return spans[0]
+863619	    case = verify(CASE.read_bytes(), CASE_SHA)
+863620	    question = verify(QUESTION.read_bytes(), QUESTION_SHA)
+863621	    return json.loads(case)['synthetic_example'], json.loads(question), len(case) + len(question)
+863622	def unresolved(case, question, missing):
+863623	    if case['actor'] != 'Unlicensed solar developer' or question['evidence'] != {}:
+863624	        raise ValueError('unsupported project or evidence')
+863625	    if set(missing) != set(REQUIRED):
+863626	        raise ValueError('fixture does not declare the expected missing evidence')
+863627	    return {'finding': 'insufficient_evidence', 'missing_for_land_rights': sorted(missing),
+863628	            'question': question['claim']['open_questions'], 'applicability': 'unassessed'}
+863629	def full_evidence(case, question):
+863630	    inventories = [line.removeprefix('No ').removesuffix(' is supplied.')
+863631	                   for line in case['facts'] if line.startswith('No ') and line.endswith(' is supplied.')]
+863632	    absent = {term for line in inventories for term in re.split(r', | or ', line)}
+863633	    return unresolved(case, question, [term for term in REQUIRED if term in absent])
+863634	def selective_evidence(case, question):
+863635	    # Independent recogniser for the bounded negative evidence statement in this fixture.
+863636	    missing = set()
+863637	    for line in case['facts']:
+863638	        match = re.fullmatch(r'No (.+) is supplied\.', line)
+863640	            for term in REQUIRED:
+863641	                if re.search(r'(?:^|, | or )' + re.escape(term) + r'(?=, | or |$)', match[1]):
+863642	                    missing.add(term)
+863643	    return unresolved(case, question, missing)
+863644	def measured(call):
+863645	    wall, cpu = perf_counter_ns(), process_time_ns()
+863646	    result = call()
+863647	    return result, {'wall_ns': perf_counter_ns() - wall, 'cpu_ns': process_time_ns() - cpu}
+863648	def replay(path, rounds):
+863649	    if rounds < 1:
+863650	        raise ValueError('rounds must be positive')
+863651	        index = Path(tmp) / 'index.sqlite'
+863652	        with sqlite3.connect(index) as db:
+863653	            def setup():
+863654	                data = verify(path.read_bytes(), XML_SHA)
+863655	                return ingest(db, data, URL, '2026-11-28')
+863656	            digest, cost = measured(setup)
+863657	            cost.update(xml_bytes_read=path.stat().st_size, sqlite_bytes=index.stat().st_size)
+863658	            def scan():
+863659	                xml = verify(path.read_bytes(), XML_SHA)
+863660	                passage = full_scan(xml, URI)
+863661	                case, question, extra = fixtures()
+863662	                return verify(passage, FRAGMENT_SHA), full_evidence(case, question), extra
+863663	            def select():
+863664	                passage, receipt = get(db, digest, LOCATOR)
+863665	                if receipt['version'] != DATE or receipt['provision_url'] != URI.replace('http:', 'https:'):
+863666	                    raise ValueError('wrong source edition')
+863667	                return verify(passage, FRAGMENT_SHA), selective_evidence(case, question), extra
+863668	            stats = {'full': [], 'selective': []}
+863669	            for i in range(rounds):
+863670	                results = {}
+863671	                for name, run in ([('full', scan), ('selective', select)] if i % 2 == 0
+863672	                                  else [('selective', select), ('full', scan)]):
+863673	                    results[name], times = measured(run)
+863674	                    stats[name].append(times)
+863675	                if results['full'] != results['selective']:
+863676	                    raise ValueError('evidence or source passage differs')
+863677	            passage, evidence, fixture_bytes = results['full']
+863678	    timing = {arm: {key: int(median(sample[key] for sample in samples)) for key in samples[0]}
+863679	              for arm, samples in stats.items()}
+863680	    return {'retrieved': '2026-11-28', 'source': URL, 'source_sha256': digest,
+863681	            'locator': LOCATOR, 'edition': DATE, 'passage_sha256': FRAGMENT_SHA,
+863682	            'pointer_only': {'pipeline_news_release': '202611232245', 'repd_reference': '12588'},
+863683	            'fictional_case_sha256': CASE_SHA, 'question_sha256': QUESTION_SHA, 'result': evidence,
+863684	            'full_selective_bytes_identical': True, 'independent_fixture_outputs_equal': True,
+863685	            'one_time_index_setup': cost, 'rounds_per_arm': rounds, 'median_per_query': timing,
+863686	            'logical_bytes_per_query': {'full_xml': path.stat().st_size, 'selective_xml': len(passage),
+863687	                                        'additional_fixture_and_question_bytes_each_arm': fixture_bytes},
+863688	            'network_bytes_during_offline_replay': 0, 'ai_calls_during_offline_replay': 0,
+863689	            'energy_joules': None, 'physical_storage_io_bytes': None}
+863690	    parser.add_argument('xml', type=Path)
+863691	    parser.add_argument('--rounds', type=int, default=7)
+863692	    print(json.dumps(replay(args.xml, args.rounds), indent=2))
+863693	"""Offline regressions; the full historical Act is fetched only for benchmark replay."""
+863696	import replay
+863697	class ReplayTests(unittest.TestCase):
+863698	    def test_canonical_fixture_without_expected_answers(self):
+863699	        case, question, _ = replay.fixtures()
+863700	        for derived in ('result', 'reason', 'unknowns'):
+863701	            del case[derived]
+863702	        full = replay.full_evidence(case, question)
+863703	        self.assertEqual(full, replay.selective_evidence(case, question))
+863704	        self.assertEqual(full['finding'], 'insufficient_evidence')
+863705	        self.assertEqual(full['missing_for_land_rights'], ['assessed licence', 'grant', 'signed easement'])
+863706	    def test_changed_evidence_refused_by_each_arm(self):
+863707	        changed = copy.deepcopy(case)
+863708	        changed['facts'][1] = changed['facts'][1].replace('signed easement, ', '')
+863709	        for read in (replay.full_evidence, replay.selective_evidence):
+863711	                read(changed, question)
+863712	                read(case, {**question, 'evidence': {'signed easement': 'new'}})
+863713	    def test_changed_artifact_refused_before_cache_use(self):
+863714	        with TemporaryDirectory() as tmp:
+863715	            path = Path(tmp, 'changed.json')
+863716	            path.write_bytes(replay.CASE.read_bytes() + b' ')
+863717	            with patch.object(replay, 'CASE', path), self.assertRaises(ValueError):
+863718	                replay.fixtures()
+863719	    def test_missing_and_ambiguous_dated_provision(self):
+863720	        item = b'<p DocumentURI="one">first</p>'
+863721	        self.assertEqual(item, replay.full_scan(b'<a>' + item + b'</a>', 'one'))
+863722	        for payload in (b'<a/>', b'<a>' + 2 * item + b'</a>'):
+863723	                replay.full_scan(payload, 'one')
+863724	    def test_wrong_edition_or_bytes_rejected(self):
+863725	            replay.verify(b'other edition', replay.XML_SHA)
+863726	            replay.verify(b'changed passage', replay.FRAGMENT_SHA)
+863727	            replay.full_scan(b'<p DocumentURI="one">first</p>', 'other')
+863728	    def test_receipt_scope(self):
+863729	        receipt = json.loads(Path(replay.__file__).with_name('receipt.json').read_text())
+863730	        self.assertEqual(receipt['pointer_only'], {'pipeline_news_release': '202611232245', 'repd_reference': '12588'})
+863731	        self.assertEqual(receipt['result']['applicability'], 'unassessed')
+863732	        self.assertEqual(receipt['source_sha256'], replay.XML_SHA)
+863733	        self.assertEqual(receipt['passage_sha256'], replay.FRAGMENT_SHA)
+863734	MODERN_ID = r'/id/[a-z]+/[0-9]{4}/[0-9]+'
+863735	REGNAL_ID = r'/id/ukpga/(?:Geo5|Eliz2)/[1-9][0-9]?(?:-[1-9][0-9]?)?/[1-9][0-9]*'
+863736	METADATA = 'http://www.legislation.gov.uk/namespaces/metadata Metadata'
+863737	ATOM_LINK = 'http://www.w3.org/2005/Atom link'
+863738	    source_path = official_path(source_url)
+863739	    self_links = []
+863740	    in_metadata = False
+863741	        nonlocal instrument, version, in_metadata
+863742	        if len(stack) == 1 and name == METADATA:
+863743	            in_metadata = True
+863744	        if in_metadata and len(stack) == 2 and name == ATOM_LINK and attrs.get('rel') == 'self':
+863745	            self_links.append(official_path(attrs['href']))
+863746	            if not (re.fullmatch(MODERN_ID, identity) or re.fullmatch(REGNAL_ID, identity)):
+863747	            if source_path != document + '/data.xml':
+863748	                if date.fromisoformat(version).isoformat() != version:
+863749	                    raise ValueError('dated manifestation must use YYYY-MM-DD')
+863750	    def end_element(name):
+863751	        nonlocal in_metadata
+863752	        if len(stack) == 2 and name == METADATA:
+863753	            in_metadata = False
+863754	    if self_links != [source_path]:
+863755	        raise ValueError('publisher self link does not identify the supplied complete XML manifestation')
+863756	META = f'<m:Metadata xmlns:m="http://www.legislation.gov.uk/namespaces/metadata"><a:link xmlns:a="http://www.w3.org/2005/Atom" rel="self" href="{URL}"/></m:Metadata>'
+863757	XML = f'<Legislation xmlns="http://www.legislation.gov.uk/namespaces/legislation" DocumentURI="{URL[:-9]}" IdURI="{BASE}/id/{ID}">{META}{SECTION}</Legislation>'.encode()
+863758	    def test_catalogue_identifiers_and_dated_snapshots(self):
+863759	        catalogue = Path(__file__).resolve().parents[1] / 'data/catalogue.json'
+863760	        for record in json.loads(catalogue.read_text()):
+863761	            with self.subTest(instrument=record['id']):
+863762	                url = URL.replace(ID,record['id']).replace('enacted','2024-01-01')
+863763	                xml = XML.replace(ID.encode(),record['id'].encode()).replace(b'enacted',b'2024-01-01')
+863764	                digest = ingest(self.db,xml,url,DATE)
+863765	                _, receipt = get(self.db,digest,'section/1')
+863766	                self.assertEqual((receipt['instrument'],receipt['version']),(record['id'],'2024-01-01'))
+863767	    def test_regnal_refuses_false_identity_and_partial_document(self):
+863768	        for identity in ['ukpga/Geo5/15-16/20/section/1','ukpga/Wrong/15-16/20','uksi/Geo5/15-16/20']:
+863769	            with self.subTest(identity=identity), self.assertRaises(ValueError):
+863770	                ingest(self.db, XML.replace(ID.encode(),identity.encode()), URL.replace(ID,identity), DATE)
+863771	        partial = XML.replace(URL.encode(), URL.replace('/enacted/data.xml','/introduction/enacted/data.xml').encode())
+863772	        for xml in [partial, XML.replace(META.encode(), b'')]:
+863773	            with self.assertRaisesRegex(ValueError, 'self link'):
+863774	                ingest(self.db, xml, URL, DATE)
+863776	<html class="govuk-template" lang="en">
+863779	    <title lang="en">The Data Centre Covenant - GOV.UK</title>
+863780	    <script src="/assets/frontend/govuk_publishing_components/vendor/lux/lux-measurer-d66192b1b665d415e1874e49a48138b7ae339548aa6cdb8687c7f9933e72b969.js" async="async"></script>
+863781	    <script src="/assets/frontend/govuk_publishing_components/rum-custom-data-b9e1806d1da2fa8ef1855d01aa71ba5eb0afc010dd2c4de3672cc7c7a39b0c8c.js" type="module"></script>
+863782	    <script src="/assets/frontend/govuk_publishing_components/rum-loader-a65b10e18ceeba3bd8a2eac507c7f2c513cdc82f35097df903fdea87f1dc2e33.js" async="async" data-lux-reporter-script="/assets/frontend/govuk_publishing_components/vendor/lux/lux-reporter-8a58c323b36d73e12262d8c5e96fc3d791430130a1867da29d56ffacca960a0e.js"></script>
+863783	    <meta name="govuk:components_gem_version" content="71.1.0">
+863784	    <script src="/assets/frontend/govuk_publishing_components/load-analytics-d5c92d4ce9f98141170a466427da86ca1ff62f234637bf0776121e6df57b3b67.js" type="module"></script>
+863785	    <meta name="csrf-param" content="authenticity_token" />
+863786	<meta name="csrf-token" content="usQVp6Az4grtfZVqfQji4kDf4AlRzRzVtBEpL9g2cz0CYo0kDxmerM0rrUhWfD-4wktBuSkyE663yHI15MQmeQ" />
+863787	    <link rel="stylesheet" href="/assets/frontend/application-6996f83d6fb61f85eeb080c9a6db75bbca843dc8bfb47ed803563ae21e7b80e1.css" media="all" />
+863788	    <link rel="icon" sizes="48x48" href="/assets/frontend/favicon-24f9fbe064118d58937932e73edafd1d50cb60f7bd84f52308382a309bc2d655.ico">
+863789	    <link rel="icon" sizes="any" href="/assets/frontend/favicon-d962d21b5bb443f546c097ea21b567cde639adef7370da45be5e349ba8d62d33.svg" type="image/svg+xml">
+863790	    <link rel="mask-icon" href="/assets/frontend/govuk-icon-mask-cdf4265165f8d7f9eec54aa2c1dfbb3d8b6d297c5d7919f0313e0836a5804bb6.svg" color="#1d70b8">
+863791	    <link rel="apple-touch-icon" href="/assets/frontend/govuk-icon-180-d45a306f0549414cfa5085f16e4a3816a77558b139e5bc226f23162d1d0decb0.png">
+863792	    <meta name="theme-color" content="#1d70b8">
+863794	    <meta property="og:image" content="https://www.gov.uk/assets/frontend/govuk-opengraph-image-4196a4d6333cf92aaf720047f56cfd91b3532d7635fc21ebcf0d5897df6b5f77.png">
+863796	<script type="application/ld+json">
+863798	  "@context": "http://schema.org",
+863799	  "@type": "FAQPage",
+863800	  "mainEntityOfPage": {
+863801	    "@type": "WebPage",
+863802	    "@id": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant"
+863804	  "name": "The Data Centre Covenant",
+863805	  "datePublished": "2026-10-28T13:30:19+00:00",
+863806	  "dateModified": "2026-10-28T13:30:19+00:00",
+863807	  "text": null,
+863808	  "publisher": {
+863809	    "@type": "Organization",
+863810	    "name": "GOV.UK",
+863811	    "url": "https://www.gov.uk",
+863812	    "logo": {
+863813	      "@type": "ImageObject",
+863814	      "url": "https://www.gov.uk/assets/frontend/govuk_publishing_components/govuk-logo-b8553f688131fad665e52a8c2df7633f9cd1c0fffb9f69703cc68c728e7b3b74.png"
+863815	  "image": [
+863816	    "https://www.gov.uk/assets/frontend/govuk_publishing_components/govuk-schema-placeholder-1x1-2672c0fb7a5d5f947d880522c509ebe7f2be090885883cc94418f6860e812e15.png",
+863817	    "https://www.gov.uk/assets/frontend/govuk_publishing_components/govuk-schema-placeholder-4x3-194fde4197f00e669f6f52c182df2ed707bfb2024c9ef39f7a2ed20da62b90eb.png",
+863818	    "https://www.gov.uk/assets/frontend/govuk_publishing_components/govuk-schema-placeholder-16x9-30e6c0e035636ee6b9dc72ae254bcd4a925182805afe7c5b7170cf2394894b28.png"
+863820	  "author": {
+863821	    "name": "HM Treasury",
+863822	    "url": "https://www.gov.uk/government/organisations/hm-treasury"
+863823	  "mainEntity": [
+863825	      "@type": "Question",
+863826	      "name": "1. Lower electricity bills",
+863827	      "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#lower-electricity-bills",
+863828	      "acceptedAnswer": {
+863829	        "@type": "Answer",
+863830	        "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#lower-electricity-bills",
+863831	        "text": "\u003cp\u003ePay for their fair share of energy – covering any energy costs they create - so households, communities and other businesses do not pick up the bill. Their growth should help spread energy system costs across a larger base, reducing the share paid by households and businesses. They should also support grid resilience, flexibility and clean power.\u003c/p\u003e\u003cp\u003eAs renewable generation increases, new demand from AI data centres may help spread the energy system’s fixed costs across more users, supporting lower electricity costs and the wider electrification of heating, transport and industry.\u003c/p\u003e\u003cp\u003eThat growth must work for the energy system. Data centres will therefore be expected to make credible commitments for the grid capacity they request, support security of supply, investment in clean power and net zero, use resources responsibly and support an efficient, flexible, and resilient energy system.\u003c/p\u003e"
+863834	      "name": "2. Invest in improving local communities",
+863835	      "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#invest-in-improving-local-communities",
+863836	        "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#invest-in-improving-local-communities",
+863837	        "text": "\u003cp\u003eCommunities that host nationally important infrastructure should share directly in the rewards.  Strategic data centres should agree a Local Benefit Plan that commits to substantial investment, developed with the local community and linked to the development’s size.  This can be spent on local priorities, like transport, parks and town centres.\u003c/p\u003e\u003cp\u003eThe construction and maintenance of AI data centres will increase local employment, open opportunities for local suppliers and support investment in skills and training. But communities hosting major developments should also see clear, lasting improvements to their local area. Developers must already meet planning requirements such as Section 106 and the Community Infrastructure Levy, which fund local infrastructure needs like transport networks and other community assets. Strategic data centre developers will be required to go further, including working with the local area on a Local Benefit Plan for investment in the local community, linked to the development’s size. Communities should have a meaningful say in how these benefits are designed and allocated.\u003c/p\u003e"
+863838	      "name": "3. Adhere to the highest environmental standards",
+863839	      "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#adhere-to-the-highest-environmental-standards",
+863840	        "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#adhere-to-the-highest-environmental-standards",
+863841	        "text": "\u003cp\u003eProtect nature, minimise water use and publish annual energy and water consumption reports.  They should also capture the heat they produce for nearby homes, schools, hospitals or businesses wherever practical, rather than letting it go to waste.\u003c/p\u003e\u003cp\u003eThey should use energy and water efficiently, with new facilities designed to achieve a Power Usage Effectiveness of 1.3 or better and minimise demand for public water supplies by using technologies such as closed loop water systems.  Additionally, developers should design projects to capture and reuse waste heat where there is a viable local user. Strategic data centres should report annually on their energy and water use, efficiency, emissions, heat reuse and participation in flexibility services, and we will strongly encourage existing operators to do the same.\u003c/p\u003e"
+863842	      "name": "4. Create jobs, apprenticeships, and drive reindustrialisation",
+863843	      "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#create-jobs-apprenticeships-and-drive-reindustrialisation",
+863844	        "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#create-jobs-apprenticeships-and-drive-reindustrialisation",
+863845	        "text": "\u003cp\u003eCreate local jobs and invest in paid apprenticeships and training places, supporting young people into the AI, digital and infrastructure jobs of the future. They should also prioritise UK suppliers and technologies and make a meaningful contribution to the development and deployment of British AI hardware.\u003c/p\u003e\u003cp\u003eDevelopers should create good, well-paid jobs that last beyond construction. They should recruit locally where possible and invest in apprenticeships, colleges and universities.  Where roles cannot currently be filled locally, they should invest in education and training to enable more local people to access these opportunities in the future. \u003c/p\u003e\u003cp\u003eData centres are expected to help build capability in strategically important supply chains. They should also partner with UK researchers and innovative companies, and provide access to compute where appropriate, to accelerate innovation and strengthen national capability. The most strategically important data centres will be expected to make a meaningful contribution to the development and deployment of British AI hardware in the UK.\u003c/p\u003e"
+863846	      "name": "5. Strengthen Britain’s security",
+863847	      "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#strengthen-britains-security",
+863848	        "url": "https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant#strengthen-britains-security",
+863849	        "text": "\u003cp\u003eProvide secure and reliable access to compute the UK needs, including for our NHS and other public services.  They should work with the relevant national technical authorities, including the National Cyber Security Centre, to enhance resilience against cyber and hybrid threats beyond baseline requirements.\u003c/p\u003e\u003cp\u003eData centres should provide secure, resilient UK access to compute for critical services and national priorities. As critical national infrastructure, operators should share relevant information with government and technical agencies, meet current and future cyber resilience standards and work with the relevant national technical authorities to strengthen security and resilience further. They should also plan with critical suppliers for foreseeable disruption and participate in government exercises to test arrangements for prioritising essential services.\u003c/p\u003e\u003cp\u003eThese tests will be kept under review and updated as necessary to ensure that commitments remain proportionate and deliver clear value to communities and the wider UK.\u003c/p\u003e\u003cp\u003eIn return for meeting these tests, the government will establish a new Ministerial Control Centre for considering supportive action for strategic data centres. This will be chaired by the Minister for AI, supported by the Exchequer Secretary to the Treasury and relevant ministers from the Department for Energy Security and Net Zero and other departments. It will use the power of the state to accelerate time to power and speed up the planning process for the most strategic data centres.\u003c/p\u003e\u003cp\u003eFor sites that demonstrate sufficient strategic value, the government will:\u003c/p\u003e\u003cul\u003e\n  \u003cli\u003ereserve and reallocate connections. The Government will use new powers in the Planning and Infrastructure Act to prioritise strategically important demand projects, including data centres, by reserving future capacity and reallocating capacity released when other projects leave the connections queue. This will help strategically important projects, including data centres, access grid capacity more quickly, as it becomes available.\u003c/li\u003e\n  \u003cli\u003eidentify additional capacity. The Government will work with NESO and the network companies to identify locations where capacity may be available before 2030 and may use Planning and Infrastructure Act powers to enable strategically important data centres and other strategically important projects to access this capacity.\u003c/li\u003e\n  \u003cli\u003eaccelerate connections before 2030. Where there is a need to go further, the Government will use Planning and Infrastructure Act powers to facilitate transfer of pre-2030 data centre connections contracts to strategically important data centres, to secure access to power in this critical period for the development of AI. \u003c/li\u003e\n  \u003cli\u003eenable access to temporary power to bridge the gap to grid connections. The Government will develop a tightly controlled framework to permit on site generation until a grid connection can be secured. This will only be available for exceptionally strategic projects, only where the measures set out above cannot secure the required capacity in time, and subject to conditions such as ensuring energy security.\u003c/li\u003e\n\u003c/ul\u003e\u003cp\u003eThe government will set out further details in due course on the definition of strategic data centres and the additional criteria such projects will be expected to meet.\u003c/p\u003e\u003cp\u003eIn addition, the government is moving forward with wider reforms to support viable projects to build faster and with more certainty while meeting expectations to support sustainable growth, protect communities, and conserve resources. The government will:\u003c/p\u003e\u003cul\u003e\n  \u003cli\u003emove forward with the strategic alignment of data-centre grid connections to regional infrastructure targets beyond 2030, informed by the ALIGN spatial planning tool, to secure vital capacity while balancing the needs of the energy system and other relevant constraints including water and land.\u003c/li\u003e\n  \u003cli\u003esupport greater choice for developers to self-build connection infrastructure, subject to appropriate consumer and system protections;\u003c/li\u003e\n  \u003cli\u003edevelop ways for data centres to connect more flexibly to the system and develop backstop operational control measures that enable more data centre demand to connect while keeping the system secure;\u003c/li\u003e\n  \u003cli\u003esupport implementation of Ofgem’s data-centre commitment fee and queue management measures to deter speculative demand, and free up connection capacity for viable projects;\u003c/li\u003e\n  \u003cli\u003epublish the draft Data Centre National Policy Statement for consultation, which sets out the decision-making framework for data centre projects seeking development consent through the Nationally Significant Infrastructure Project regime. This framework will establish a progressive vision for harnessing this investment, ensuring that data centre growth delivers clean energy, skilled jobs, and meaningful benefits for local communities in line with the tests in the Covenant;\u003c/li\u003e\n  \u003cli\u003eencourage all operators to use energy and water efficiently and publish annual data on total and peak water and power use, as set out in the Written Ministerial Statement on Enabling Sustainable Data Centre Growth Through Responsible Water and Energy Use;\u003c/li\u003e\n  \u003cli\u003econtinue to deliver the five AI Growth Zones across England, Scotland and Wales to accelerate planning and infrastructure delivery for AI capacity.\u003c/li\u003e\n\u003c/ul\u003e\u003cp\u003eThis Covenant sets out a clear offer: government will support faster and more certain delivery of the data centres the country needs in return for responsible development that delivers lasting benefits for communities. Together, these measures will help keep more of the benefits of AI in Britain, supported by infrastructure that serves our long-term interests.\u003c/p\u003e"
+863852	<link rel="canonical" href="https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant">
+863853	<meta property="og:site_name" content="GOV.UK">
+863854	<meta property="og:type" content="article">
+863855	<meta property="og:url" content="https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant">
+863856	<meta property="og:title" content="The Data Centre Covenant">
+863857	<meta property="og:description" content="">
+863858	  <meta name="twitter:card" content="summary">
+863859	  <link rel="stylesheet" href="/assets/frontend/views/_html-publication-d183ff6655d34a5cea8d3f6f863d5b6c74654d40325c0a970e8e96ca046b4d07.css" />
+863860	  <link rel="stylesheet" href="/assets/frontend/views/_csv_preview-ddf66f9f13d0fb5e8672480d53d092910344fca34f35e21fc2220e1500143904.css" />
+863861	  <meta name="csp-nonce" content="ZXk3nmjcAutlxjkNznyJ8w==" />
+863862	<link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml">
+863864	  <meta name="govuk:format" content="html_publication">
+863865	  <meta name="govuk:publishing-app" content="whitehall">
+863866	  <meta name="govuk:rendering-app" content="frontend">
+863867	  <meta name="govuk:schema-name" content="html_publication">
+863868	  <meta name="govuk:content-id" content="c587867d-ba3c-4402-88e4-1c7a9bc96029">
+863869	  <meta name="govuk:ga4-base-path" content="/government/publications/data-centre-covenant/the-data-centre-covenant">
+863870	  <meta name="govuk:first-published-at" content="2026-10-28T13:30:19+00:00">
+863871	  <meta name="govuk:updated-at" content="2026-10-28T13:30:22+00:00">
+863872	  <meta name="govuk:public-updated-at" content="2026-10-28T13:30:19+00:00">
+863873	  <meta name="govuk:primary-publishing-organisation" content="HM Treasury">
+863874	  <meta name="govuk:organisations" content="&lt;D15&gt;">
+863876	  <body class="gem-c-layout-for-public govuk-template__body">
+863877	    <script nonce="ZXk3nmjcAutlxjkNznyJ8w==">
+863878	//<![CDATA[
+863879	      document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
+863880	//]]>
+863881	</script>      
+863882	<div id="global-cookie-message" data-module="cookie-banner" data-nosnippet="" aria-label="Cookies on GOV.UK" class="gem-c-cookie-banner govuk-clearfix govuk-cookie-banner js-banner-wrapper" role="region" hidden="hidden">
+863883	  <div class="govuk-cookie-banner__message govuk-width-container">
+863884	    <div class="govuk-grid-row">
+863885	      <div class="govuk-grid-column-two-thirds">
+863886	        <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on GOV.UK</h2>
+863887	        <div tabindex="-1" class="govuk-cookie-banner__content gem-c-cookie-banner__confirmation">
+863888	          <div class="gem-c-cookie-banner__content"><p class='govuk-body'>We use some essential cookies to make this website work.</p><p class='govuk-body'>We’d like to set additional cookies to understand how you use GOV.UK, remember your settings and improve government services.</p><p class='govuk-body'>We also use cookies set by other sites to help us deliver content from their services.</p></div>
+863889	          <p class="gem-c-cookie-banner__confirmation-message--accepted govuk-body" hidden
+863890	            data-ga4-cookie-banner 
+863891	            data-module="ga4-link-tracker"
+863892	            data-ga4-set-indexes
+863893	            data-ga4-link='{"event_name":"navigation","type":"cookie banner","section":"You have accepted additional cookies"}'
+863894	          >You have accepted additional cookies. <span class="gem-c-cookie-banner__confirmation-message">You can <a class="govuk-link" href="/help/cookies">change your cookie settings</a> at any time.</span></p>
+863895	          <p class="gem-c-cookie-banner__confirmation-message--rejected govuk-body" hidden>You have rejected additional cookies. <span class="gem-c-cookie-banner__confirmation-message">You can <a class="govuk-link" href="/help/cookies">change your cookie settings</a> at any time.</span></p>
+863899	    <div class="js-confirmation-buttons govuk-button-group">
+863900	  <button class="gem-c-button govuk-button" type="submit" data-accept-cookies="true" data-cookie-types="all">Accept additional cookies</button>
+863901	  <button class="gem-c-button govuk-button" type="submit" data-reject-cookies="true">Reject additional cookies</button>
+863902	      <a class="govuk-link" href="/help/cookies">View cookies</a>
+863903	    <div hidden class="js-hide-button govuk-button-group">
+863904	      <button
+863905	        class="gem-c-cookie-banner__hide-button govuk-button"
+863906	        data-hide-cookie-banner="true"
+863907	        data-module="ga4-event-tracker"
+863908	         data-ga4-event='{"event_name":"select_content","type":"cookie banner","action":"closed","section":"You have accepted additional cookies"}' >
+863909	          Hide cookie message
+863912	      <a data-module="govuk-skip-link" class="gem-c-skip-link govuk-skip-link govuk-!-display-none-print" href="#content">Skip to main content</a>
+863914	            <div data-module="ga4-event-tracker ga4-link-tracker" data-ga4-expandable="" class="gem-c-layout-super-navigation-header">
+863915	<div class="gem-c-layout-super-navigation-header__nav-wrapper">
+863916	  <div class="gem-c-layout-super-navigation-header__container govuk-width-container">
+863917	    <nav
+863918	      aria-labelledby="super-navigation-menu-heading"
+863919	      class="gem-c-layout-super-navigation-header__content"
+863920	      data-module="super-navigation-mega-menu">
+863921	      <div class="gem-c-layout-super-navigation-header__header-logo">
+863922	        <a class="govuk-header__homepage-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","external":"false","text":"GOV.UK","section":"Logo","index_link":1,"index_section":0,"index_section_count":2,"index_total":1}' id="logo" aria-label="Go to the GOV.UK homepage" href="/">
+863923	          <svg
+863924	  xmlns="http://www.w3.org/2000/svg"
+863925	  focusable="false"
+863926	  role="img"
+863927	  viewBox="0 0 324 60"
+863928	  height="30"
+863929	  width="162"
+863930	  fill="currentcolor"
+863931	  class="govuk-header__logotype"
+863932	  aria-label="GOV.UK">
+863933	  <title>GOV.UK</title>
+863934	  <g>
+863935	    <circle cx="20" cy="17.6" r="3.7"></circle>
+863936	    <circle cx="10.2" cy="23.5" r="3.7"></circle>
+863937	    <circle cx="3.7" cy="33.2" r="3.7"></circle>
+863938	    <circle cx="31.7" cy="30.6" r="3.7"></circle>
+863939	    <circle cx="43.3" cy="17.6" r="3.7"></circle>
+863940	    <circle cx="53.2" cy="23.5" r="3.7"></circle>
+863941	    <circle cx="59.7" cy="33.2" r="3.7"></circle>
+863942	    <path d="M33.1,9.8c.2-.1.3-.3.5-.5l4.6,2.4v-6.8l-4.6,1.5c-.1-.2-.3-.3-.5-.5l1.9-5.9h-6.7l1.9,5.9c-.2.1-.3.3-.5.5l-4.6-1.5v6.8l4.6-2.4c.1.2.3.3.5.5l-2.6,8c-.9,2.8,1.2,5.7,4.1,5.7h0c3,0,5.1-2.9,4.1-5.7l-2.6-8ZM37,37.9s-3.4,3.8-4.1,6.1c2.2,0,4.2-.5,6.4-2.8l-.7,8.5c-2-2.8-4.4-4.1-5.7-3.8.1,3.1.5,6.7,5.8,7.2,3.7.3,6.7-1.5,7-3.8.4-2.6-2-4.3-3.7-1.6-1.4-4.5,2.4-6.1,4.9-3.2-1.9-4.5-1.8-7.7,2.4-10.9,3,4,2.6,7.3-1.2,11.1,2.4-1.3,6.2,0,4,4.6-1.2-2.8-3.7-2.2-4.2.2-.3,1.7.7,3.7,3,4.2,1.9.3,4.7-.9,7-5.9-1.3,0-2.4.7-3.9,1.7l2.4-8c.6,2.3,1.4,3.7,2.2,4.5.6-1.6.5-2.8,0-5.3l5,1.8c-2.6,3.6-5.2,8.7-7.3,17.5-7.4-1.1-15.7-1.7-24.5-1.7h0c-8.8,0-17.1.6-24.5,1.7-2.1-8.9-4.7-13.9-7.3-17.5l5-1.8c-.5,2.5-.6,3.7,0,5.3.8-.8,1.6-2.3,2.2-4.5l2.4,8c-1.5-1-2.6-1.7-3.9-1.7,2.3,5,5.2,6.2,7,5.9,2.3-.4,3.3-2.4,3-4.2-.5-2.4-3-3.1-4.2-.2-2.2-4.6,1.6-6,4-4.6-3.7-3.7-4.2-7.1-1.2-11.1,4.2,3.2,4.3,6.4,2.4,10.9,2.5-2.8,6.3-1.3,4.9,3.2-1.8-2.7-4.1-1-3.7,1.6.3,2.3,3.3,4.1,7,3.8,5.4-.5,5.7-4.2,5.8-7.2-1.3-.2-3.7,1-5.7,3.8l-.7-8.5c2.2,2.3,4.2,2.7,6.4,2.8-.7-2.3-4.1-6.1-4.1-6.1h10.6,0Z"></path>
+863943	  </g>
+863944	  <circle class="govuk-logo-dot" cx="226" cy="36" r="7.3"></circle>
+863945	  <path d="M93.94 41.25c.4 1.81 1.2 3.21 2.21 4.62 1 1.4 2.21 2.41 3.61 3.21s3.21 1.2 5.22 1.2 3.61-.4 4.82-1c1.4-.6 2.41-1.4 3.21-2.41.8-1 1.4-2.01 1.61-3.01s.4-2.01.4-3.01v.14h-10.86v-7.02h20.07v24.08h-8.03v-5.56c-.6.8-1.38 1.61-2.19 2.41-.8.8-1.81 1.2-2.81 1.81-1 .4-2.21.8-3.41 1.2s-2.41.4-3.81.4a18.56 18.56 0 0 1-14.65-6.63c-1.6-2.01-3.01-4.41-3.81-7.02s-1.4-5.62-1.4-8.83.4-6.02 1.4-8.83a20.45 20.45 0 0 1 19.46-13.65c3.21 0 4.01.2 5.82.8 1.81.4 3.61 1.2 5.02 2.01 1.61.8 2.81 2.01 4.01 3.21s2.21 2.61 2.81 4.21l-7.63 4.41c-.4-1-1-1.81-1.61-2.61-.6-.8-1.4-1.4-2.21-2.01-.8-.6-1.81-1-2.81-1.4-1-.4-2.21-.4-3.61-.4-2.01 0-3.81.4-5.22 1.2-1.4.8-2.61 1.81-3.61 3.21s-1.61 2.81-2.21 4.62c-.4 1.81-.6 3.71-.6 5.42s.8 5.22.8 5.22Zm57.8-27.9c3.21 0 6.22.6 8.63 1.81 2.41 1.2 4.82 2.81 6.62 4.82S170.2 24.39 171 27s1.4 5.62 1.4 8.83-.4 6.02-1.4 8.83-2.41 5.02-4.01 7.02-4.01 3.61-6.62 4.82-5.42 1.81-8.63 1.81-6.22-.6-8.63-1.81-4.82-2.81-6.42-4.82-3.21-4.41-4.01-7.02-1.4-5.62-1.4-8.83.4-6.02 1.4-8.83 2.41-5.02 4.01-7.02 4.01-3.61 6.42-4.82 5.42-1.81 8.63-1.81Zm0 36.73c1.81 0 3.61-.4 5.02-1s2.61-1.81 3.61-3.01 1.81-2.81 2.21-4.41c.4-1.81.8-3.61.8-5.62 0-2.21-.2-4.21-.8-6.02s-1.2-3.21-2.21-4.62c-1-1.2-2.21-2.21-3.61-3.01s-3.21-1-5.02-1-3.61.4-5.02 1c-1.4.8-2.61 1.81-3.61 3.01s-1.81 2.81-2.21 4.62c-.4 1.81-.8 3.61-.8 5.62 0 2.41.2 4.21.8 6.02.4 1.81 1.2 3.21 2.21 4.41s2.21 2.21 3.61 3.01c1.4.8 3.21 1 5.02 1Zm36.32 7.96-12.24-44.15h9.83l8.43 32.77h.4l8.23-32.77h9.83L200.3 58.04h-12.24Zm74.14-7.96c2.18 0 3.51-.6 3.51-.6 1.2-.6 2.01-1 2.81-1.81s1.4-1.81 1.81-2.81a13 13 0 0 0 .8-4.01V13.9h8.63v28.15c0 2.41-.4 4.62-1.4 6.62-.8 2.01-2.21 3.61-3.61 5.02s-3.41 2.41-5.62 3.21-4.62 1.2-7.02 1.2-5.02-.4-7.02-1.2c-2.21-.8-4.01-1.81-5.62-3.21s-2.81-3.01-3.61-5.02-1.4-4.21-1.4-6.62V13.9h8.63v26.95c0 1.61.2 3.01.8 4.01.4 1.2 1.2 2.21 2.01 2.81.8.8 1.81 1.4 2.81 1.81 0 0 1.34.6 3.51.6Zm34.22-36.18v18.92l15.65-18.92h10.82l-15.03 17.32 16.03 26.83h-10.21l-11.44-20.21-5.62 6.22v13.99h-8.83V13.9"></path>
+863947	</a></div>      <h2 id="super-navigation-menu-heading" class="govuk-visually-hidden">
+863948	        Navigation menu
+863949	      </h2>
+863950	      <div class="gem-c-layout-super-navigation-header__navigation-item">
+863951	        <a class="gem-c-layout-super-navigation-header__navigation-item-link" href="/browse"><span class="gem-c-layout-super-navigation-header__navigation-item-link-inner">            Menu
+863952	</span></a>
+863953	        <button aria-controls="super-navigation-menu" aria-expanded="false" aria-label="Show navigation menu" class="gem-c-layout-super-navigation-header__navigation-top-toggle-button" data-text-for-hide="Hide navigation menu" data-text-for-show="Show navigation menu" data-toggle-desktop-group="top" data-toggle-mobile-group="top" data-ga4-event='{"event_name":"select_content","type":"header menu bar","text":"Menu","index_section":1,"index_section_count":2,"section":"Menu"}' hidden="hidden" id="super-navigation-menu-toggle" type="button">
+863954	          <span class="gem-c-layout-super-navigation-header__navigation-top-toggle-button-inner">Menu</span>
+863955	</button>      </div>
+863956	      <div id="super-navigation-menu" hidden="hidden" class="gem-c-layout-super-navigation-header__navigation-dropdown-menu">
+863957	        <div class="govuk-grid-row gem-c-layout-super-navigation-header__navigation-items">
+863958	            <div class="govuk-grid-column-two-thirds-from-desktop gem-c-layout-super-navigation-header__column--services-and-information">
+863959	              <h3 class="govuk-heading-m gem-c-layout-super-navigation-header__column-header">
+863960	                Services and information
+863961	              </h3>
+863962	              <ul class="gem-c-layout-super-navigation-header__navigation-second-items gem-c-layout-super-navigation-header__navigation-second-items--services-and-information">
+863963	                    <li class="gem-c-layout-super-navigation-header__dropdown-list-item">
+863964	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":1,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/benefits">Benefits</a>
+863965	                      
+863966	                    </li>
+863967	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":2,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/births-deaths-marriages">Births, death, marriages and care</a>
+863968	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":3,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/business">Business and self-employed</a>
+863969	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":4,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/childcare-parenting">Childcare and parenting</a>
+863970	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":5,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/citizenship">Citizenship and living in the UK</a>
+863971	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":6,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/justice">Crime, justice and the law</a>
+863972	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":7,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/disabilities">Disabled people</a>
+863973	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":8,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/driving">Driving and transport</a>
+863974	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":9,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/education">Education and learning</a>
+863975	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":10,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/employing-people">Employing people</a>
+863976	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":11,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/environment-countryside">Environment and countryside</a>
+863977	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":12,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/housing-local-services">Housing and local services</a>
+863978	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":13,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/tax">Money and tax</a>
+863979	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":14,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/abroad">Passports, travel and living abroad</a>
+863980	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":15,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/visas-immigration">Visas and immigration</a>
+863981	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":1,"index_link":16,"index_section_count":3,"index_total":16,"section":"Services and information"}' href="/browse/working">Working, jobs and pensions</a>
+863982	              </ul>
+863984	            <div class="govuk-grid-column-one-third-from-desktop gem-c-layout-super-navigation-header__column--government-activity">
+863985	                Government activity
+863986	              <ul class="gem-c-layout-super-navigation-header__navigation-second-items gem-c-layout-super-navigation-header__navigation-second-items--government-activity">
+863987	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link gem-c-layout-super-navigation-header__navigation-second-item-link--with-description" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":2,"index_link":1,"index_section_count":3,"index_total":6,"section":"Government activity"}' href="/government/organisations">Departments</a>
+863988	                      <p class="gem-c-layout-super-navigation-header__navigation-second-item-description">Departments, agencies and public bodies</p>
+863989	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link gem-c-layout-super-navigation-header__navigation-second-item-link--with-description" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":2,"index_link":2,"index_section_count":3,"index_total":6,"section":"Government activity"}' href="/search/news-and-communications">News</a>
+863990	                      <p class="gem-c-layout-super-navigation-header__navigation-second-item-description">News stories, speeches, letters and notices</p>
+863991	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link gem-c-layout-super-navigation-header__navigation-second-item-link--with-description" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":2,"index_link":3,"index_section_count":3,"index_total":6,"section":"Government activity"}' href="/search/guidance-and-regulation">Guidance and regulation</a>
+863992	                      <p class="gem-c-layout-super-navigation-header__navigation-second-item-description">Detailed guidance, regulations and rules</p>
+863993	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link gem-c-layout-super-navigation-header__navigation-second-item-link--with-description" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":2,"index_link":4,"index_section_count":3,"index_total":6,"section":"Government activity"}' href="/search/research-and-statistics">Research and statistics</a>
+863994	                      <p class="gem-c-layout-super-navigation-header__navigation-second-item-description">Reports, analysis and official statistics</p>
+863995	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link gem-c-layout-super-navigation-header__navigation-second-item-link--with-description" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":2,"index_link":5,"index_section_count":3,"index_total":6,"section":"Government activity"}' href="/search/policy-papers-and-consultations">Policy papers and consultations</a>
+863996	                      <p class="gem-c-layout-super-navigation-header__navigation-second-item-description">Consultations and strategy</p>
+863997	                      <a class="govuk-link gem-c-layout-super-navigation-header__navigation-second-item-link gem-c-layout-super-navigation-header__navigation-second-item-link--with-description" data-ga4-link='{"event_name":"navigation","type":"header menu bar","index_section":2,"index_link":6,"index_section_count":3,"index_total":6,"section":"Government activity"}' href="/search/transparency-and-freedom-of-information-releases">Transparency</a>
+863998	                      <p class="gem-c-layout-super-navigation-header__navigation-second-item-description">Data, Freedom of Information releases and corporate reports</p>
+863999	</div>      <div class="gem-c-layout-super-navigation-header__search-item">
+864000	        <button id="super-search-menu-toggle" class="gem-c-layout-super-navigation-header__search-toggle-button" aria-controls="super-search-menu" aria-expanded="true" aria-label="Hide search menu" data-text-for-hide="Hide search menu" data-text-for-show="Show search menu" data-toggle-mobile-group="top" data-toggle-desktop-group="top" data-ga4-event='{"event_name":"select_content","type":"header menu bar","text":"Search","index_section":2,"index_section_count":2,"section":"Search"}' hidden="hidden" type="button">
+864001	          <span class="govuk-visually-hidden">
+864002	            Search GOV.UK
+864003	          </span>
+864004	          
+864005	<svg
+864006	  class="gem-c-layout-super-navigation-header__search-toggle-button-link-icon"
+864007	  width="27"
+864008	  height="27"
+864009	  viewBox="0 0 27 27"
+864010	  fill="none"
+864011	  aria-hidden="true"
+864012	  focusable="false">
+864013	  <circle
+864014	    cx="12.0161"
+864015	    cy="11.0161"
+864016	    r="8.51613"
+864017	    stroke="currentColor"
+864018	    stroke-width="3" />
+864019	  <line
+864020	    x1="17.8668"
+864021	    y1="17.3587"
+864022	    x2="26.4475"
+864023	    y2="25.9393"
+864024	          <span
+864025	            aria-hidden="true"
+864026	            class="gem-c-layout-super-navigation-header__navigation-top-toggle-close-icon">
+864027	            &times;
+864029	        <a class="gem-c-layout-super-navigation-header__search-item-link" href="/search">
+864030	  class="gem-c-layout-super-navigation-header__search-item-link-icon"
+864031	</a>      </div>
+864032	      <div id="super-search-menu" hidden="hidden" class="gem-c-layout-super-navigation-header__navigation-dropdown-menu">
+864033	        <div class="gem-c-layout-super-navigation-header__search-container gem-c-layout-super-navigation-header__search-items">
+864034	          <h3 class="govuk-visually-hidden">
+864035	            Search
+864036	          </h3>
+864037	          <div class="govuk-grid-row">
+864038	            <div class="govuk-grid-column-full">
+864039	              <form class="gem-c-layout-super-navigation-header__search-form" id="search" data-module="ga4-search-tracker" data-ga4-search-type="header menu bar" data-ga4-search-url="/search/all" data-ga4-search-section="Search GOV.UK" data-ga4-search-index-section="3" data-ga4-search-index-section-count="3" action="/search/all" method="get" role="search" aria-label="Site-wide">
+864040	                <div class="gem-c-search-with-autocomplete gem-c-search-with-autocomplete--large govuk-!-margin-bottom-0" data-module="gem-search-with-autocomplete" data-source-url="https://www.gov.uk/api/search/autocomplete.json" data-source-key="suggestions">
+864041	  <div data-module="gem-toggle-input-class-on-focus" class="gem-c-search govuk-!-display-none-print gem-c-search--large gem-c-search--on-white gem-c-search--separate-label govuk-!-margin-bottom-0">
+864042	    <label for="search-main-2aa400f3" class="govuk-label govuk-label--m gem-c-layout-super-navigation-header__search-label--large-navbar">Search GOV.UK</label>
+864043	  <div class="gem-c-search__item-wrapper">
+864044	    <div class="js-search-input-wrapper">
+864045	      <input enterkeyhint="search" class="gem-c-search__item gem-c-search__input js-class-toggle" id="search-main-2aa400f3" name="keywords" title="Search" type="search" value="" autocorrect="off" autocapitalize="off">
+864046	    <div class="gem-c-search__item gem-c-search__submit-wrapper">
+864047	      <button class="gem-c-search__submit" type="submit" enterkeyhint="search">
+864048	        Search
+864050	  class="gem-c-search__icon"
+864051	</button>    </div>
+864052	</form>            </div>
+864054	</div>    </nav>
+864056	  <div class="govuk-width-container">
+864057	<div class="gem-c-contextual-breadcrumbs">
+864059	  "@type": "BreadcrumbList",
+864060	  "itemListElement": [
+864061	      "@type": "ListItem",
+864062	      "position": 1,
+864063	      "item": {
+864064	        "name": "Home",
+864065	        "@id": "https://www.gov.uk/"
+864066	      "position": 2,
+864067	        "name": "Business and industry",
+864068	        "@id": "https://www.gov.uk/business-and-industry"
+864069	      "position": 3,
+864070	        "name": "Science and innovation",
+864071	        "@id": "https://www.gov.uk/business-and-industry/science-and-innovation"
+864072	      "position": 4,
+864073	        "name": "Data Centre Covenant",
+864074	        "@id": "https://www.gov.uk/government/publications/data-centre-covenant"
+864075	<nav data-module="ga4-link-tracker" aria-label="Breadcrumb" class="gem-c-breadcrumbs govuk-breadcrumbs govuk-!-display-none-print govuk-breadcrumbs--collapse-on-mobile">
+864076	  <ol class="govuk-breadcrumbs__list">
+864077	        <li class="govuk-breadcrumbs__list-item">
+864078	          <a data-ga4-link='{"event_name":"navigation","type":"breadcrumb","index_link":"1","index_total":"4"}' class="govuk-breadcrumbs__link" href="/">Home</a>
+864079	        </li>
+864080	          <a data-ga4-link='{"event_name":"navigation","type":"breadcrumb","index_link":"2","index_total":"4"}' class="govuk-breadcrumbs__link" href="/business-and-industry">Business and industry</a>
+864081	          <a data-ga4-link='{"event_name":"navigation","type":"breadcrumb","index_link":"3","index_total":"4"}' class="govuk-breadcrumbs__link" href="/business-and-industry/science-and-innovation">Science and innovation</a>
+864082	          <a data-ga4-link='{"event_name":"navigation","type":"breadcrumb","index_link":"4","index_total":"4"}' class="govuk-breadcrumbs__link" href="/government/publications/data-centre-covenant">Data Centre Covenant</a>
+864084	    <main id="content" class="govuk-main-wrapper  " >
+864085	      <span id="Top"></span>
+864086	  <div class="publication-external">
+864087	    <ul class="organisation-logos">
+864088	        <li class="organisation-logos__logo">
+864089	<div class="gem-c-organisation-logo brand--hm-treasury">
+864090	    <a class="gem-c-organisation-logo__container gem-c-organisation-logo__link gem-c-organisation-logo__crest gem-c-organisation-logo__crest--single-identity brand__border-color" href="/government/organisations/hm-treasury">
+864091	      <span class="gem-c-organisation-logo__name">HM Treasury</span>
+864092	</a></div>
+864094	  <header class="gem-c-inverse-header gem-c-inverse-header--html-publication-header govuk-!-padding-top-6 govuk-!-padding-bottom-6" dir="ltr">
+864095	<div class="gem-c-heading  gem-c-heading--inverse govuk-!-margin-bottom-0">
+864096	      <span class="govuk-caption-xl gem-c-heading__context" >
+864097	    Policy paper
+864099	  <h1 class="gem-c-heading__text govuk-heading-xl">
+864100	    The Data Centre Covenant
+864101	</h1></div>
+864102	    <p class="gem-c-inverse-header__subtext">Published 28 October 2026</p>
+864103	<div id="contents">
+864104	  <div class="govuk-grid-row gem-print-columns-none">
+864105	    <div class="govuk-grid-column-one-quarter-from-desktop sticky-column">
+864106	          <nav data-module="ga4-link-tracker" aria-label="Contents" class="gem-c-contents-list govuk-!-margin-bottom-4">
+864107	    <h2 class="gem-c-contents-list__title">
+864108	      Contents
+864109	</h2>
+864110	    <ol class="gem-c-contents-list__list">
+864111	        <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--numbered" >
+864112	          <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
+864113	          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link='{"event_name":"select_content","section":"Contents","type":"contents list","index_total":5,"index_link":1}' href="#lower-electricity-bills"><span class="gem-c-contents-list__number">1. </span><span class="gem-c-contents-list__numbered-text">Lower electricity bills</span></a>
+864114	          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link='{"event_name":"select_content","section":"Contents","type":"contents list","index_total":5,"index_link":2}' href="#invest-in-improving-local-communities"><span class="gem-c-contents-list__number">2. </span><span class="gem-c-contents-list__numbered-text">Invest in improving local communities</span></a>
+864115	          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link='{"event_name":"select_content","section":"Contents","type":"contents list","index_total":5,"index_link":3}' href="#adhere-to-the-highest-environmental-standards"><span class="gem-c-contents-list__number">3. </span><span class="gem-c-contents-list__numbered-text">Adhere to the highest environmental standards</span></a>
+864116	          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link='{"event_name":"select_content","section":"Contents","type":"contents list","index_total":5,"index_link":4}' href="#create-jobs-apprenticeships-and-drive-reindustrialisation"><span class="gem-c-contents-list__number">4. </span><span class="gem-c-contents-list__numbered-text">Create jobs, apprenticeships, and drive reindustrialisation</span></a>
+864117	          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link='{"event_name":"select_content","section":"Contents","type":"contents list","index_total":5,"index_link":5}' href="#strengthen-britains-security"><span class="gem-c-contents-list__number">5. </span><span class="gem-c-contents-list__numbered-text">Strengthen Britain’s security</span></a>
+864119	      <div class="gem-c-print-link govuk-!-display-none-print govuk-!-margin-bottom-6">
+864120	  <button class="gem-c-button__outline gem-c-button__outline--print govuk-!-margin-bottom-0" type="button" rel="alternate" data-module="print-link">Print this page</button>
+864121	    <div class="print-metadata">
+864123	  <img class="print-metadata__licence" src="/assets/frontend/open-government-licence-min-93b6a51b518ff99714a1aa2a7d2162735c155ec3cb073c75fb88b2a332fa83d3.png" />
+864126	  © Crown copyright 2026
+864127	  This publication is licensed under the terms of the Open Government Licence v3.0 except where otherwise stated. To view this licence, visit <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3">nationalarchives.gov.uk/doc/open-government-licence/version/3</a> or write to the Information Policy Team, The National Archives, Kew, London TW9 4DU, or email: <a href="mailto:psi@nationalarchives.gov.uk">psi@nationalarchives.gov.uk</a>.
+864128	  Where we have identified any third party copyright information you will need to obtain permission from the copyright holders concerned.
+864129	  This publication is available at https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant
+864130	    <div class="govuk-grid-column-three-quarters-from-desktop contents-container">
+864131	      <div class="gem-c-govspeak-html-publication">
+864132	  <div data-module="govspeak" class="gem-c-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0">
+864133	        <div class="govspeak"><p>Data centres already power everyday life in Britain, from online banking and shopping to streaming, public services and the way we work. As AI adoption grows, demand for that infrastructure will grow with it. Countries that can host and power data centres will ensure their sovereignty, strengthen economic resilience, and be better placed to capture the benefits of the digital economy, and help shape the future of AI.</p>
+864134	<p>We must ensure the UK is one of those countries, so that British firms and people have a say in how AI develops in the months and years ahead. We start from a position of real strength. The UK is the third largest AI market in the world after the US and China, is home to more AI start-ups than any other country in Europe and has a world-leading AI Security Institute. Through the Sovereign AI Unit, we are already backing British AI companies to build here, and at this Budget we go further for founders who choose to grow and scale their firms in the UK.</p>
+864135	<p>But to cement our position in the new world of AI and protect ourselves from the risks, we must not allow our use of AI data centres to be reliant almost entirely on other countries. As AI and data become integral to the NHS, defence and other critical services, the UK cannot rely entirely on infrastructure located overseas. Domestic data-centre capacity will give us greater resilience, and more options to protect our national interests if global compute supply becomes constrained.</p>
+864136	<p>The Government estimates that to protect our national interest, ensuring that we remain in the conversation internationally and benefit from secure access to AI models locally, will require 6 GW of AI data centre capacity by 2030.</p>
+864137	<p>We will only succeed in building out the compute we need if communities can see the benefits of development and if the barriers to delivery are addressed. Developers already operate within a robust regulatory framework, including planning requirements, environmental assessment and protections for local communities and natural resources. Existing rules govern issues such as water use, noise, air quality and pollution, and all data centres should meet a fair share of the costs they impose on the energy system.</p>
+864138	<p>This Covenant goes further to set out new tests all data centres are encouraged to meet, and which strategic data centres must meet to qualify for additional government action.</p>
+864139	<h2 id="lower-electricity-bills">1. Lower electricity bills</h2>
+864140	<p>Pay for their fair share of energy – covering any energy costs they create - so households, communities and other businesses do not pick up the bill. Their growth should help spread energy system costs across a larger base, reducing the share paid by households and businesses. They should also support grid resilience, flexibility and clean power.</p>
+864141	<p>As renewable generation increases, new demand from AI data centres may help spread the energy system’s fixed costs across more users, supporting lower electricity costs and the wider electrification of heating, transport and industry.</p>
+864142	<p>That growth must work for the energy system. Data centres will therefore be expected to make credible commitments for the grid capacity they request, support security of supply, investment in clean power and net zero, use resources responsibly and support an efficient, flexible, and resilient energy system.</p>
+864143	<h2 id="invest-in-improving-local-communities">2. Invest in improving local communities</h2>
+864144	<p>Communities that host nationally important infrastructure should share directly in the rewards.  Strategic data centres should agree a Local Benefit Plan that commits to substantial investment, developed with the local community and linked to the development’s size.  This can be spent on local priorities, like transport, parks and town centres.</p>
+864145	<p>The construction and maintenance of AI data centres will increase local employment, open opportunities for local suppliers and support investment in skills and training. But communities hosting major developments should also see clear, lasting improvements to their local area. Developers must already meet planning requirements such as Section 106 and the Community Infrastructure Levy, which fund local infrastructure needs like transport networks and other community assets. Strategic data centre developers will be required to go further, including working with the local area on a Local Benefit Plan for investment in the local community, linked to the development’s size. Communities should have a meaningful say in how these benefits are designed and allocated.</p>
+864146	<h2 id="adhere-to-the-highest-environmental-standards">3. Adhere to the highest environmental standards</h2>
+864147	<p>Protect nature, minimise water use and publish annual energy and water consumption reports.  They should also capture the heat they produce for nearby homes, schools, hospitals or businesses wherever practical, rather than letting it go to waste.</p>
+864148	<p>They should use energy and water efficiently, with new facilities designed to achieve a Power Usage Effectiveness of 1.3 or better and minimise demand for public water supplies by using technologies such as closed loop water systems.  Additionally, developers should design projects to capture and reuse waste heat where there is a viable local user. Strategic data centres should report annually on their energy and water use, efficiency, emissions, heat reuse and participation in flexibility services, and we will strongly encourage existing operators to do the same.</p>
+864149	<h2 id="create-jobs-apprenticeships-and-drive-reindustrialisation">4. Create jobs, apprenticeships, and drive reindustrialisation</h2>
+864150	<p>Create local jobs and invest in paid apprenticeships and training places, supporting young people into the AI, digital and infrastructure jobs of the future. They should also prioritise UK suppliers and technologies and make a meaningful contribution to the development and deployment of British AI hardware.</p>
+864151	<p>Developers should create good, well-paid jobs that last beyond construction. They should recruit locally where possible and invest in apprenticeships, colleges and universities.  Where roles cannot currently be filled locally, they should invest in education and training to enable more local people to access these opportunities in the future. </p>
+864152	<p>Data centres are expected to help build capability in strategically important supply chains. They should also partner with UK researchers and innovative companies, and provide access to compute where appropriate, to accelerate innovation and strengthen national capability. The most strategically important data centres will be expected to make a meaningful contribution to the development and deployment of British AI hardware in the UK.</p>
+864153	<h2 id="strengthen-britains-security">5. Strengthen Britain’s security</h2>
+864154	<p>Provide secure and reliable access to compute the UK needs, including for our NHS and other public services.  They should work with the relevant national technical authorities, including the National Cyber Security Centre, to enhance resilience against cyber and hybrid threats beyond baseline requirements.</p>
+864155	<p>Data centres should provide secure, resilient UK access to compute for critical services and national priorities. As critical national infrastructure, operators should share relevant information with government and technical agencies, meet current and future cyber resilience standards and work with the relevant national technical authorities to strengthen security and resilience further. They should also plan with critical suppliers for foreseeable disruption and participate in government exercises to test arrangements for prioritising essential services.</p>
+864156	<p>These tests will be kept under review and updated as necessary to ensure that commitments remain proportionate and deliver clear value to communities and the wider UK.</p>
+864157	<p>In return for meeting these tests, the government will establish a new Ministerial Control Centre for considering supportive action for strategic data centres. This will be chaired by the Minister for AI, supported by the Exchequer Secretary to the Treasury and relevant ministers from the Department for Energy Security and Net Zero and other departments. It will use the power of the state to accelerate time to power and speed up the planning process for the most strategic data centres.</p>
+864158	<p>For sites that demonstrate sufficient strategic value, the government will:</p>
+864160	  <li>reserve and reallocate connections. The Government will use new powers in the Planning and Infrastructure Act to prioritise strategically important demand projects, including data centres, by reserving future capacity and reallocating capacity released when other projects leave the connections queue. This will help strategically important projects, including data centres, access grid capacity more quickly, as it becomes available.</li>
+864161	  <li>identify additional capacity. The Government will work with NESO and the network companies to identify locations where capacity may be available before 2030 and may use Planning and Infrastructure Act powers to enable strategically important data centres and other strategically important projects to access this capacity.</li>
+864162	  <li>accelerate connections before 2030. Where there is a need to go further, the Government will use Planning and Infrastructure Act powers to facilitate transfer of pre-2030 data centre connections contracts to strategically important data centres, to secure access to power in this critical period for the development of AI. </li>
+864163	  <li>enable access to temporary power to bridge the gap to grid connections. The Government will develop a tightly controlled framework to permit on site generation until a grid connection can be secured. This will only be available for exceptionally strategic projects, only where the measures set out above cannot secure the required capacity in time, and subject to conditions such as ensuring energy security.</li>
+864165	<p>The government will set out further details in due course on the definition of strategic data centres and the additional criteria such projects will be expected to meet.</p>
+864166	<p>In addition, the government is moving forward with wider reforms to support viable projects to build faster and with more certainty while meeting expectations to support sustainable growth, protect communities, and conserve resources. The government will:</p>
+864167	  <li>move forward with the strategic alignment of data-centre grid connections to regional infrastructure targets beyond 2030, informed by the ALIGN spatial planning tool, to secure vital capacity while balancing the needs of the energy system and other relevant constraints including water and land.</li>
+864168	  <li>support greater choice for developers to self-build connection infrastructure, subject to appropriate consumer and system protections;</li>
+864169	  <li>develop ways for data centres to connect more flexibly to the system and develop backstop operational control measures that enable more data centre demand to connect while keeping the system secure;</li>
+864170	  <li>support implementation of Ofgem’s data-centre commitment fee and queue management measures to deter speculative demand, and free up connection capacity for viable projects;</li>
+864171	  <li>publish the draft Data Centre National Policy Statement for consultation, which sets out the decision-making framework for data centre projects seeking development consent through the Nationally Significant Infrastructure Project regime. This framework will establish a progressive vision for harnessing this investment, ensuring that data centre growth delivers clean energy, skilled jobs, and meaningful benefits for local communities in line with the tests in the Covenant;</li>
+864172	  <li>encourage all operators to use energy and water efficiently and publish annual data on total and peak water and power use, as set out in the Written Ministerial Statement on Enabling Sustainable Data Centre Growth Through Responsible Water and Energy Use;</li>
+864173	  <li>continue to deliver the five AI Growth Zones across England, Scotland and Wales to accelerate planning and infrastructure delivery for AI capacity.</li>
+864174	<p>This Covenant sets out a clear offer: government will support faster and more certain delivery of the data centres the country needs in return for responsible development that delivers lasting benefits for communities. Together, these measures will help keep more of the benefits of AI in Britain, supported by infrastructure that serves our long-term interests.</p>
+864176	  <div class="govuk-grid-row back-to-top-wrapper">
+864177	<a class="govuk-link gem-c-back-to-top-link govuk-!-display-none-print" href="#contents">
+864178	    <svg class="gem-c-back-to-top-link__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17" aria-hidden="true" focusable="false">
+864179	      <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z" />
+864180	    </svg>
+864181	    Back to top
+864184	      <div class="govuk-width-container">
+864185	<div data-module="feedback ga4-event-tracker" class="gem-c-feedback govuk-!-display-none-print">
+864186	<div class="gem-c-feedback__prompt gem-c-feedback__js-show js-prompt" tabindex="-1">
+864187	  <div class="gem-c-feedback__prompt-content">
+864188	    <div class="gem-c-feedback__prompt-questions js-prompt-questions" hidden>
+864189	      <div class="gem-c-feedback__prompt-question-answer">
+864190	        <h2 class="gem-c-feedback__prompt-question">Is this page useful?</h2>
+864191	        <ul class="gem-c-feedback__option-list">
+864192	          <li class="gem-c-feedback__option-list-item govuk-visually-hidden" hidden>
+864193	            <a class="gem-c-feedback__prompt-link" role="button" hidden="hidden" href="/contact/govuk">
+864194	              Maybe
+864195	</a>          </li>
+864196	          <li class="gem-c-feedback__option-list-item">
+864197	            <button class="govuk-button gem-c-feedback__prompt-link js-page-is-useful" data-ga4-event='{"event_name":"form_submit","type":"feedback","text":"Yes","section":"Is this page useful?","tool_name":"Is this page useful?"}'>
+864198	              Yes <span class="govuk-visually-hidden">this page is useful</span>
+864199	</button>          </li>
+864200	            <button class="govuk-button gem-c-feedback__prompt-link js-toggle-form js-page-is-not-useful" aria-controls="page-is-not-useful" data-ga4-event='{"event_name":"form_submit","type":"feedback","text":"No","section":"Is this page useful?","tool_name":"Is this page useful?"}'>
+864201	              No <span class="govuk-visually-hidden">this page is not useful</span>
+864203	    <div class="gem-c-feedback__prompt-questions gem-c-feedback__prompt-success js-prompt-success" role="alert" hidden>
+864204	      Thank you for your feedback
+864205	    <div class="gem-c-feedback__prompt-questions gem-c-feedback__prompt-questions--something-is-wrong js-prompt-questions" hidden>
+864206	      <button class="govuk-button gem-c-feedback__prompt-link js-toggle-form js-something-is-wrong" aria-controls="something-is-wrong" data-ga4-event='{"event_name":"form_submit","type":"feedback","text":"Report a problem with this page","section":"Is this page useful?","tool_name":"Is this page useful?"}'>
+864207	        Report a problem with this page
+864208	  <form action="/contact/govuk/problem_reports"
+864209	  id="something-is-wrong"
+864210	  class="gem-c-feedback__form js-feedback-form"
+864211	  method="post"
+864212	  hidden>
+864213	  <div class="govuk-grid-row">
+864214	    <div class="govuk-grid-column-two-thirds">
+864215	      <div class="gem-c-feedback__error-summary gem-c-feedback__js-show js-errors" tabindex="-1" hidden></div>
+864216	      <input type="hidden" name="url" value="https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant">
+864217	      <h2 class="gem-c-feedback__form-heading">Help us improve GOV.UK</h2>
+864218	      <p id="feedback_explanation" class="gem-c-feedback__form-paragraph">Do not include personal or financial information like your National Insurance number or credit card details.</p>
+864219	      <div class="govuk-visually-hidden" aria-hidden="true">
+864220	        <label for="giraffe">This field is for robots only. Please leave blank</label>
+864221	        <input id="giraffe" name="giraffe" type="text" pattern=".{0}" tabindex="-1" autocomplete="off">
+864222	      <div class="gem-c-textarea govuk-form-group govuk-!-margin-bottom-6">
+864223	  <label for="textarea-5696b771" class="gem-c-label govuk-label">What were you doing?</label>
+864224	  <textarea name="what_doing" class="govuk-textarea" id="textarea-5696b771" rows="3" spellcheck="true" aria-describedby="feedback_explanation">
+864226	     
+864227	  <label for="textarea-7ced9729" class="gem-c-label govuk-label">What went wrong?</label>
+864228	  <textarea name="what_wrong" class="govuk-textarea" id="textarea-7ced9729" rows="3" spellcheck="true">
+864229	      <div class="gem-c-feedback__button-wrapper">
+864230	  <button class="gem-c-button govuk-button govuk-!-margin-bottom-6" type="submit" data-ga4-event='{"event_name":"form_submit","type":"feedback","text":"Send","section":"Help us improve GOV.UK","tool_name":"Help us improve GOV.UK"}'>Send</button>
+864231	  <button class="gem-c-button govuk-button gem-c-button--secondary-quiet govuk-!-margin-bottom-0 js-close-form" type="submit" aria-controls="something-is-wrong">Cancel</button>
+864233	 <script nonce="ZXk3nmjcAutlxjkNznyJ8w==">
+864234	  document.addEventListener("DOMContentLoaded", function () {
+864235	    var input = document.querySelector("#giraffe"),
+864236	      form = document.querySelector("#something-is-wrong")
+864237	    form.addEventListener("submit", spamCapture);
+864238	    function spamCapture(e) {
+864239	      if (input.value.length !== 0) return;
+864241	  <div id="page-is-not-useful" class="gem-c-feedback__form gem-c-feedback__form--email gem-c-feedback__js-show js-feedback-form">
+864242	    <div class="govuk-grid-column-two-thirds" id="survey-wrapper">
+864243	      <div class="gem-c-feedback__error-summary js-errors" tabindex="-1" hidden></div>
+864244	      <p id="survey_explanation" class="gem-c-feedback__form-paragraph">
+864245	        To help us improve GOV.UK, we’d like to know more about your visit today.
+864246	        <a href="https://www.smartsurvey.co.uk/s/gov-uk-banner/?c=no-js" class="govuk-link" target="_blank" rel="noopener noreferrer external">Please fill in this survey (opens in a new tab<noscript> and requires JavaScript</noscript>)</a>.
+864248	      <div class="gem-c-feedback__close">
+864249	  <button class="gem-c-button govuk-button gem-c-button--secondary-quiet govuk-!-margin-bottom-6 js-close-form" type="submit" aria-controls="page-is-not-useful">Cancel</button>
+864250	        <footer data-module="ga4-link-tracker" class="gem-c-layout-footer govuk-footer">
+864251	    <svg
+864252	      xmlns="http://www.w3.org/2000/svg"
+864253	      focusable="false"
+864254	      role="presentation"
+864255	      viewBox="0 0 64 60"
+864256	      height="30"
+864257	      width="32"
+864258	      fill="currentcolor"
+864259	      class="govuk-footer__crown">
+864260	      <g>
+864261	        <circle cx="20" cy="17.6" r="3.7"></circle>
+864262	        <circle cx="10.2" cy="23.5" r="3.7"></circle>
+864263	        <circle cx="3.7" cy="33.2" r="3.7"></circle>
+864264	        <circle cx="31.7" cy="30.6" r="3.7"></circle>
+864265	        <circle cx="43.3" cy="17.6" r="3.7"></circle>
+864266	        <circle cx="53.2" cy="23.5" r="3.7"></circle>
+864267	        <circle cx="59.7" cy="33.2" r="3.7"></circle>
+864268	        <path d="M33.1,9.8c.2-.1.3-.3.5-.5l4.6,2.4v-6.8l-4.6,1.5c-.1-.2-.3-.3-.5-.5l1.9-5.9h-6.7l1.9,5.9c-.2.1-.3.3-.5.5l-4.6-1.5v6.8l4.6-2.4c.1.2.3.3.5.5l-2.6,8c-.9,2.8,1.2,5.7,4.1,5.7h0c3,0,5.1-2.9,4.1-5.7l-2.6-8ZM37,37.9s-3.4,3.8-4.1,6.1c2.2,0,4.2-.5,6.4-2.8l-.7,8.5c-2-2.8-4.4-4.1-5.7-3.8.1,3.1.5,6.7,5.8,7.2,3.7.3,6.7-1.5,7-3.8.4-2.6-2-4.3-3.7-1.6-1.4-4.5,2.4-6.1,4.9-3.2-1.9-4.5-1.8-7.7,2.4-10.9,3,4,2.6,7.3-1.2,11.1,2.4-1.3,6.2,0,4,4.6-1.2-2.8-3.7-2.2-4.2.2-.3,1.7.7,3.7,3,4.2,1.9.3,4.7-.9,7-5.9-1.3,0-2.4.7-3.9,1.7l2.4-8c.6,2.3,1.4,3.7,2.2,4.5.6-1.6.5-2.8,0-5.3l5,1.8c-2.6,3.6-5.2,8.7-7.3,17.5-7.4-1.1-15.7-1.7-24.5-1.7h0c-8.8,0-17.1.6-24.5,1.7-2.1-8.9-4.7-13.9-7.3-17.5l5-1.8c-.5,2.5-.6,3.7,0,5.3.8-.8,1.6-2.3,2.2-4.5l2.4,8c-1.5-1-2.6-1.7-3.9-1.7,2.3,5,5.2,6.2,7,5.9,2.3-.4,3.3-2.4,3-4.2-.5-2.4-3-3.1-4.2-.2-2.2-4.6,1.6-6,4-4.6-3.7-3.7-4.2-7.1-1.2-11.1,4.2,3.2,4.3,6.4,2.4,10.9,2.5-2.8,6.3-1.3,4.9,3.2-1.8-2.7-4.1-1-3.7,1.6.3,2.3,3.3,4.1,7,3.8,5.4-.5,5.7-4.2,5.8-7.2-1.3-.2-3.7,1-5.7,3.8l-.7-8.5c2.2,2.3,4.2,2.7,6.4,2.8-.7-2.3-4.1-6.1-4.1-6.1h10.6,0Z"></path>
+864269	      </g>
+864270	      <div class="govuk-footer__navigation">
+864271	            <div class="govuk-grid-column-two-thirds govuk-!-display-none-print">
+864272	              <h2 class="govuk-footer__heading govuk-heading-m">Services and information</h2>
+864273	                <ul class="govuk-footer__list govuk-footer__list--columns-2">
+864274	                      <li class="govuk-footer__list-item">
+864275	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"1","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/benefits">Benefits</a>
+864276	                      </li>
+864277	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"2","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/births-deaths-marriages">Births, death, marriages and care</a>
+864278	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"3","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/business">Business and self-employed</a>
+864279	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"4","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/childcare-parenting">Childcare and parenting</a>
+864280	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"5","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/citizenship">Citizenship and living in the UK</a>
+864281	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"6","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/justice">Crime, justice and the law</a>
+864282	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"7","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/disabilities">Disabled people</a>
+864283	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"8","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/driving">Driving and transport</a>
+864284	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"9","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/education">Education and learning</a>
+864285	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"10","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/employing-people">Employing people</a>
+864286	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"11","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/environment-countryside">Environment and countryside</a>
+864287	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"12","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/housing-local-services">Housing and local services</a>
+864288	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"13","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/tax">Money and tax</a>
+864289	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"14","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/abroad">Passports, travel and living abroad</a>
+864290	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"15","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/visas-immigration">Visas and immigration</a>
+864291	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"16","index_section":"1","index_section_count":"5","index_total":"16","section":"Services and information"}' href="/browse/working">Working, jobs and pensions</a>
+864293	            <div class="govuk-grid-column-one-third govuk-!-display-none-print">
+864294	              <h2 class="govuk-footer__heading govuk-heading-m">Government activity</h2>
+864295	                <ul class="govuk-footer__list govuk-footer__list--columns-1">
+864296	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"1","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/government/organisations">Departments</a>
+864297	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"2","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/search/news-and-communications">News</a>
+864298	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"3","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/search/guidance-and-regulation">Guidance and regulation</a>
+864299	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"4","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/search/research-and-statistics">Research and statistics</a>
+864300	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"5","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/search/policy-papers-and-consultations">Policy papers and consultations</a>
+864301	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"6","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/search/transparency-and-freedom-of-information-releases">Transparency</a>
+864302	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"7","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/government/how-government-works">How government works</a>
+864303	                        <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"8","index_section":"2","index_section_count":"5","index_total":"8","section":"Government activity"}' href="/government/get-involved">Get involved</a>
+864304	      <hr class="govuk-footer__section-break govuk-!-display-none-print">
+864305	    <div class="govuk-footer__meta">
+864306	      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+864307	          <h2 class="govuk-visually-hidden">Support links</h2>
+864308	          <ul class="govuk-footer__inline-list govuk-!-display-none-print">
+864309	              <li class="govuk-footer__inline-list-item">
+864310	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"1","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/help">Help</a>
+864311	              </li>
+864312	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"2","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/help/privacy-notice">Privacy</a>
+864313	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"3","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/help/cookies">Cookies</a>
+864314	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"4","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/help/accessibility-statement">Accessibility statement</a>
+864315	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"5","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/contact">Contact</a>
+864316	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"6","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/help/terms-conditions">Terms and conditions</a>
+864317	                <a class="govuk-footer__link" lang="cy" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"7","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/cymraeg">Rhestr o Wasanaethau Cymraeg</a>
+864318	                <a class="govuk-footer__link" data-ga4-link='{"event_name":"navigation","type":"footer","index_link":"8","index_section":"3","index_section_count":"5","index_total":"8","section":"Support links"}' href="/government/organisations/government-digital-service">Government Digital Service</a>
+864320	          <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 483.2 195.7" height="17" width="41">
+864321	            <path
+864322	              fill="currentColor"
+864323	              d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+864325	            class="govuk-footer__licence-description"
+864326	            data-ga4-link='{"event_name":"navigation","section":"Licence","index_section":"4","index_link":"1","index_section_count":"5","text":"Open Government Licence v3.0","index_total":"1","type":"footer"}'>
+864327	            All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+864328	      <div
+864329	        class="govuk-footer__meta-item"
+864330	        data-ga4-link='{"event_name":"navigation","section":"Copyright","index_section":"5","index_link":"1","index_section_count":"5","text":"© Crown copyright","index_total":"1","type":"footer"}'>
+864331	        <a class="govuk-footer__link govuk-footer__copyright-logo" href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
+864333	    <script src="/assets/frontend/application-8fe64fc846ff6c349839e73b01a76d3fbc373d266f1f8ef7a9fc749440eed2b0.js" type="module"></script>
+864335	    return spec["edition_url"] + "?" + urlencode({"technology": "all", "q": row["repd_ref"]})
+864336	        expect(page.locator('#pipeline')).to_have_attribute('href', 'https://globalgrid2050.com/uk_renewables_pipeline/202611232245/?technology=all&q=9873')
+864337	    target.searchParams.set('technology','all');
+864338	        register_url = 'https://globalgrid2050.com/homepage-shell/data/homepage.json'
+864339	        old = '202611232245'
+864340	        new = '202611280048'
+864341	        releases = [dict(id=r,url=f'https://globalgrid2050.com/uk_renewables_pipeline/{r}/') for r in (old,new)]
+864342	        registry = dict(entities=[dict(id='pipeline-news',operative_release_id=new,releases=releases)])
+864343	        page.route(register_url, lambda route: route.fulfill(json=registry,
+864344	                   headers={'access-control-allow-origin':'*'}))
+864345	        expect(page.locator('#pipeline')).to_have_attribute('href', f'https://globalgrid2050.com/uk_renewables_pipeline/{new}/?technology=all&q=9873')
+864346	        expect(page.locator('#source-edition')).to_have_attribute('href','https://ventusltd.github.io/gridatlas/atlas/v/202611222343/')
+864347	        expect(page.get_by_role('link',name='Read the project review')).to_have_attribute('href','../research/repd-top-100-2026-11-28/')
+864348	        expect(page.get_by_role('link',name='Download all 100 records (CSV)')).to_have_attribute('href','../research/repd-top-100-2026-11-28/project-review.csv')
+864349	        expect(page.get_by_role('link',name='Archived HM Treasury Data Centre Covenant')).to_have_attribute('href','../research/repd-top-100-2026-11-28/data-centre-covenant.html')
+864350	        page.goto(address + f'?source_app=pipelinenews&repd_ref=9873&source_release={old}')
+864351	        expect(page.locator('#source-edition')).to_have_attribute('href', f'https://globalgrid2050.com/uk_renewables_pipeline/{old}/?technology=all&q=9873')
+864352	        page.goto(address + '?source_app=pipelinenews&source_release=209901010000')
+864353	        expect(page.locator('#source-edition')).to_be_hidden()
+864354	        page.route(register_url,lambda route: route.abort())
+864355	        expect(page.locator('#pipeline')).to_have_text('Pipeline News · edition 202611232245')
+864356	<meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'self' https://globalgrid2050.com/homepage-shell/data/homepage.json;object-src 'none';base-uri 'none'">
+864357	<a id="pipeline" href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Pipeline News · edition 202611232245</a>
+864358	<a href="https://ventusltd.github.io/gridatlas/atlas/">Current GridAtlas</a>
+864359	<a id="source-edition" hidden></a>
+864360	<section aria-labelledby="review-heading">
+864361	<h2 id="review-heading">Britain’s 100 largest REPD records</h2>
+864362	<p>The 28 November 2026 review checks project identity, planning decisions and grid evidence for the largest Q3 records by reported MW.</p>
+864363	<nav class="registers" aria-label="Top 100 research">
+864364	<a href="../research/repd-top-100-2026-11-28/">Read the project review</a>
+864365	<a href="../research/repd-top-100-2026-11-28/project-review.csv" download>Download all 100 records (CSV)</a>
+864366	<a href="../research/repd-top-100-2026-11-28/data-centre-covenant.html">Archived HM Treasury Data Centre Covenant</a>
+864367	const releaseRegister = 'https://globalgrid2050.com/homepage-shell/data/homepage.json';
+864368	const pipelineBase = 'https://globalgrid2050.com/uk_renewables_pipeline/';
+864369	const knownPipeline = '202611232245';
+864370	function pipelineLocation(release) {
+864371	  const url = new URL(pipelineBase + release + '/');
+864372	    url.searchParams.set('technology','all');
+864373	    url.searchParams.set('q',ref);
+864375	function showSourceEdition(knownReleases) {
+864376	  const source = (query.get('source_app') || '').toLowerCase();
+864377	  const release = query.get('source_release');
+864378	  const link = byId('source-edition');
+864379	  if (source === 'pipelinenews' && knownReleases.has(release)) {
+864380	    link.href = pipelineLocation(release).href;
+864381	    link.textContent = 'Pipeline News source edition · ' + release;
+864382	  } else if (source === 'gridatlas' && ['202611222343','202611280016'].includes(release)) {
+864383	    link.href = 'https://ventusltd.github.io/gridatlas/atlas/v/' + release + '/';
+864384	    link.textContent = 'GridAtlas source edition · ' + release;
+864386	  link.hidden = false;
+864387	async function releaseLinks() {
+864388	  const link = byId('pipeline');
+864389	  link.href = pipelineLocation(knownPipeline).href;
+864390	  showSourceEdition(new Set([knownPipeline]));
+864391	    const register = await getJson(releaseRegister);
+864392	    const app = register.entities.find(entity => entity.id === 'pipeline-news');
+864393	    const releases = new Set(app.releases
+864394	      .filter(item => /^\d{12}$/.test(item.id) && item.url === pipelineBase + item.id + '/')
+864395	      .map(item => item.id));
+864396	    if (!releases.has(app.operative_release_id)) return;
+864397	    link.href = pipelineLocation(app.operative_release_id).href;
+864398	    link.textContent = 'Current Pipeline News · ' + app.operative_release_id;
+864399	    showSourceEdition(releases);
+864400	    // The explicitly labelled local edition remains usable when the register is offline.
+864401	releaseLinks();
+864402	// Replay the admitted legal vaccine in CVAA's own data-only worker.
+864404	const [registry, contractPath] = process.argv.slice(2);
+864405	const vaccine = '202611280012-legal-evidence-screening.md';
+864406	const read = path => readFileSync(path, 'utf8');
+864407	const lock = JSON.parse(read(join(registry, 'vaccines.lock')));
+864408	const document = read(join(registry, 'vaccines', vaccine)).replaceAll('\r\n', '\n');
+864409	const sha256 = text => createHash('sha256').update(text).digest('hex');
+864410	assert.equal(sha256(document), lock[vaccine], 'admitted antibody digest');
+864411	const code = document.match(/```js\n([\s\S]*?)\n```/)?.[1];
+864412	assert.ok(code, 'admitted antibody has an executable body');
+864413	const receipt = read(contractPath);
+864414	const check = document => {
+864415	  const contract = { file: 'legal-evidence.json', document, error: null };
+864416	  const child = spawnSync(process.execPath, [join(registry, 'tools', 'antibody-runner.mjs')], {
+864417	    env: {}, timeout: 5000, encoding: 'utf8',
+864418	    input: JSON.stringify({code, ctx: {controlContracts: [contract]}})
+864419	  assert.equal(child.status, 0, child.error?.message || child.stderr);
+864420	  const result = JSON.parse(child.stdout);
+864421	  assert.equal(result.ok, true, result.e);
+864422	  assert.ok(!result.skip, 'actual contract evaluated');
+864423	  return result.r;
+864424	assert.deepEqual(check(JSON.parse(receipt)), [], 'live consumer receipt');
+864425	assert.deepEqual(check({schema: 'invalid'}), ['invalid-receipt'], 'adverse control');
+864426	console.log(JSON.stringify({vaccine, vaccine_sha256: lock[vaccine], contract: contractPath,
+864427	  receipt_sha256: sha256(receipt), findings: [], adverse_control: 'invalid-receipt'}));
+864431	const source = readFileSync(new URL('../vaccines/202608301701-monotonic-utc-generations.md', import.meta.url), 'utf8');
+864432	const code = source.split('```js\n')[1].split('\n```')[0];
+864433	const { default: check } = await import('data:text/javascript,' + encodeURIComponent(code));
+864434	const first = {sha: '1'.repeat(40), date: '2026-08-30T16:20:22Z', generation: '202608301940'};
+864435	const next = {sha: '2'.repeat(40), date: '2026-08-30T16:31:22Z', generation: '202608301631'};
+864436	const correction = {sha: first.sha, recorded: first.generation, corrected: '202608301620', reason: 'Compare exact UTC author timestamp'};
+864437	const run = (entries, commits = [next, first]) => check({commits, config: {historical_generation_corrections: entries}});
+864438	assert.equal(run([]).length, 2);
+864439	assert.deepEqual(run([correction]), []);
+864440	assert.ok(run([{...correction, corrected: '202608301619'}]).length);
+864441	assert.ok(run([{...correction, recorded: '202608301945'}]).length);
+864442	assert.ok(run([{...correction, sha: '3'.repeat(40)}]).length);
+864443	assert.ok(run([correction, correction]).length);
+864444	assert.ok(run([correction], [{...next, generation: '202608301615'}, first]).length);
+864445	console.log('Historical corrections require exact revision, original stamp and Git UTC minute. New regressions still fail.');
+864446	/** Replay the selected COSMIC functions against compact controlled sector fixtures. */
+864447	import assert from 'node:assert/strict';
+864448	import { execFileSync } from 'node:child_process';
+864449	import { createHash } from 'node:crypto';
+864450	import { resolve } from 'node:path';
+864451	import { runInNewContext } from 'node:vm';
+864452	import { requireExactCosmicTarget } from './exact_cosmic_target.mjs';
+864454	const REVISION = 'dbe20b06c1ac107e902b93354f8e8a37b0462ad0';
+864455	const BLOB = '41a9007eb8480538552240829c5cf7a137e0445c';
+864456	const SOURCE_SHA = 'e55b588267b87df4411481c7677e43419439d1813385a3308c6e226f19fc75bd';
+864457	const [, , option, checkout, unexpected] = process.argv;
+864458	if (option !== '--cosmic-root' || !checkout || unexpected) {
+864459	  throw new Error('Usage: node cosmic_regression.mjs --cosmic-root <local COSMIC checkout>');
+864461	const raw = execFileSync('git', ['-C', resolve(checkout), 'show', REVISION + ':index.html'], {
+864462	  env: { ...process.env, GIT_NO_LAZY_FETCH: '1' },
+864464	const header = Buffer.from('blob ' + raw.length + '\0');
+864465	assert.equal(createHash('sha1').update(header).update(raw).digest('hex'), BLOB);
+864466	assert.equal(createHash('sha256').update(raw).digest('hex'), SOURCE_SHA);
+864467	const html = raw.toString('utf8');
+864468	const begin = html.indexOf('function loadRows(url, depth)');
+864469	const end = html.indexOf('// --------------------------------------------------------------------------------- the camera', begin);
+864470	assert(begin >= 0 && end > begin);
+864471	const functions = html.slice(begin, end);
+864472	const levels = [
+864473	  { child: 'sector/{i2}.tsv' },
+864474	  { columns: ['label', 'value'], law: 'fixture' },
+864476	function scenario(body, { online = true } = {}) {
+864477	  const reads = [];
+864478	  const sandbox = {
+864479	    levels,
+864480	    calls: {},
+864481	    fetch: async url => {
+864482	      reads.push(url);
+864483	      assert.equal(url, 'sector/00.tsv');
+864484	      return { ok: online, status: 404, text: async () => body };
+864485	    },
+864486	  };
+864487	  runInNewContext(
+864488	    'const LEVELS = levels, fmt = n => String(n), GOLD32 = 0x9e3779b9, PER_PIXEL = 1 / 30;\n' +
+864489	    'const performance = { now: () => 0 }, cv = { height: 800 }, scale = 1, pan = [0, 0];\n' +
+864490	    'const place = (label, value, i, depth) => ({ label, value, i, depth, x: i, y: 0, rho: .1, seed: i });\n' +
+864491	    'const root = { children: [place("selected", 20, 0, 0), place("unrelated", 45, 1, 0)] };\n' +
+864492	    'const TOTAL = 65, LAWS = { fixture: rows => rows.forEach(r => Object.assign(r, { x:r.i, y:0, rho:.1 })) };\n' +
+864493	    'let tween; function restart() {}\n' + functions +
+864494	    '\ncumulate(root.children); calls.locate = async k => { target = null; await collapseTo(k); return target; };',
+864495	    sandbox,
+864496	    { filename: 'cosmic/index.html@' + REVISION }
+864498	  return { reads, locate: sandbox.calls.locate };
+864499	const healthy = scenario('leaf-a\t7\nleaf-b\t13\n');
+864500	const first = requireExactCosmicTarget(await healthy.locate(7), levels, 7);
+864501	assert.deepEqual(Array.from(first.path, item => item.label), ['selected', 'leaf-b']);
+864502	assert.equal(first.m, 0);
+864503	assert.deepEqual(healthy.reads, ['sector/00.tsv']);
+864504	const cached = requireExactCosmicTarget(await healthy.locate(7), levels, 7);
+864505	assert.deepEqual([cached.x, cached.y], [first.x, first.y]);
+864506	assert.equal(cached.fetches, 0);
+864507	assert.throws(() => requireExactCosmicTarget(first, levels, 8), /exact leaf contract/);
+864508	const mismatch = scenario('leaf-a\t7\nleaf-b\t12\n');
+864509	const parent = await mismatch.locate(7);
+864510	assert.deepEqual(Array.from(parent.path, item => item.label), ['selected']);
+864511	assert.throws(() => requireExactCosmicTarget(parent, levels, 7), /children sum to 19, parent holds 20/);
+864512	for (const incomplete of [scenario(''), scenario('', { online: false })]) {
+864513	  const incompleteTarget = await incomplete.locate(7);
+864514	  assert.deepEqual(Array.from(incompleteTarget.path, item => item.label), ['selected']);
+864515	  assert.throws(() => requireExactCosmicTarget(incompleteTarget, levels, 7), /did not resolve to a leaf/);
+864516	  assert.deepEqual(incomplete.reads, ['sector/00.tsv']);
+864517	const noIdentity = scenario('\t7\nleaf-b\t13\n');
+864518	const blankLeaf = await noIdentity.locate(0);
+864519	assert.equal(blankLeaf.node.label, '');
+864520	assert.throws(() => requireExactCosmicTarget(blankLeaf, levels, 0), /exact leaf contract/);
+864521	const outOfRange = await healthy.locate(65);
+864522	assert.throws(() => requireExactCosmicTarget(outOfRange, levels, 65), /did not resolve inside/);
+864523	assert.throws(() => requireExactCosmicTarget(first, levels, 7.5), /safe integer ordinal/);
+864524	console.log(JSON.stringify({
+864525	  passed: true,
+864526	  source: { repository: 'Ventusltd/cosmic', revision: REVISION, git_blob: BLOB,
+864527	    sha256: SOURCE_SHA, tablet: 6187, elements: [134863, 134865, 134905, 134906] },
+864528	  guards: {
+864529	    healthy: { path: Array.from(first.path, item => item.label), offset: first.m,
+864530	      cold_reads: healthy.reads.length, repeat_additional_reads: cached.fetches },
+864531	    malformed_original_parent: Array.from(parent.path, item => item.label),
+864532	    count_mismatch_refused: true, empty_refused: true, unavailable_refused: true,
+864533	    out_of_range_refused: true, non_integer_refused: true, mismatched_ordinal_refused: true, blank_leaf_refused: true,
+864534	  },
+864535	  scope: 'Pinned COSMIC functions with synthetic sector reads. No browser or latency claims.',
+864536	}, null, 2));
+864537	/** Confirm that COSMIC returned an exact leaf for the requested ordinal. */
+864538	export function requireExactCosmicTarget(target, levels, ordinal) {
+864539	  if (!Number.isSafeInteger(ordinal) || ordinal < 0) {
+864540	    throw new RangeError('An exact request needs a non-negative safe integer ordinal');
+864542	  if (!target) throw new RangeError('Ordinal did not resolve inside the cartridge');
+864543	  const { node, path, m, k, x, y } = target;
+864544	  const level = levels[node?.depth];
+864545	  if (level?.child) {
+864546	    throw new Error(node.badChildren || 'Selected sector did not resolve to a leaf');
+864547	  if (!level || !Array.isArray(path) || path.at(-1) !== node || k !== ordinal ||
+864548	      path.some(item => typeof item?.label !== 'string' || !item.label.trim()) ||
+864549	      !Number.isSafeInteger(node.value) || !Number.isSafeInteger(m) ||
+864550	      m < 0 || m >= node.value || !Number.isFinite(x) || !Number.isFinite(y)) {
+864551	    throw new Error('Resolved target does not satisfy the exact leaf contract');
+864552	  return target;
+864553	"""CVAA bounded regressions against the published SEED instruments."""
+864554	import argparse
+864555	import gc
+864556	import hashlib
+864557	import json
+864558	import sqlite3
+864559	import struct
+864560	import sys
+864561	import tempfile
+864562	import unittest
+864563	from contextlib import closing
+864564	from pathlib import Path
+864565	from unittest.mock import patch
+864566	LINE = "const rail = '\U0001f6e4';\n".encode()
+864567	TARGET = LINE * 2
+864568	URL = "https://fixture.invalid/rail-component.js"
+864569	DIGEST = "9fda1c9bae41562ad7972824077a02d08886a86ec095d77c25356426025e1be3"
+864570	BLOB = "e4cfc77fbb6b19979decc02df5b627281509c9d9"
+864571	READABLE = "code \u00b7 shown in full \u00b7 bounded CVAA fixture"
+864572	RULE = "=" * 78
+864573	class SelectedReader:
+864574	    """Count actual user-space reads and refuse an accidental full capture read."""
+864575	    def __init__(self, path, start, length):
+864576	        self.path = path
+864577	        self.start = start
+864578	        self.length = length
+864579	        self.opens = 0
+864580	        self.bytes_read = 0
+864581	    def open(self, mode):
+864582	        if mode != "rb":
+864583	            raise AssertionError(f"Capture opened with {mode}")
+864584	        self.opens += 1
+864585	        return self
+864586	    def __enter__(self):
+864587	        self.stream = self.path.open("rb")
+864588	    def __exit__(self, *args):
+864589	        self.stream.close()
+864590	    def seek(self, offset):
+864591	        if offset != self.start:
+864592	            raise AssertionError(f"Unexpected capture offset {offset}")
+864593	        self.stream.seek(offset)
+864594	    def read(self, size=-1):
+864595	        if size != self.length or self.bytes_read:
+864596	            raise AssertionError(f"Capture read outside one selected range: {size} bytes")
+864597	        data = self.stream.read(size)
+864598	        self.bytes_read += len(data)
+864599	        return data
+864600	def make_capture(path, bodies):
+864601	    lengths = [len(content.decode().encode("utf-16-le")) // 2 for _, content in bodies]
+864602	    index_role = READABLE.replace("shown in full", "in full")
+864603	    header = [
+864604	        RULE,
+864605	        "THE SCREEN THIS CAME FROM",
+864606	        '{"generation":"cvaa-fixture","capturedAt":"2026-11-27T00:00:00Z","viewport":{}}',
+864607	        "",
+864608	        f"CONTENTS -- {len(bodies)} file(s), {sum(lengths)} characters",
+864609	    ]
+864610	    for number, ((url, _), size) in enumerate(zip(bodies, lengths), 1):
+864611	        header.extend([f"{number}. {url}", f"     {size} chars \u00b7 {index_role}"])
+864612	    header.append("")
+864613	    parts = [("\n".join(header) + "\n").encode()]
+864614	    for (url, content), size in zip(bodies, lengths):
+864615	        parts.append(f"{RULE}\nFILE: {url}\n{size} chars \u00b7 {READABLE}\n{RULE}\n".encode())
+864616	        parts.extend([content, b"\n\n"])
+864617	    parts.append(f"{RULE}\nEND OF TELEPRINT\n{RULE}\n".encode())
+864618	    path.write_bytes(b"".join(parts))
+864619	def make_database(path):
+864620	    with closing(sqlite3.connect(path)) as db, db:
+864621	        db.executescript("""
+864622	            create table line (n integer primary key, text blob);
+864623	            create table tablet (n integer primary key, git_blob text unique, lines blob);
+864624	            create table occurrence (repo text, commit_sha text, path text, tablet integer);
+864625	            create table commit_info (repo text, sha text, date text);
+864626	        """)
+864627	        db.execute("insert into line values (41, ?)", (LINE,))
+864628	        db.execute("insert into tablet values (73, ?, ?)", (BLOB, struct.pack("<II", 41, 41)))
+864629	        db.execute("insert into occurrence values ('seed-fixture', 'commit-beta', 'rail.js', 73)")
+864630	        db.execute("insert into occurrence values ('seed-fixture', 'commit-alpha', 'rail.js', 73)")
+864631	        db.execute("insert into commit_info values ('seed-fixture', 'commit-alpha', '2026-11-27T00:00:00Z')")
+864632	class SeedRegression(unittest.TestCase):
+864633	    def setUp(self):
+864634	        temp = tempfile.TemporaryDirectory()
+864635	        self.addCleanup(temp.cleanup)
+864636	        self.addCleanup(gc.collect)
+864637	        self.root = Path(temp.name)
+864638	        self.database = self.root / "stars.sqlite"
+864639	        self.capture = self.root / "capture.txt"
+864640	        self.index_path = self.root / "capture-index.json"
+864641	        other = (b"padding " + "\N{SNOWMAN}".encode() + b"\n") * 2048
+864642	        make_capture(self.capture, [("https://fixture.invalid/unrelated", other), (URL, TARGET)])
+864643	        make_database(self.database)
+864644	        catalogue = teleprint_index.index(self.capture, self.database)
+864645	        self.record = catalogue["records"][1]
+864646	        self.index_path.write_text(json.dumps(catalogue), encoding="utf-8")
+864647	        self.evidence = self.root / "evidence.json"
+864648	        self.evidence.write_text('{"local_fixture":true}', encoding="utf-8")
+864649	    def seed(self, key, components=(), *, path="evidence.json", status="demonstrated"):
+864650	        return seed_discover.available_record(
+864651	            key, key, status, "conditional ordinal retrieval", path, "auditable rail",
+864652	            components)
+864653	    def initialise_fixture_catalogue(self, records):
+864654	        catalogue = self.root / "catalogue.sqlite"
+864655	        # Install the public schema, then use the normal registry API against a disposable workspace.
+864656	        seed_discover.initialize(catalogue, [])
+864657	        with closing(sqlite3.connect(catalogue)) as db:
+864658	            db.execute("pragma foreign_keys=on")
+864659	            seed_discover.install(db, records, workspace=self.root)
+864660	        return catalogue
+864661	    def test_metadata_only_deterministic_search_and_expansion_budget(self):
+864662	        catalogue = self.initialise_fixture_catalogue([
+864663	            self.seed("leaf"), self.seed("stage-a", ["leaf"]),
+864664	            self.seed("stage-b", ["leaf"]), self.seed("root", ["stage-a", "stage-b"]),
+864665	            self.seed("proposal", status="speculative"),
+864666	        ])
+864667	        connect = sqlite3.connect
+864668	        def allowed_connect(name, *args, **kwargs):
+864669	            self.assertEqual(name, catalogue.as_uri() + "?mode=ro")
+864670	            return connect(name, *args, **kwargs)
+864671	        with patch("io.open", side_effect=AssertionError("Opened evidence or estate file")), \
+864672	             patch.object(sqlite3, "connect", side_effect=allowed_connect):
+864673	            args = (catalogue, "conditional ordinal retrieval", 8)
+864674	            complete = seed_discover.discover(*args, depth=12, cap=9, verified_only=True)
+864675	            repeat = seed_discover.discover(*args, depth=12, cap=9, verified_only=True)
+864676	            limited = seed_discover.discover(*args, depth=12, cap=2, verified_only=True)
+864677	            unreachable = seed_discover.discover(catalogue, "volcano seismometer", 4)
+864678	        for key in ("hits", "expanded"):
+864679	            self.assertEqual(complete[key], repeat[key])
+864680	        self.assertEqual([row["id"] for row in complete["hits"]], ["leaf", "root", "stage-a", "stage-b"])
+864681	        self.assertEqual(len(complete["expanded"]), 4)
+864682	        self.assertFalse(complete["expansion_budget_exhausted"])
+864683	        self.assertEqual(len(limited["expanded"]), 2)
+864684	        self.assertTrue(limited["expansion_budget_exhausted"])
+864685	        self.assertEqual(unreachable["status"], "no_indexed_match")
+864686	        self.assertEqual(complete["metrics"]["inference_calls"], 0)
+864687	    def test_registry_preserves_deterministic_contract_digest(self):
+864688	        catalogue = self.initialise_fixture_catalogue([self.seed("stable")])
+864689	            (encoded,) = db.execute("select contract from record where id='stable'").fetchone()
+864690	        checkout = json.loads(encoded)
+864691	        expected = checkout.pop("digest")
+864692	        data = json.dumps(checkout, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+864693	        self.assertEqual(hashlib.sha256(data.encode()).hexdigest(), expected)
+864694	    def test_missing_and_cyclic_dependencies_rollback_metadata_and_postings(self):
+864695	        cases = [
+864696	            ([self.seed("valid"), self.seed("broken", ["absent"])], sqlite3.IntegrityError),
+864697	            ([self.seed("left", ["right"]), self.seed("right", ["left"])], ValueError),
+864698	        ]
+864699	        catalogue = self.initialise_fixture_catalogue([self.seed("previous")])
+864700	            for records, error in cases:
+864701	                with self.subTest(error=error), self.assertRaises(error):
+864702	                    seed_discover.install(db, records, workspace=self.root)
+864703	                self.assertEqual(db.execute("select id from record").fetchall(), [("previous",)])
+864704	                self.assertEqual(db.execute("select id from objective_fts").fetchall(), [("previous",)])
+864705	                self.assertEqual(db.execute("select * from dependency").fetchall(), [])
+864706	    def test_refuses_evidence_outside_working_root(self):
+864707	        contained = self.root / "nested"
+864708	        contained.mkdir()
+864709	        catalogue = self.initialise_fixture_catalogue([])
+864710	            with self.assertRaisesRegex(ValueError, "outside-workspace"):
+864711	                seed_discover.install(db, [self.seed("escape", path="../evidence.json")],
+864712	                                      workspace=contained)
+864713	            self.assertEqual(db.execute("select * from record").fetchall(), [])
+864714	    def test_selected_byte_range_and_cryptographic_identity(self):
+864715	        reader = SelectedReader(self.capture, self.record["byte_start"], len(TARGET))
+864716	        self.assertEqual(teleprint_index.retrieve(reader, self.record), TARGET)
+864717	        self.assertEqual(self.record["utf16_units"], 38)
+864718	        self.assertEqual(self.record["byte_length"], 42)
+864719	        self.assertEqual(self.record["text_sha256"], DIGEST)
+864720	        self.assertEqual(self.record["git_blob"], BLOB)
+864721	        self.assertEqual(self.record["tablet"], 73)
+864722	        self.assertEqual((reader.opens, reader.bytes_read), (1, len(TARGET)))
+864723	    def test_refuses_corrupted_selected_bytes_and_offsets(self):
+864724	        with self.assertRaisesRegex(ValueError, "differs from the index"):
+864725	            teleprint_index.retrieve(self.capture, dict(self.record,
+864726	                byte_start=self.record["byte_start"] + 1))
+864727	        with self.capture.open("r+b") as stream:
+864728	            stream.seek(self.record["byte_start"])
+864729	            stream.write(b"X")
+864730	            teleprint_index.retrieve(self.capture, self.record)
+864731	    def test_refuses_incomplete_capture_index(self):
+864732	        data = self.capture.read_bytes().replace(b"END OF TELEPRINT", b"CUT OFF")
+864733	        self.capture.write_bytes(data)
+864734	        with self.assertRaisesRegex(ValueError, "Incomplete capture"):
+864735	            teleprint_index.index(self.capture, self.database)
+864736	    def test_index_closes_owned_read_only_connection(self):
+864737	        class TrackingConnection(sqlite3.Connection):
+864738	            was_closed = False
+864739	            def close(self):
+864740	                self.was_closed = True
+864741	                super().close()
+864742	        connection = sqlite3.connect(self.database.as_uri() + "?mode=ro", uri=True,
+864743	                                     factory=TrackingConnection)
+864744	        with closing(connection), patch.object(teleprint_index, "connect", return_value=connection):
+864745	            self.assertEqual(teleprint_index.index(self.capture, self.database)["records"][1]["tablet"], 73)
+864746	            self.assertTrue(connection.was_closed, "Capture indexing retains its SQLite handle")
+864747	    def test_composition_reconstructs_exact_history_read_only(self):
+864748	        before = hashlib.sha256(self.database.read_bytes()).digest()
+864749	        capture = SelectedReader(self.capture, self.record["byte_start"], len(TARGET))
+864750	        statements = []
+864751	        original = experiment_b.connect
+864752	        def watched_connect(path):
+864753	            connection = original(path)
+864754	            self.assertEqual(connection.execute("pragma query_only").fetchone(), (1,))
+864755	            connection.set_trace_callback(statements.append)
+864756	            return connection
+864757	        with patch.object(experiment_b, "connect", watched_connect):
+864758	            result, logical_bytes, queries = experiment_b.composed(
+864759	                capture, URL, self.database, self.index_path)
+864760	        self.assertEqual(result, {
+864761	            "status": "byte-identical", "url": URL, "sha256": DIGEST, "git_blob": BLOB,
+864762	            "tablet": 73, "occurrences": [
+864763	                ("seed-fixture", "commit-alpha", "rail.js", "2026-11-27T00:00:00Z"),
+864764	                ("seed-fixture", "commit-beta", "rail.js", None),
+864765	            ],
+864766	        })
+864767	        self.assertEqual((capture.opens, capture.bytes_read), (1, len(TARGET)))
+864768	        self.assertEqual(logical_bytes, len(TARGET) + self.index_path.stat().st_size)
+864769	        self.assertEqual((queries, len(statements)), (3, 3))
+864770	        self.assertEqual(hashlib.sha256(self.database.read_bytes()).digest(), before)
+864771	    def test_corrupted_historical_bytes_never_receive_identity(self):
+864772	        with closing(sqlite3.connect(self.database)) as db, db:
+864773	            db.execute("update line set text=? where n=41", (b"another source line\n",))
+864774	        with self.assertRaisesRegex(ValueError, "Historical tablet integrity mismatch"):
+864775	            experiment_b.composed(self.capture, URL, self.database, self.index_path)
+864776	    def test_early_refusals_skip_the_historical_estate(self):
+864777	        catalogue = json.loads(self.index_path.read_text(encoding="utf-8"))
+864778	        with patch.object(experiment_b, "connect", side_effect=AssertionError("Opened STARS")):
+864779	            missing, _, queries = experiment_b.composed(
+864780	                self.capture, URL + "-nonexistent", self.database, self.index_path)
+864781	            self.assertEqual((missing["status"], queries), ("absent", 0))
+864782	            self.index_path.write_text(json.dumps(dict(catalogue, records=[self.record, self.record])),
+864783	                                       encoding="utf-8")
+864784	            duplicated, _, queries = experiment_b.composed(
+864785	                self.capture, URL, self.database, self.index_path)
+864786	            self.assertEqual((duplicated["status"], queries), ("ambiguous", 0))
+864787	            bad_record = dict(self.record, git_blob="0" * 40)
+864788	            self.index_path.write_text(json.dumps(dict(catalogue, records=[bad_record])),
+864789	            corrupt, _, queries = experiment_b.composed(
+864790	            self.assertEqual((corrupt["status"], queries), ("index-identity-drift", 0))
+864791	class PlannerRegression(unittest.TestCase):
+864792	    @classmethod
+864793	    def setUpClass(cls):
+864794	        directory = tempfile.TemporaryDirectory()
+864795	        cls.addClassCleanup(directory.cleanup)
+864796	        cls.catalogue = Path(directory.name) / "prior-28.sqlite"
+864797	        cls.routes = seed_discover.read_json(seed_root / "economy/routes.json")
+864798	        records = list(seed_discover.base_catalogue())
+864799	        if len(records) != 28:
+864800	            raise AssertionError("Expected the original 28 contracts in this fixture")
+864801	        seed_discover.initialize(cls.catalogue, records)
+864802	    def test_complete_pinned_cosmic_contract_proposes_one_command(self):
+864803	        inputs = {"ordinal": "17901", "cartridge": "universe.json"}
+864804	        with patch("io.open", side_effect=AssertionError("Planner read a payload file")):
+864805	            result = seed_plan.plan(self.catalogue, self.routes,
+864806	                                    "Locate ordinal 17901 in the hierarchy", inputs)
+864807	        self.assertEqual(result["status"], "ready_for_checked_invocation")
+864808	        self.assertEqual(result["argv"], ["node", "rare_cosmic.mjs", "17901", "universe.json"])
+864809	        self.assertEqual(result["missing"], [])
+864810	        self.assertEqual(result["ai_inference_calls"], 0)
+864811	    def test_missing_or_invalid_cosmic_arguments_produce_no_command(self):
+864812	        result = seed_plan.plan(self.catalogue, self.routes, "Locate the ordinal inside the sector",
+864813	                                {"ordinal": "-1"})
+864814	        self.assertEqual(result["status"], "supply_inputs")
+864815	        self.assertEqual(result["invalid"], ["ordinal"])
+864816	        self.assertEqual(result["missing"], ["cartridge"])
+864817	        self.assertNotIn("argv", result)
+864818	    def test_lexical_match_cannot_claim_executable_coverage(self):
+864819	        result = seed_plan.plan(self.catalogue, self.routes, "Explain ordinal arithmetic", {})
+864820	        self.assertEqual(result["status"], "investigate")
+864821	        self.assertIn("cosmic-ordinal-address", {r["id"] for r in result["candidates"]})
+864822	    def test_ambiguous_edits_refuse_before_opening_catalogue(self):
+864823	        with patch.object(sqlite3, "connect", side_effect=AssertionError("Opened catalogue")):
+864824	                "Audit captured historical source at an ordinal in a sector", {})
+864825	        self.assertEqual(result["status"], "ambiguous")
+864826	        self.assertEqual(set(result["known_contracts"]),
+864827	                         {"audit-captured-source", "cosmic-ordinal-address"})
+864828	if __name__ == "__main__":
+864829	    parser = argparse.ArgumentParser(description=__doc__)
+864830	    parser.add_argument("--seed-root", type=Path, required=True)
+864831	    parser.add_argument("--with-planner", action="store_true")
+864832	    args = parser.parse_args()
+864833	    sys.dont_write_bytecode = True
+864834	    seed_root = args.seed_root.resolve()
+864835	    sys.path.insert(0, str(seed_root))
+864836	    import experiment_b
+864837	    import seed_discover
+864838	    import teleprint_index
+864839	    suite = unittest.defaultTestLoader.loadTestsFromTestCase(SeedRegression)
+864840	    if args.with_planner:
+864841	        import seed_plan
+864842	        suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(PlannerRegression))
+864843	    outcome = unittest.TextTestRunner(verbosity=2).run(suite)
+864844	    print(json.dumps({"tests": outcome.testsRun, "passed": outcome.wasSuccessful(),
+864845	                      "stage": "deterministic synthetic SEED regression",
+864846	                      "scope": "Selected reads and SQL work, without machine-timing gates"}))
+864847	    sys.exit(not outcome.wasSuccessful())
+864848	"""CVAA cross-instrument checks for the next recursive SEED composition."""
+864849	class StateRegression(unittest.TestCase):
+864850	        self.addCleanup(directory.cleanup)
+864851	        self.inputs = make_fixture(Path(directory.name))
+864852	        self.before, self.before_index, self.after, self.after_index, self.database = self.inputs
+864853	    def compare(self, *, mechanism=None, limit=3, budget=500):
+864854	        return state_compare.compare(*self.inputs, SCOPE, mechanism, limit, budget)
+864855	    def mutate_index(self, path, operation):
+864856	        manifest = json.loads(path.read_text(encoding="utf-8"))
+864857	        operation(manifest)
+864858	        path.write_text(json.dumps(manifest), encoding="utf-8")
+864859	    def test_recursive_witness_provenance_and_exact_scope(self):
+864860	        before = self.database.read_bytes()
+864861	        result, usage = self.compare(mechanism=MECHANISM)
+864862	        self.assertEqual(result["counts"], dict(identical=1, changed=1, before_only=1,
+864863	                                               after_only=1, unread=1))
+864864	        self.assertEqual([row["status"] for row in result["changes"] if row["url"] == UNAVAILABLE],
+864865	                         ["unread"])
+864866	        self.assertNotIn(UNAVAILABLE, {w["url"] for w in result["witnesses"]})
+864867	        witness = result["mechanism"]
+864868	        self.assertTrue(witness["same_source"])
+864869	        for side in ("before", "after"):
+864870	            self.assertEqual(witness[side]["tablet"], 7740)
+864871	            self.assertTrue(witness[side]["scope_literal"])
+864872	        self.assertGreater(usage["payload_bytes"], 0)
+864873	        self.assertLessEqual(usage["payload_bytes"], 500)
+864874	        self.assertEqual(self.database.read_bytes(), before)
+864875	    def test_metadata_only_plan_opens_no_payload(self):
+864876	        error = AssertionError("Metadata-only plan opened a payload")
+864877	        with patch.object(state_compare, "retrieve", side_effect=error), \
+864878	             patch.object(state_compare, "selected_source", side_effect=error), \
+864879	             patch.object(state_compare, "composed", side_effect=error):
+864880	            result, usage = self.compare(mechanism=None, limit=0, budget=0)
+864881	        self.assertEqual(result["counts"]["changed"], 1)
+864882	        self.assertEqual(result["witnesses"], [])
+864883	        self.assertEqual(result["deferred_witnesses"], 3)
+864884	        self.assertEqual((usage["payload_bytes"], usage["sqlite_queries"]), (0, 0))
+864885	    def test_mechanism_budget_fails_before_payload_read(self):
+864886	        with patch.object(state_compare, "composed", side_effect=AssertionError("Opened STARS")):
+864887	            with self.assertRaisesRegex(ValueError, "budget"):
+864888	                self.compare(mechanism=MECHANISM, limit=3, budget=0)
+864889	    def test_refuses_duplicate_url_and_noncanonical_identity(self):
+864890	        original = self.after_index.read_bytes()
+864891	        mutations = [
+864892	            lambda m: m["records"].append(m["records"][0]),
+864893	            lambda m: m["records"][0].update(text_sha256="?" * 64),
+864894	            lambda m: m["records"][0].update(byte_start=-1),
+864895	        for mutation in mutations:
+864896	            with self.subTest(mutation=mutation):
+864897	                self.after_index.write_bytes(original)
+864898	                self.mutate_index(self.after_index, mutation)
+864899	                with self.assertRaisesRegex(ValueError, "Ambiguous or malformed"):
+864900	                    self.compare(mechanism=MECHANISM)
+864901	    def test_refuses_inconsistent_stars_identity(self):
+864902	        self.mutate_index(self.after_index, lambda m: m.update(database_sha256="0" * 64))
+864903	        with self.assertRaisesRegex(ValueError, "disagree on the recorded STARS"):
+864904	            self.compare(mechanism=MECHANISM)
+864905	    def test_refuses_selected_witness_corrupted_after_indexing(self):
+864906	        manifest = json.loads(self.after_index.read_text(encoding="utf-8"))
+864907	        selected = next(row for row in manifest["records"] if row["url"] == SCOPE + "same-url.json")
+864908	        with self.after.open("r+b") as payload:
+864909	            payload.seek(selected["byte_start"])
+864910	            payload.write(b"!")
+864911	    parser.add_argument("--seed-root", required=True, type=Path)
+864912	    parser.add_argument("--composition-root", type=Path)
+864913	    root = args.seed_root.resolve()
+864914	    sys.path[:0] = [str(root), str(args.composition_root or root / "next-compose")]
+864915	    import experiment_b  # Select supplied release modules before loading the higher-order seed.
+864916	    import state_compare
+864917	    from fixture import MECHANISM, SCOPE, UNAVAILABLE, make_fixture
+864918	    result = unittest.TextTestRunner(verbosity=2).run(
+864919	        unittest.defaultTestLoader.loadTestsFromTestCase(StateRegression))
+864920	    print(json.dumps({"tests": result.testsRun, "passed": result.wasSuccessful(),
+864921	                      "stage": "deterministic recursive SEED regression"}))
+864922	    sys.exit(not result.wasSuccessful())
+864940	const legalFixture = () => JSON.parse(readFileSync(join(here, 'tools/fixtures/legal-evidence.json'), 'utf8'));
+864942	  w(root, '.cvaa/contracts/legal-evidence.json', JSON.stringify(legalFixture()));
+864968	  'legal-evidence-screening': root => {
+864969	    const document = legalFixture();
+864970	    document.claim.actor = 'synthetic developer without recorded authority';
+864971	    w(root, '.cvaa/contracts/legal-evidence.json', JSON.stringify(document));
+865122	execSync(`node ${join(here, 'tools', 'generation-correction.test.mjs')}`, { stdio: 'inherit' });
+865246	"""Exercise the full PipelineNews project panel and the public legal reader."""
+865254	from preview import EDITION, Preview, ThreadingHTTPServer
+865255	def run(output):
+865257	    with ThreadingHTTPServer(("127.0.0.1", 0), Preview) as server, sync_playwright() as driver:
+865259	        with driver.chromium.launch(executable_path=os.getenv("CHROME_BIN")) as browser:
+865260	            page = browser.new_page(viewport={"width": 1280, "height": 850})
+865261	            base = f"http://127.0.0.1:{server.server_port}"
+865262	            page.goto(base + EDITION + "?technology=all&q=9873", wait_until="domcontentloaded", timeout=180000)
+865263	            row = page.locator("#repd-9873")
+865264	            expect(row).to_be_visible(timeout=240000)
+865265	            expected_name = row.locator(".compact-project-name").text_content().strip()
+865266	            report = {"reference": "9873", "edition": "202611232245", "viewports": []}
+865267	            for width in (1280, 390):
+865268	                page.set_viewport_size({"width": width, "height": 850})
+865269	                detail = row.locator("details.project-record")
+865270	                if detail.get_attribute("open") is None:
+865271	                    detail.locator("summary").click()
+865272	                action = detail.get_by_role("link", name="Legal evidence", exact=True)
+865273	                expect(action).to_be_visible()
+865274	                action.scroll_into_view_if_needed()
+865275	                page.screenshot(path=output / f"PipelineNews-{width}.png")
+865276	                report["viewports"].append(width)
+865277	            target = action.get_attribute("href")
+865278	            parsed = urlsplit(target)
+865279	            params = parse_qs(parsed.query)
+865280	            assert (parsed.scheme, parsed.netloc, parsed.path) == ("https", "ventusltd.github.io", "/legislation/legal-evidence/")
+865281	            assert params["repd_ref"] == ["9873"] and params["project"] == [expected_name]
+865282	            assert params["source_release"] == ["202611232245"]
+865283	            action.click(timeout=60000)
+865284	            expect(page.locator("#context")).to_contain_text(expected_name, timeout=60000)
+865285	            expect(page.locator("#context")).to_contain_text("202611232245")
+865286	            return_url = "https://globalgrid2050.com" + EDITION + "?technology=all&q=9873"
+865287	            expect(page.locator("#pipeline")).to_have_attribute("href", return_url)
+865288	            page.screenshot(path=output / "legal-reader.png")
+865289	            report.update(receiver=parsed.scheme + "://" + parsed.netloc + parsed.path, return_url=return_url)
+865290	            (output / "acceptance.json").write_text(json.dumps(report, indent=2) + "\n")
+865294	    run(parser.parse_args().output)
+865295	"""Create a candidate project renderer from the selected version, without editing its input."""
+865296	IMPORT = 'import { legalEvidenceAction } from "../../../../automation/pipeline_legal_evidence/link.mjs";'
+865297	MARKER = '<div><b>PROJECT NAME</b><span>${escapeHtml(project.name)}</span></div>'
+865298	def patch(source):
+865299	    if source.count(MARKER) != 1 or IMPORT in source:
+865300	        raise ValueError("Expected one unmodified REPD project-detail template")
+865301	    return IMPORT + "\n" + source.replace(MARKER, MARKER + "${legalEvidenceAction(project)}")
+865303	    parser.add_argument("output", type=Path, help="new file; existing files are protected")
+865305	    result = patch(args.source.read_text(encoding="utf-8"))
+865307	        output.write(result)
+865308	const reader = "https://ventusltd.github.io/legislation/legal-evidence/";
+865309	const nations = new Set(["England", "Scotland", "Wales", "Northern Ireland"]);
+865310	export function legalEvidenceURL(project, pathname = globalThis.location?.pathname ?? "") {
+865311	  const ref = String(project?.repd_ref ?? "");
+865312	  if (!/^[1-9]\d*$/.test(ref) || project.gg_project_id !== "GG2050-REPD-" + ref)
+865314	  const url = new URL(reader);
+865315	  url.searchParams.set("source_app", "pipelinenews");
+865316	  url.searchParams.set("repd_ref", ref);
+865317	  const release = /^\/uk_renewables_pipeline\/(\d{12})\/(?:index\.html)?$/.exec(pathname);
+865318	  if (release) url.searchParams.set("source_release", release[1]);
+865319	  for (const [key, value] of Object.entries({
+865320	    project: project.name, technology: project.technology, status: project.status,
+865321	    jurisdiction: nations.has(project.country) ? project.country : undefined,
+865322	  })) {
+865323	    if (typeof value === "string" && value.trim()) url.searchParams.set(key, value.trim());
+865325	  if (project.capacity_known === true && Number.isFinite(project.capacity_mw) && project.capacity_mw >= 0)
+865326	    url.searchParams.set("mw", String(project.capacity_mw));
+865328	export function legalEvidenceAction(project) {
+865329	  const href = legalEvidenceURL(project);
+865330	  return href ? '<div style="grid-column:1/-1"><a class="action-link" href="' + href.replaceAll("&", "&amp;") + '">Legal evidence</a></div>' : "";
+865332	import {test} from "node:test";
+865333	import {legalEvidenceURL, legalEvidenceAction} from "./link.mjs";
+865334	const fixture = {repd_ref:"999999",gg_project_id:"GG2050-REPD-999999",name:"Fictional A & B",technology:"solar",status:"Application Submitted",country:"Wales",capacity_known:true,capacity_mw:32.4};
+865335	test("encode a canonical project into the reader", () => {
+865336	  const link = new URL(legalEvidenceURL(fixture));
+865337	  assert.equal(link.origin, "https://ventusltd.github.io");
+865338	  assert.equal(link.pathname, "/legislation/legal-evidence/");
+865339	  assert.deepEqual(Object.fromEntries(link.searchParams),{source_app:"pipelinenews",repd_ref:"999999",project:"Fictional A & B",technology:"solar",status:"Application Submitted",jurisdiction:"Wales",mw:"32.4"});
+865340	  assert.match(legalEvidenceAction(fixture), /Legal evidence/);
+865342	test("unknown and mismatched records", () => {
+865343	  assert.equal(legalEvidenceAction({...fixture,gg_project_id:"interconnector"}),"");
+865344	  const url = new URL(legalEvidenceURL({...fixture,country:"Offshore",capacity_known:false}));
+865345	  assert.equal(url.searchParams.has("jurisdiction"),false);
+865346	  assert.equal(url.searchParams.has("mw"),false);
+865347	test("retain the edition identity of this rendered project", () => {
+865348	  const pathname = "/uk_renewables_pipeline/202611232245/";
+865349	  assert.equal(new URL(legalEvidenceURL(fixture, pathname)).searchParams.get("source_release"), "202611232245");
+865350	  assert.equal(new URL(legalEvidenceURL(fixture, "/unexpected/")).searchParams.has("source_release"), false);
+865351	"""Open the production REPD edition, its public legal reader and the reader's original data source."""
+865352	from urllib.parse import parse_qs, urljoin, urlsplit
+865353	    homepage = "https://globalgrid2050.com/"
+865354	    edition = urljoin(homepage, "uk_renewables_pipeline/202611280048/")
+865355	    with sync_playwright() as driver, driver.chromium.launch(executable_path=os.getenv("CHROME_BIN")) as browser:
+865356	        page = browser.new_page(viewport={"width": 1280, "height": 850})
+865357	        page.goto(homepage, wait_until="domcontentloaded")
+865358	        expect(page.locator("a.launch", has_text="Open Pipeline News").first).to_have_attribute("href", edition)
+865359	        page.goto(edition + "?technology=all&q=9873", wait_until="domcontentloaded", timeout=120000)
+865360	        row = page.locator("#repd-9873")
+865361	        expect(row).to_be_visible(timeout=120000)
+865362	        project = row.locator(".compact-project-name").text_content().strip()
+865363	        for width in (1280, 390):
+865364	            page.set_viewport_size({"width": width, "height": 850})
+865365	            detail = row.locator("details.project-record")
+865366	            if detail.get_attribute("open") is None:
+865367	                detail.locator("summary").click()
+865368	            action = detail.get_by_role("link", name="Legal evidence")
+865369	            expect(action).to_be_visible()
+865370	            action.scroll_into_view_if_needed()
+865371	            page.screenshot(path=output / f"pipeline-{width}.png")
+865372	        action.click(timeout=60000)
+865373	        expect(page.locator("#context")).to_contain_text(project, timeout=60000)
+865374	        expect(page.locator("#context")).to_contain_text("202611280048")
+865375	        parsed = urlsplit(page.url)
+865376	        assert (parsed.scheme, parsed.netloc, parsed.path) == ("https", "ventusltd.github.io", "/legislation/legal-evidence/")
+865377	        assert parse_qs(parsed.query)["repd_ref"] == ["9873"]
+865378	        expect(page.locator("#pipeline")).to_have_attribute("href", edition + "?technology=all&q=9873", timeout=60000)
+865379	        expect(page.locator("#source-edition")).to_have_attribute("href", edition + "?technology=all&q=9873", timeout=60000)
+865380	        return_url = page.locator("#pipeline").get_attribute("href")
+865381	        assert urlsplit(return_url).netloc == "globalgrid2050.com"
+865382	        assert parse_qs(urlsplit(return_url).query) == {"technology":["all"], "q":["9873"]}
+865383	        page.screenshot(path=output / "reader.png")
+865384	        page.locator("#pipeline").click(timeout=60000)
+865385	        expect(page.locator("#repd-9873")).to_be_visible(timeout=120000)
+865386	        (output / "receipt.json").write_text(json.dumps({"edition": edition, "repd_ref":"9873", "project":project,"viewports":[1280,390],"return_url":return_url}, indent=2)+"\n")
+865387	    run(Path("acceptance"))
+865388	"""Serve the accepted PipelineNews shell with its candidate renderer on localhost."""
+865394	from install import patch
+865396	ORIGIN = "https://globalgrid2050.com"
+865397	EDITION = "/uk_renewables_pipeline/202611232245/"
+865398	RENDERER = EDITION + "scripts/plugins/projects-v9-8.js"
+865399	HELPER = "/automation/pipeline_legal_evidence/link.mjs"
+865400	class Preview(BaseHTTPRequestHandler):
+865402	        path = urlsplit(self.path).path
+865403	        if path == "/":
+865404	            self.send_response(302)
+865405	            self.send_header("Location", EDITION + "?technology=all&q=9873")
+865408	        if path == HELPER:
+865409	            self.send_bytes((ROOT / "link.mjs").read_bytes(), "application/javascript")
+865410	        if not path.startswith(("/uk_renewables_pipeline/", "/automation/", "/dist/")) or ".." in path or "%" in path:
+865411	            self.send_error(404)
+865413	            checkout = os.getenv("PIPELINE_CHECKOUT")
+865414	            local = Path(checkout) / path.lstrip("/") if checkout else None
+865415	            if local and local.is_dir():
+865416	                local = local / "index.html"
+865417	            if local and local.is_file():
+865418	                body = local.read_bytes()
+865419	                mime = mimetypes.guess_type(local.name)[0] or "application/octet-stream"
+865421	                with urlopen(ORIGIN + path, timeout=40) as response:
+865422	                    body = response.read(20_000_001)
+865423	                    if len(body) > 20_000_000:
+865424	                        raise ValueError("Upstream resource too large")
+865425	                    mime = response.headers.get_content_type()
+865426	            if path == RENDERER:
+865427	                body = patch(body.decode("utf-8")).encode("utf-8")
+865428	            self.send_bytes(body, mime)
+865430	            self.send_error(exc.code)
+865431	        except (URLError, TimeoutError, ValueError) as exc:
+865432	            self.send_error(502, str(exc))
+865433	        except (BrokenPipeError, ConnectionResetError):
+865435	    def send_bytes(self, body, mime):
+865436	        self.send_response(200)
+865437	        self.send_header("Content-Type", mime)
+865438	        self.send_header("Content-Length", str(len(body)))
+865439	        self.end_headers()
+865440	        self.wfile.write(body)
+865441	    parser.add_argument("--port", type=int, default=8765)
+865442	    with ThreadingHTTPServer(("127.0.0.1", args.port), Preview) as server:
+865443	        print(f"Open http://127.0.0.1:{args.port}/", flush=True)
+865444	        server.serve_forever()
+865604	    live_pin = (ROOT/"catalogue/homepage-owner.json").read_bytes()
+865605	    # Replay the VEDIC-only promotion against its original publisher commit.
+865606	    pin_bytes = subprocess.check_output(["git", "show",
+865607	        "013ced3cb5c022e3f44add74763b52e98e89f543:catalogue/homepage-owner.json"])
+865648	        if live_pin != pin_bytes:
+865649	            observed = scratch/"live"
+865650	            import_bundle(observed, live_pin)
+865651	            catalogue = json.loads((observed/"homepage-shell/data/homepage.json").read_bytes())
+865652	            active = next(row for row in catalogue["entities"] if row["id"] == "vedic")
+865653	            assert active == new_vedic, "VEDIC source, release or navigation changed"
+865654	            assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in (observed/"index.html").read_bytes()
+865727	<title>GlobalGrid2050 | Pipeline News V9.77 · 202611280048</title>
+865966	        <a class="active" href="#" aria-current="page">V9.77 · PIPELINE NEWS</a>
+865968	        <a href="../202611232245/">V9.76 · PREVIOUS EDITION</a><a href="../202611221705/">V9.68 · ARCHIVE</a><a href="../202611221625/">V9.67 · ARCHIVE</a><a href="../202611221500/">V9.66 · ARCHIVE</a><a href="../202611221330/">V9.65 · ORIGINAL COLOURS</a><a href="../202611221243/">V9.64 · ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+865972	      </nav><p>REPD October 2026 · V9.77</p></details>
+866006	import { legalEvidenceAction } from "../../../../automation/pipeline_legal_evidence/link.mjs";
+866188	return `<tr id="repd-${escapeHtml(project.repd_ref)}" data-repd-updated="${escapeHtml(project.repd_record_updated || "")}" data-planning-application-submitted="${escapeHtml(project.planning_application_submitted || "")}" data-operational="${escapeHtml(project.operational || "")}"><td class="site"><span class="compact-project-name">${escapeHtml(project.name)}</span><div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(updated)}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><details class="project-record">${compactSummary(project,unit)}<div class="record-grid"><div><b>PROJECT NAME</b><span>${escapeHtml(project.name)}</span></div>${legalEvidenceAction(project)}<div class="phone-map-detail"><button type="button" class="action-link" data-phone-map>MAP</button><span class="phone-map-status" aria-live="polite"></span></div><div><b>STATUS</b><span>${escapeHtml(project.status)}</span></div><div><b>IDENTITY</b><span>${escapeHtml(project.repd_ref)}</span></div><div><b>GLOBALGRID REF</b><span>${escapeHtml(project.gg_project_id)}</span></div><div><b>COUNTY / REGION</b><span>${escapeHtml(location || "-")}</span></div><div><b>OPERATOR</b><span>${escapeHtml(project.operator || "-")}</span></div><div><b>TECHNOLOGY</b><span>${escapeHtml(label)}</span></div><div><b>COUNTRY</b><span>${escapeHtml(project.country || "-")}</span></div><div><b>MAP LOCATION</b><span>${escapeHtml(!atlasUrlV9_5_1(project) ? atlasUnavailableReasonV9_7(project) : atlasCentresOnRepdPointV9_7(project) ? "REPD point" : "Atlas resolves its own geometry")}</span></div><div><b>PLANNING PERMISSION GRANTED</b><span>${escapeHtml(displayDate(project.planning_permission_granted))}</span></div><div><b>PLANNING PERMISSION REFUSED</b><span>${escapeHtml(displayDate(project.planning_permission_refused))}</span></div><div><b>PLANNING WITHDRAWN</b><span>${escapeHtml(displayDate(project.planning_application_withdrawn))}</span></div><div><b>PLANNING EXPIRED</b><span>${escapeHtml(displayDate(project.planning_permission_expired))}</span></div><div><b>UNDER CONSTRUCTION</b><span>${escapeHtml(displayDate(project.under_construction))}</span></div><div><b>PLANNING APPLICATION SUBMITTED</b><span>${escapeHtml(submitted)}</span></div><div><b>OPERATIONAL DATE</b><span>${escapeHtml(operational)}</span></div><div><b>REPD UPDATED</b><span>${escapeHtml(updated)}</span></div><div class="compact-news-detail"><b>PROJECT NEWS · PROVISIONAL</b><button type="button" class="machine-note-button compact-machine-note" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">NOTES · CHECK</button></div><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(project.repd_ref)}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(project.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">${escapeHtml(updated)}</td><td class="hide-mobile reference-cell planning-submitted" title="${escapeHtml(submitted)}">${project.planning_application_submitted ? escapeHtml(submitted) : "—"}</td><td class="hide-mobile reference-cell operational-date" title="${escapeHtml(operational)}">${project.operational ? escapeHtml(operational) : "—"}</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">${mapAction}</div></td></tr>`;
+866502	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611280048/">Open Pipeline News &rarr;</a></div></details>
+866527	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611280048/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.77 · Legal evidence by REPD project</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221625/">V9.67 - Native Expanded REPD, all columns and pinch zoom</a><small class="entity-key">202611221625</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221705/">V9.68 - Landscape REPD reading view</a><small class="entity-key">202611221705</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">V9.69 - Full-height REPD with MAP after Project</a><small class="entity-key">202611221850</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221900/">V9.70 - Expanded MAP navigation parity</a><small class="entity-key">202611221900</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">V9.71 - Simplified REPD expanded-view controls</a><small class="entity-key">202611221930</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222222/">V9.72 - VICINITY MAP and A4/PDF link parity</a><small class="entity-key">202611222222</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222330/">V9.73 - Operator, Status and Region MW reports</a><small class="entity-key">202611222330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611231400/">V9.74 - Technology-filtered Operator MW cockpit</a><small class="entity-key">202611231400</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611231600/">V9.75 - Native REPD Operator, Status and Region filters</a><small class="entity-key">202611231600</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">V9.76 - Mobile REPD report readability</a><small class="entity-key">202611232245</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611280048/">V9.77 · Legal evidence by REPD project</a><small class="entity-key">202611280048</small></div></details></td></tr>
+866547	/* Read-only adapter for the selected origin in GridAtlas Vicinity. */
+866550	  const reader = 'https://ventusltd.github.io/legislation/legal-evidence/';
+866551	  function evidenceUrl(arrival, selectedRef) {
+866553	    try { url = new URL(arrival); } catch { return null; }
+866554	    if (url.origin !== 'https://ventusltd.github.io' || url.username || url.password ||
+866555	        !/^\/gridatlas\/atlas\/(?:v\/\d{12}\/)?(?:index\.html)?$/.test(url.pathname)) return null;
+866556	    const query = url.searchParams;
+866557	    const keys = ['repd_ref','origin_id','origin_type','project','name','technology','capacity_mw','status','latitude','longitude'];
+866558	    if (keys.some(key => query.getAll(key).length > 1)) return null;
+866559	    const ref = query.get('repd_ref');
+866560	    if (!/^[1-9]\d{0,11}$/.test(ref || '') || String(selectedRef) !== ref) return null;
+866561	    if ((query.has('origin_type') && query.get('origin_type') !== 'repd') ||
+866562	        (query.has('origin_id') && query.get('origin_id') !== 'repd:' + ref)) return null;
+866563	    for (const [key, min, max] of [['latitude',49.5,61.5], ['longitude',-11,3]]) {
+866564	      const value = query.get(key);
+866565	      if (!value?.trim() || !Number.isFinite(Number(value)) || Number(value) < min || Number(value) > max) return null;
+866567	    if (Math.abs(Number(query.get('latitude'))-49.766807) < .0001 &&
+866568	        Math.abs(Number(query.get('longitude'))+7.55716) < .0001) return null;
+866569	    const result = new URL(reader);
+866570	    result.searchParams.set('source_app','gridatlas');
+866571	    result.searchParams.set('repd_ref',ref);
+866572	    const version = /\/atlas\/v\/(\d{12})\//.exec(url.pathname);
+866573	    if (version) result.searchParams.set('source_release',version[1]);
+866574	    for (const [key,value,limit] of [['project',query.get('project') || query.get('name'),180],
+866575	      ['technology',query.get('technology'),80],['status',query.get('status'),80]]) {
+866576	      if (value?.trim()) result.searchParams.set(key,value.trim().slice(0,limit));
+866577	    const mw = query.get('capacity_mw');
+866578	    if (mw?.trim() && Number.isFinite(Number(mw)) && Number(mw) > 0) result.searchParams.set('mw',String(Number(mw)));
+866579	    return result.href;
+866580	  function render(card, arrival) {
+866581	    const box = card?.__vicFocus?.box;
+866583	    const anchor = box.querySelector('[data-legislation-evidence]');
+866584	    const href = card.isConnected && card.project && card.__vicFocus.origin
+866585	      ? evidenceUrl(arrival, card.r?.p?.repd_ref) : null;
+866586	    if (!href) { anchor?.remove(); return; }
+866587	    if (anchor?.href === href) return;
+866588	    const link = anchor || box.ownerDocument.createElement('a');
+866589	    link.href = href;
+866590	    link.textContent = 'Legal evidence';
+866591	    link.dataset.legislationEvidence = '';
+866594	    if (!anchor) box.appendChild(link);
+866595	  if (typeof module === 'object' && module.exports) module.exports = {evidenceUrl, render};
+866597	  let active, observer;
+866599	    const card = window.__GRIDATLAS_MODULES__?.ukOfftakers?.state?.pp;
+866600	    if (active !== card) {
+866601	      observer?.disconnect();
+866602	      active = card;
+866603	      if (active) {
+866604	        observer = new MutationObserver(() => render(active,window.location.href));
+866605	        observer.observe(active,{subtree:true,childList:true});
+866607	    render(active,window.location.href);
+866608	  // The focus cartridge changes this attribute as the project card opens/closes.
+866609	  const focus = new MutationObserver(sync);
+866610	  focus.observe(document.documentElement,{attributes:true,attributeFilter:['data-vicinity-focus']});
+866611	  window.addEventListener('pagehide',() => { focus.disconnect(); observer?.disconnect(); },{once:true});
+866623	const approved195=['202611222130','202611222325','202611222343','202611280016'].includes(live.generation)&&['pipeline-vicinity-button','uk-offtakers-overlay'].every(id=>{
+866661	assert.ok(['202611222000','202611222130','202611222325','202611222343','202611280016'].includes(live.generation),'live must be V9.194 or verified V9.195');
+866693	assert.ok(['202611222000','202611222130','202611222325','202611222343','202611280016'].includes(live.generation),'live must be V9.194 or approved V9.195');
+866733	const {parent_generation,version,cut_at_utc,note,acceptance,candidate_status,...current} =
+866734	 JSON.parse(read('atlas/manifests/202611222343-composition.json'));
+866735	if(live.generation==='202611280016'){
+866736	 assert.equal(live.previous_generation,current.generation);
+866737	 assert.deepEqual(live.cartridges.slice(0,-1),current.cartridges,'all nine predecessor cartridge descriptors stay exact');
+866738	 assert.deepEqual(live.cartridge_order,[...current.cartridge_order,'vicinity-legal-evidence']);
+866739	 const addition=live.cartridges.at(-1);
+866740	 assert.equal(addition.id,'vicinity-legal-evidence');
+866741	 assert.equal(addition.after,'vicinity-controls-rescue');
+866742	 assert.equal(addition.sha256,'82a99b2522164a3ea928b3a3434728fd1191d0032bdc77ef850e15a6c48226c7');
+866744	 assert.deepEqual(live,current,'V9.197 live pointer agrees with its immutable cut');
+866791	const gen = '202611280016', base = '202611222343';
+866792	const root = path.resolve(import.meta.dirname,'../..');
+866793	const read = p => fs.readFileSync(path.join(root,p),'utf8');
+866795	const predecessor = json('atlas/v/'+base+'/current.json');
+866796	const candidate = json('atlas/v/'+gen+'/current.json');
+866797	assert.equal(candidate.previous_generation,base);
+866798	assert.deepEqual(candidate.cartridges.slice(0,-1),predecessor.cartridges);
+866799	assert.deepEqual(candidate.cartridge_order.slice(0,-1),predecessor.cartridge_order);
+866800	assert.equal(read('atlas/v/'+base+'/index.html'),read('atlas/v/'+gen+'/index.html'));
+866801	const descriptor = candidate.cartridges.at(-1);
+866802	const code = read('atlas/modules/'+gen+'-vicinity-legal-evidence.js');
+866803	assert.equal(createHash('sha256').update(code).digest('hex'),descriptor.sha256);
+866804	assert.equal(Buffer.byteLength(code),descriptor.bytes);
+866805	const context = {module:{exports:{}},URL};
+866806	vm.runInNewContext(code,context);
+866807	const {evidenceUrl,render} = context.module.exports;
+866808	const arrival = 'https://ventusltd.github.io/gridatlas/atlas/?repd_ref=999999999991&latitude=52&longitude=-1&project=Fictional%20project&origin_type=repd&origin_id=repd%3A999999999991&technology=Battery&capacity_mw=40';
+866809	const result = new URL(evidenceUrl(arrival,'999999999991'));
+866810	assert.deepEqual([...result.searchParams.keys()].sort(),['mw','project','repd_ref','source_app','technology']);
+866811	assert.equal(result.searchParams.get('mw'),'40');
+866812	assert.equal(result.origin+result.pathname,'https://ventusltd.github.io/legislation/legal-evidence/');
+866813	assert.equal(evidenceUrl(arrival,'1'),null);
+866814	assert.equal(evidenceUrl(arrival+'&repd_ref=2','999999999991'),null);
+866815	assert.equal(evidenceUrl(arrival.replace('repd%3A999999999991','repd%3A2'),'999999999991'),null);
+866816	assert.equal(new URL(evidenceUrl(arrival.replace('/atlas/?','/atlas/v/'+gen+'/?'),'999999999991')).searchParams.get('source_release'),gen);
+866817	let link;
+866818	const box = {querySelector:()=>link,ownerDocument:{createElement:()=>({dataset:{},remove(){link=null;}})},appendChild:a=>{assert.ok(!link);link=a;}};
+866819	const card = {isConnected:true,project:true,r:{p:{repd_ref:'999999999991'}},__vicFocus:{box,origin:true}};
+866820	render(card,arrival);render(card,arrival);
+866821	assert.equal(link.href,result.href);
+866822	card.__vicFocus.origin=false;
+866823	render(card,arrival);assert.equal(link,null);
+866824	console.log('PASS additive composition, module hash, immutable loader, canonical reader, origin identity, swiped neighbour, ambiguous inputs, release provenance');
+866825	"""Standalone counterfactual for the Experiment B provenance contract."""
+866826	import array
+866827	import mmap
+866830	HEADER = re.compile(rb"(?m)^={78}\nFILE: ([^\n]+)\n(\d+) chars [^\n]+\n={78}\n")
+866831	END = re.compile(rb"(?m)^={78}\nEND OF TELEPRINT\n={78}(?:\n|$)")
+866832	INDEX_COUNT = re.compile(rb"(?m)^CONTENTS -- (\d+) file\(s\), \d+ characters\n")
+866833	def get_source(capture, url, index_path):
+866834	    if index_path:
+866835	        catalog = index_path.read_bytes()
+866836	        index = json.loads(catalog)
+866837	        hits = [item for item in index["records"] if item["url"] == url]
+866839	            return None, len(catalog), "absent" if not hits else "ambiguous"
+866840	        item = hits[0]
+866841	        with capture.open("rb") as stream:
+866842	            stream.seek(item["byte_start"])
+866843	            body = stream.read(item["byte_length"])
+866844	        if hashlib.sha256(body).hexdigest() != item["text_sha256"]:
+866845	            return None, len(catalog) + len(body), "capture-drift"
+866846	        blob = hashlib.sha1(b"blob " + str(len(body)).encode() + b"\0" + body).hexdigest()
+866847	        if blob != item["git_blob"]:
+866848	            return None, len(catalog) + len(body), "index-identity-drift"
+866849	        return body, len(catalog) + len(body), None
+866850	    with capture.open("rb") as stream:
+866851	            with mmap.mmap(stream.fileno(), 0, access=mmap.ACCESS_READ) as raw:
+866852	                headers = list(HEADER.finditer(raw))
+866853	                counts = INDEX_COUNT.search(raw)
+866854	                end = END.search(raw, headers[-1].end()) if headers else None
+866855	                if not counts or len(headers) != int(counts[1]) or not end:
+866856	                    return None, len(raw), "bad-framing"
+866857	                hits = [i for i, match in enumerate(headers) if match[1].decode("utf-8") == url]
+866858	                if len(hits) != 1:
+866859	                    return None, len(raw), "absent" if not hits else "ambiguous"
+866860	                i = hits[0]
+866861	                cursor = headers[i]
+866862	                stop = headers[i + 1].start() if i + 1 < len(headers) else end.start()
+866863	                if raw[stop - 2:stop] != b"\n\n":
+866864	                body = raw[cursor.end():stop - 2]
+866865	                if len(body.decode("utf-8").encode("utf-16-le")) // 2 != int(cursor[2]):
+866866	                return body, len(raw), None
+866868	            return None, capture.stat().st_size, "bad-framing"
+866869	def source_audit(capture, url, database, index_path=None):
+866870	    body, read, failure = get_source(capture, url, index_path)
+866871	    if failure:
+866872	        return {"status": failure, "url": url}, read, 0
+866873	    size = len(body)
+866875	    blob_header = ("blob %d\0" % size).encode()
+866876	    git = hashlib.sha1(blob_header)
+866877	    git.update(body)
+866878	    identity = git.hexdigest()
+866879	    view = dict(status="unmatched", url=url, sha256=digest, git_blob=identity,
+866880	                tablet=None, occurrences=[])
+866881	    sql_calls = 0
+866882	    def count_query(_):
+866883	        nonlocal sql_calls
+866884	        sql_calls += 1
+866887	        db.set_trace_callback(count_query)
+866888	        row = db.execute("SELECT n, lines FROM tablet WHERE git_blob = ?", (identity,)).fetchone()
+866890	            return view, read, sql_calls
+866891	        tablet, packed = row
+866892	        order = array.array("I")
+866893	        order.frombytes(packed)
+866894	        if order.itemsize != 4:
+866895	            raise RuntimeError("32-bit unsigned integers required")
+866896	        if sys.byteorder != "little":
+866897	            order.byteswap()
+866898	        unique = sorted(set(order))
+866899	        segments = {}
+866900	        for i in range(0, len(unique), 900):
+866901	            batch = unique[i:i + 900]
+866902	            marks = ",".join("?" for _ in batch)
+866903	            segments.update(db.execute("SELECT n, text FROM line WHERE n IN (" + marks + ")", batch))
+866904	        rebuilt = hashlib.sha256()
+866905	        rebuilt_git = hashlib.sha1(blob_header)
+866906	        reconstructed_length = 0
+866907	        for number in order:
+866908	            line = segments[number]
+866909	            reconstructed_length += len(line)
+866910	            rebuilt.update(line)
+866911	            rebuilt_git.update(line)
+866912	        if (reconstructed_length, rebuilt.hexdigest(), rebuilt_git.hexdigest()) != (size, digest, identity):
+866913	            raise ValueError("Historical tablet integrity mismatch")
+866914	        occurrences = list(db.execute("""
+866915	            SELECT o.repo, o.commit_sha, o.path, c.date
+866916	            FROM occurrence o LEFT JOIN commit_info c ON o.repo=c.repo AND o.commit_sha=c.sha
+866917	            WHERE o.tablet=? ORDER BY o.repo, o.commit_sha, o.path
+866918	        """, (tablet,)))
+866919	        view.update(status="byte-identical", tablet=tablet, occurrences=occurrences)
+866920	    return view, read, sql_calls
+866921	"""Benchmark Experiment A on an existing GridAtlas teleprint and read-only STARS."""
+866926	from magnets import DB, read_json
+866927	from teleprint_index import index, retrieve
+866928	ORACLE = ROOT / "evidence" / "teleprint" / "larger-index.json"
+866929	SECTION = re.compile(rb"={78}\nFILE: ([^\r\n]+)\n([0-9]+) chars \xc2\xb7 [^\r\n]+\n={78}\n")
+866930	END = re.compile(rb"={78}\nEND OF TELEPRINT\n={78}(?:\n|$)")
+866931	def process_counters():
+866932	    """Current Windows process counters from documented PSAPI and Win32 calls."""
+866933	    if sys.platform != "win32":
+866934	        return {"peak_working_set_bytes": None, "read_transfer_bytes": None, "cycles": None}
+866935	    from ctypes import wintypes
+866936	    class Memory(ctypes.Structure):
+866937	        _fields_ = [("cb", wintypes.DWORD), ("page_faults", wintypes.DWORD)] + [
+866938	            (name, ctypes.c_size_t) for name in ("peak_working_set", "working_set",
+866939	                "quota_peak_paged", "quota_paged", "quota_peak_nonpaged", "quota_nonpaged",
+866940	                "pagefile", "peak_pagefile")
+866942	    class IO(ctypes.Structure):
+866943	        _fields_ = [(name, ctypes.c_ulonglong)
+866944	            for name in ("read_count", "write_count", "other_count", "read_bytes",
+866945	                         "write_bytes", "other_bytes")]
+866946	    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+866947	    current = kernel.GetCurrentProcess
+866948	    current.restype = wintypes.HANDLE
+866949	    process = current()
+866950	    memory = Memory()
+866951	    memory.cb = ctypes.sizeof(Memory)
+866952	    get_memory = ctypes.WinDLL("psapi", use_last_error=True).GetProcessMemoryInfo
+866953	    get_memory.argtypes = (wintypes.HANDLE, ctypes.POINTER(Memory), wintypes.DWORD)
+866954	    get_memory.restype = wintypes.BOOL
+866955	    io = IO()
+866956	    get_io = kernel.GetProcessIoCounters
+866957	    get_io.argtypes = (wintypes.HANDLE, ctypes.POINTER(IO))
+866958	    get_io.restype = wintypes.BOOL
+866959	    total_cycles = ctypes.c_ulonglong()
+866960	    get_cycles = kernel.QueryProcessCycleTime
+866961	    get_cycles.argtypes = (wintypes.HANDLE, ctypes.POINTER(ctypes.c_ulonglong))
+866962	    get_cycles.restype = wintypes.BOOL
+866964	        "cycles": total_cycles.value if get_cycles(process, ctypes.byref(total_cycles)) else None,
+866965	        "peak_working_set_bytes": memory.peak_working_set if get_memory(process, ctypes.byref(memory), memory.cb) else None,
+866966	        "read_transfer_bytes": io.read_bytes if get_io(process, ctypes.byref(io)) else None,
+866967	def enumerate_headers(raw, url):
+866968	    """Scan every header without offsets and split only the requested section."""
+866969	    encoded_url = url.encode("utf-8")
+866970	    matches = list(SECTION.finditer(raw))
+866971	    end = END.search(raw, matches[-1].end()) if matches else None
+866972	    if end is None:
+866973	        raise ValueError("No complete teleprint")
+866974	    selected = [i for i, match in enumerate(matches) if match[1] == encoded_url]
+866975	    if len(selected) != 1:
+866976	        raise ValueError(f"Expected one section, found {len(selected)}")
+866977	    i = selected[0]
+866978	    start = matches[i].end()
+866979	    stop = (matches[i+1].start() if i+1 < len(matches) else end.start()) - 2
+866980	    if raw[stop:stop+2] != b"\n\n":
+866981	        raise ValueError("Unexpected section separator")
+866982	    return start, raw[start:stop]
+866983	def full_find(raw, url):
+866984	    """Use the exact URL in a whole-file native search, without an offset index."""
+866985	    marker = b"=" * 78 + b"\nFILE: "
+866986	    needle = marker + url.encode("utf-8") + b"\n"
+866987	    found = raw.find(needle)
+866988	    if found < 0 or raw.find(needle, found + len(needle)) >= 0:
+866989	        raise ValueError("Expected one exact section header")
+866990	    header = SECTION.match(raw, found)
+866991	    if not header:
+866992	        raise ValueError("Invalid section header")
+866993	    start = header.end()
+866994	    following = raw.find(marker, start)
+866995	    end = END.search(raw, start) if following < 0 else None
+866996	    if following < 0 and end is None:
+866997	    stop = (following if following >= 0 else end.start()) - 2
+866998	def section_record(index_value, suffix):
+866999	    selected = [row for row in index_value["records"] if row["url"].endswith(suffix)]
+867000	    return selected[0]
+867001	def checked_identity(payload, record):
+867002	    digest = hashlib.sha256(payload).hexdigest()
+867003	    if len(payload) != record["byte_length"] or digest != record["text_sha256"]:
+867004	        raise ValueError("Selected section content differs from the expected digest or size")
+867005	    return {key: record[key] for key in ("section", "url", "byte_length", "text_sha256", "git_blob", "tablet")}
+867006	def run_worker(mode, capture, oracle, suffix):
+867007	    counters = process_counters()
+867008	    start = time.perf_counter_ns()
+867009	    cpu = time.process_time_ns()
+867010	    if mode == "production_index":
+867011	        generated = index(capture, DB)
+867012	        result = dict(input_sha256=generated["input_sha256"], database_sha256=generated["database_sha256"],
+867013	                      section_count=len(generated["records"]), selected=section_record(generated, suffix))
+867014	        serial = json.dumps(generated, indent=2).encode("utf-8")
+867015	        data_bytes = {"capture": capture.stat().st_size, "stars_database_hash_pass": DB.stat().st_size}
+867016	        index_bytes = len(serial)
+867017	        pinned = read_json(oracle)
+867018	        record = section_record(pinned, suffix)
+867019	        if capture.stat().st_size != pinned["bytes"]:
+867020	            raise ValueError("Capture size differs from pinned receipt")
+867021	        if mode == "indexed":
+867022	            payload = retrieve(capture, record)
+867023	            # retrieve already verifies SHA-256. Avoid hashing the selected body twice.
+867024	            identity = {key: record[key] for key in ("section", "url", "byte_length", "text_sha256", "git_blob", "tablet")}
+867025	            data_bytes = {"capture": len(payload), "provenance_receipt": oracle.stat().st_size}
+867026	            raw = capture.read_bytes()
+867027	            find = enumerate_headers if mode == "full_regex" else full_find
+867028	            offset, payload = find(raw, record["url"])
+867029	            identity = checked_identity(payload, record)
+867030	            data_bytes = {"capture": len(raw), "provenance_receipt": oracle.stat().st_size}
+867031	        result = dict(capture_sha256=pinned["input_sha256"], database_sha256=pinned["database_sha256"], selected=identity)
+867032	        if mode == "focused_setup":
+867033	            actual_sha = hashlib.sha256(raw).hexdigest()
+867034	            if actual_sha != pinned["input_sha256"]:
+867035	                raise ValueError("Whole capture content differs from pinned receipt")
+867036	            selected = dict(record, byte_start=offset)
+867037	            if offset != record["byte_start"]:
+867038	                raise ValueError("Computed offset differs from pinned receipt")
+867039	            result["derived_index"] = selected
+867040	            # The focused benchmark audits one existing offset. Invocations use the full
+867041	            # receipt in both branches, keeping receipt bytes and provenance symmetric.
+867042	        index_bytes = None
+867043	    elapsed_ms = (time.perf_counter_ns() - start) / 1e6
+867044	    cpu_ms = (time.process_time_ns() - cpu) / 1e6
+867045	    after = process_counters()
+867046	    read_start, read_end = counters["read_transfer_bytes"], after["read_transfer_bytes"]
+867047	    cycle_start, cycle_end = counters["cycles"], after["cycles"]
+867048	    return dict(elapsed_ms=elapsed_ms, cpu_ms=cpu_ms,
+867049	                process_cycles=cycle_end-cycle_start if cycle_start is not None and cycle_end is not None else None, peak_working_set_bytes=after["peak_working_set_bytes"],
+867050	                process_read_transfer_bytes=read_end-read_start if read_start is not None and read_end is not None else None,
+867051	                logical_input_bytes=sum(data_bytes.values()), input_bytes_by_role=data_bytes,
+867052	                serialised_index_bytes=index_bytes, result=result)
+867053	def sample(mode, capture, oracle, suffix):
+867054	    process = subprocess.run([sys.executable, __file__, "--worker", mode, "--capture", str(capture),
+867055	                              "--oracle", str(oracle), "--suffix", suffix],
+867056	                             check=True, capture_output=True, encoding="utf-8")
+867057	    shell_ms = (time.perf_counter_ns() - start) / 1e6
+867058	    return dict(json.loads(process.stdout), fresh_process_including_startup_ms=shell_ms)
+867059	def controls(capture, pin, suffix, output):
+867060	    record = section_record(pin, suffix)
+867061	    original = capture.read_bytes()
+867062	    assert retrieve(capture, record) == full_find(original, record["url"])[1]
+867063	    with tempfile.TemporaryDirectory(dir=output.parent, prefix="a-tamper-") as temp:
+867064	        altered = Path(temp, "copy.txt")
+867065	        damaged = bytearray(original)
+867066	        damaged[record["byte_start"]] ^= 1
+867067	        altered.write_bytes(damaged)
+867068	        rejects = {}
+867069	        for name, action in (
+867070	            ("indexed", lambda: retrieve(altered, record)),
+867071	            ("full_integrity", lambda: checked_identity(full_find(altered.read_bytes(), record["url"])[1], record)),
+867072	            ("bad_offset", lambda: retrieve(capture, dict(record, byte_start=record["byte_start"]+1))),
+867073	            ("missing_resource", lambda: full_find(original, record["url"]+"__missing")),
+867076	                action()
+867078	                rejects[name] = str(exc)
+867079	                raise AssertionError(f"Negative control unexpectedly accepted: {name}")
+867080	        untouched_target = bytearray(original)
+867081	        untouched_target[0] ^= 1
+867082	        altered.write_bytes(untouched_target)
+867083	        still_matches = bool(retrieve(altered, record))
+867084	        whole_changed = hashlib.sha256(untouched_target).hexdigest() != pin["input_sha256"]
+867085	        if not (still_matches and whole_changed):
+867086	            raise AssertionError("Unexpected out-of-section tamper result")
+867087	    return {"rejected": rejects, "out_of_section_tamper": {
+867088	        "selective_section_check_accepted": still_matches, "whole_capture_identity_changed": whole_changed
+867090	def medians(samples):
+867091	    def stat(key):
+867092	        values = [s[key] for s in samples if s[key] is not None]
+867093	        return dict(median=statistics.median(values), minimum=min(values), maximum=max(values)) if values else None
+867094	    return {key: stat(key) for key in (
+867095	        "elapsed_ms", "cpu_ms", "peak_working_set_bytes", "logical_input_bytes",
+867096	        "process_read_transfer_bytes", "process_cycles", "fresh_process_including_startup_ms"
+867098	def break_even(cost, baseline, indexed):
+867099	    remaining = baseline - indexed
+867100	    return math.floor(cost / remaining) + 1 if remaining > 0 else None
+867101	    parser.add_argument("--oracle", type=Path, default=ORACLE)
+867102	    parser.add_argument("--capture", type=Path)
+867103	    parser.add_argument("--suffix", default="/railways.geojson")
+867104	    parser.add_argument("--rounds", type=int, default=11)
+867105	    parser.add_argument("--setup-rounds", type=int, default=3)
+867106	    parser.add_argument("--output", type=Path, default=ROOT/"economy"/"a-results.json")
+867107	    parser.add_argument("--worker", choices=("full", "indexed", "full_regex", "focused_setup", "production_index"))
+867108	    if args.worker:
+867109	        print(json.dumps(run_worker(args.worker, args.capture, args.oracle, args.suffix)))
+867110	    if args.rounds < 1 or args.setup_rounds < 1:
+867111	        parser.error("Round counts must be positive")
+867112	    args.output.parent.mkdir(exist_ok=True, parents=True)
+867113	    pinned = read_json(args.oracle)
+867114	    capture = args.capture or Path(pinned["input"])
+867115	    samples = {mode: [] for mode in ("full", "indexed", "full_regex", "focused_setup", "production_index")}
+867116	    for i in range(args.rounds):
+867117	        modes = ("full", "indexed") if i % 2 == 0 else ("indexed", "full")
+867118	        for mode in modes:
+867119	            samples[mode].append(sample(mode, capture, args.oracle, args.suffix))
+867120	    for _ in range(args.setup_rounds):
+867121	        samples["full_regex"].append(sample("full_regex", capture, args.oracle, args.suffix))
+867122	    for i in range(args.setup_rounds):
+867123	        modes = ("production_index", "focused_setup") if i % 2 == 0 else ("focused_setup", "production_index")
+867124	    selected = samples["full"][0]["result"]
+867125	    for mode in ("full", "indexed", "full_regex"):
+867126	        if any(s["result"] != selected for s in samples[mode]):
+867127	            raise AssertionError("Invocation result or selected provenance differs")
+867128	    for s in samples["production_index"]:
+867129	        if (s["result"]["input_sha256"], s["result"]["database_sha256"], s["result"]["selected"]) != (
+867130	            pinned["input_sha256"], pinned["database_sha256"], section_record(pinned, args.suffix)
+867131	            raise AssertionError("Full index reconstruction disagrees with pinned provenance")
+867132	    stats = {mode: medians(values) for mode, values in samples.items()}
+867133	    crossover = {
+867134	        mode: {key: break_even(stats[mode][key]["median"], stats["full"][key]["median"],
+867135	                               stats["indexed"][key]["median"])
+867136	               for key in ("elapsed_ms", "cpu_ms", "logical_input_bytes", "fresh_process_including_startup_ms")}
+867137	        for mode in ("focused_setup", "production_index")
+867138	    receipt = dict(schema="seed.economy.selective-retrieval.v1", verified_result=selected,
+867139	                   Python=sys.version, input_capture_bytes=pinned["bytes"],
+867140	                   scope="Pinned section identity. Unrelated capture changes are outside per-query verification.",
+867141	                   measurement_notes=[
+867142	                    "Interleaved fresh Python processes. Filesystem cache was not flushed.",
+867143	                    "Elapsed and CPU times bracket the operation. End-to-end fresh-process time includes launch; "
+867144	                    "peak working set includes interpreter startup.",
+867145	                    "Logical input bytes count application data and receipt reads, not physical storage or network IO.",
+867146	                    "Both full paths read the whole capture. The primary full path uses a native exact byte-marker search."
+867147	                    " The all-header regex path demonstrates baseline sensitivity. Each verifies only the requested payload.",
+867148	                    "Windows process CPU time can quantise short samples to 0 ms. Process cycles include measurement overhead,"
+867149	                    " vary with CPU frequency and cannot be interpreted as an energy measurement.",
+867150	                    "The focused setup verifies the pinned whole capture and independently checks the requested byte offset. "
+867151	                    "It measures single-target first-use verification rather than production index construction.",
+867152	                    "The production setup reconstructs and serialises the complete existing index in memory. It hashes the "
+867153	                    "STARS database once. It excludes persistent index writes and the CLI preflight database hash.",
+867154	                    "Break-even is modelled from measured medians, excludes ongoing maintenance and uses one setup per stable capture.",
+867155	                   ], unavailable={"joules":"No validated meter or package-energy counter used",
+867156	                                    "gpu":"CPU-only implementation", "human_work_minutes":"No controlled timed participant study",
+867157	                                    "ai_development_tokens":"Per-experiment inference telemetry unavailable"},
+867158	                   calls_per_invocation={"human_query":1,"ai_inference":0,"network":0},
+867159	                   controls=controls(capture, pinned, args.suffix, args.output),
+867160	                   medians=stats, break_even_invocations=crossover, samples=samples)
+867161	    with args.output.open("x", encoding="utf-8") as stream:
+867163	    print(json.dumps({"medians":stats, "break_even_invocations":crossover, "controls":receipt["controls"]}, indent=2))
+867164	"""Compose selective capture retrieval with verified historical byte reconstruction."""
+867165	import ctypes.wintypes as windows
+867167	from economy.b_baseline import source_audit as standalone
+867168	from history import git_blob
+867169	from magnets import DB, connect, file_sha, line_ids
+867170	from teleprint_index import retrieve
+867171	INDEX = ROOT / "evidence/teleprint/larger-index.json"
+867172	SELECTED = "202609241251-streaming-parquet-bridge-v9-5.js"
+867173	PRINTER = "202609062358-substation-intelligence-v9-63.js"
+867174	def choose(catalog, suffix):
+867175	    candidates = [item["url"] for item in catalog["records"] if item["url"].endswith(suffix)]
+867176	    if len(candidates) != 1:
+867177	        raise ValueError(f"Expected one URL for {suffix!r}, got {len(candidates)}")
+867178	    return candidates[0]
+867179	def restore_bytes(db, packed, sql_count):
+867180	    """Reconstruct only the selected tablet using the STARS line-ID convention."""
+867181	    order = line_ids(packed)
+867182	    ids = sorted(set(order))
+867183	    lookup = {}
+867184	    for start in range(0, len(ids), 900):
+867185	        part = ids[start:start + 900]
+867186	        placeholders = ",".join("?" for _ in part)
+867187	        lookup.update(db.execute(f"select n,text from line where n in ({placeholders})", part))
+867188	        sql_count += 1
+867189	    return b"".join(lookup[i] for i in order), sql_count
+867190	def composed(capture, url, database, index_path):
+867191	    raw_index = index_path.read_bytes()
+867192	    catalog = json.loads(raw_index)
+867193	    hits = [row for row in catalog["records"] if row["url"] == url]
+867194	    if len(hits) != 1:
+867195	        return {"status": "ambiguous" if hits else "absent", "url": url}, len(raw_index), 0
+867196	    (record,) = hits
+867198	        payload = retrieve(capture, record)
+867200	        return {"status": "capture-drift", "url": url}, len(raw_index) + record["byte_length"], 0
+867201	    identity = git_blob(payload)
+867202	    data_bytes = len(raw_index) + len(payload)
+867203	    if record["git_blob"] != identity:
+867204	        return {"status": "index-identity-drift", "url": url}, data_bytes, 0
+867205	    out = dict(status="unmatched", url=url, sha256=digest, git_blob=identity, tablet=None,
+867206	               occurrences=[])
+867207	    with closing(connect(database)) as db:
+867208	        item = db.execute("select n,lines from tablet where git_blob=?", (identity,)).fetchone()
+867210	            return out, data_bytes, 1
+867211	        tablet, packed = item
+867212	        restored, sql_count = restore_bytes(db, packed, 1)
+867213	        if restored != payload or git_blob(restored) != identity:
+867214	        occurrences = db.execute("""
+867215	            select o.repo,o.commit_sha,o.path,c.date from occurrence o
+867216	            left join commit_info c on o.repo=c.repo and o.commit_sha=c.sha
+867217	            where o.tablet=? order by o.repo,o.commit_sha,o.path
+867218	        """, (tablet,)).fetchall()
+867219	        out.update(status="byte-identical", tablet=tablet, occurrences=occurrences)
+867220	        return out, data_bytes, sql_count + 1
+867221	def process_peak():
+867222	    if sys.platform == "win32":
+867223	        class Counters(ctypes.Structure):
+867224	            _fields_ = [("cb", windows.DWORD), ("PageFaultCount", windows.DWORD)] + [
+867225	                (name, ctypes.c_size_t)
+867226	                for name in ("PeakWorkingSetSize", "WorkingSetSize", "QuotaPeakPagedPoolUsage",
+867227	                             "QuotaPagedPoolUsage", "QuotaPeakNonPagedPoolUsage",
+867228	                             "QuotaNonPagedPoolUsage", "PagefileUsage", "PeakPagefileUsage")
+867230	        kernel = ctypes.windll.kernel32
+867231	        kernel.GetCurrentProcess.restype = windows.HANDLE
+867232	        psapi = ctypes.windll.psapi
+867233	        psapi.GetProcessMemoryInfo.argtypes = (
+867234	            windows.HANDLE, ctypes.POINTER(Counters), windows.DWORD)
+867235	        values = Counters()
+867236	        values.cb = ctypes.sizeof(values)
+867237	        if psapi.GetProcessMemoryInfo(kernel.GetCurrentProcess(), ctypes.byref(values), values.cb):
+867238	            return values.PeakWorkingSetSize
+867239	    elif sys.platform.startswith(("linux", "darwin")):
+867240	        import resource
+867241	        peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+867242	        return peak * (1024 if sys.platform.startswith("linux") else 1)
+867244	MODES = {
+867245	    "composition": composed,
+867246	    "standalone-indexed": standalone,
+867247	    "standalone-whole-capture": lambda capture, url, database, _: standalone(capture, url, database),
+867248	def sample(mode, capture, url, database, index_path):
+867249	    start, cpu_start = time.perf_counter_ns(), time.process_time_ns()
+867250	    result, count, queries = MODES[mode](capture, url, database, index_path)
+867251	    return dict(result=result, logical_capture_and_index_bytes=count, sqlite_selects=queries,
+867252	                elapsed_ns=time.perf_counter_ns() - start, cpu_ns=time.process_time_ns() - cpu_start,
+867253	                peak_worker_rss_bytes=process_peak())
+867254	def digest_check(path, expected):
+867255	    actual = file_sha(path)
+867257	        raise ValueError(f"Input digest drift for {path.name}")
+867258	    return dict(sha256=actual, logical_bytes=path.stat().st_size,
+867259	                elapsed_ns=time.perf_counter_ns() - start, cpu_ns=time.process_time_ns() - cpu_start)
+867260	def negative_cases(capture, database, index_path, selected, catalog):
+867261	    controls = []
+867262	    absent = selected + ".missing"
+867263	    missing_loose = choose(catalog, "/railways.geojson")
+867264	    for label, url, expected in (("missing URL", absent, "absent"),
+867265	                                 ("captured payload has no STARS tablet", missing_loose, "unmatched")):
+867266	        results = {mode: fn(capture, url, database, index_path)[0] for mode, fn in MODES.items()}
+867267	        assert all(outcome == results["composition"] for outcome in results.values())
+867268	        assert results["composition"]["status"] == expected
+867269	        controls.append(dict(label=label, expected=expected, statuses={k: v["status"] for k, v in results.items()}))
+867270	    (target,) = [record for record in catalog["records"] if record["url"] == selected]
+867271	        folder = Path(tmp)
+867272	        duplicate = folder / "duplicate-index.json"
+867273	        duplicate.write_text(json.dumps(dict(catalog, records=[*catalog["records"], target])), encoding="utf-8")
+867274	        wrong_id = folder / "wrong-identity.json"
+867275	        wrong_id.write_text(json.dumps(dict(catalog, records=[
+867276	            dict(record, git_blob="0" * 40) if record["url"] == selected else record
+867277	            for record in catalog["records"]
+867278	        ])), encoding="utf-8")
+867279	        corrupt = folder / "changed-payload.txt"
+867280	        changed = bytearray(capture.read_bytes())
+867281	        changed[target["byte_start"]] ^= 1
+867282	        corrupt.write_bytes(changed)
+867283	        indexed = {mode: fn for mode, fn in MODES.items() if mode != "standalone-whole-capture"}
+867284	        for label, path, manifest, expected in (
+867285	                ("ambiguous indexed URL", capture, duplicate, "ambiguous"),
+867286	                ("selected content differs from pinned index", corrupt, index_path, "capture-drift"),
+867287	                ("index Git identity differs from digest-verified payload", capture, wrong_id, "index-identity-drift")):
+867288	            results = {mode: fn(path, selected, database, manifest)[0]["status"] for mode, fn in indexed.items()}
+867289	            assert set(results.values()) == {expected}
+867290	            controls.append(dict(label=label, expected=expected, statuses=results))
+867291	    return controls
+867292	def benchmark(capture, database, index_path, repetitions):
+867293	    initial = time.perf_counter_ns()
+867294	    catalog = json.loads(index_path.read_bytes())
+867295	    integrity = dict(capture=digest_check(capture, catalog["input_sha256"]),
+867296	                     database=digest_check(database, catalog["database_sha256"]),
+867297	                     reusable_index=file_sha(index_path))
+867298	    if repetitions < 1:
+867299	        raise ValueError("At least one measured repetition is required")
+867300	    runs = {mode: [] for mode in MODES}
+867301	    witnesses = {}
+867302	    controls = negative_cases(capture, database, index_path, choose(catalog, SELECTED), catalog)
+867303	    for step in range(repetitions):
+867304	        modes = list(MODES)
+867305	        modes = modes[step % len(modes):] + modes[:step % len(modes)]
+867306	        suffix = (SELECTED, PRINTER)[step % 2]
+867307	        url = choose(catalog, suffix)
+867308	            proc = subprocess.run([sys.executable, __file__, "--sample", mode,
+867309	                                   "--capture", str(capture), "--database", str(database),
+867310	                                   "--index", str(index_path), "--resource", url],
+867311	                                  check=True, capture_output=True, text=True)
+867312	            reading = json.loads(proc.stdout)
+867313	            witness = reading.pop("result")
+867314	            expected_tablet = {SELECTED: 6504, PRINTER: 1648}[suffix]
+867315	            assert witness["status"] == "byte-identical" and witness["tablet"] == expected_tablet
+867316	            if suffix in witnesses:
+867317	                assert witnesses[suffix] == witness
+867318	                witnesses[suffix] = witness
+867319	            runs[mode].append(dict(resource=suffix, **reading))
+867321	        mode: {
+867322	            suffix: {k: statistics.median(row[k] for row in rows
+867323	                                           if row["resource"] == suffix and row[k] is not None)
+867324	                     for k in rows[0] if k != "resource" and rows[0][k] is not None}
+867325	            for suffix in witnesses
+867327	        for mode, rows in runs.items()
+867328	    return dict(
+867329	        platform=platform.platform(), python=sys.version, repetitions_per_mode=repetitions,
+867330	        elapsed_benchmark_ns=time.perf_counter_ns() - initial,
+867331	        prerequisite_integrity=integrity, witnesses=witnesses, controls=controls,
+867332	        raw_samples=runs, medians_by_resource=summary, inputs=dict(
+867333	            capture=capture.name, index=index_path.name, database=database.name),
+867334	        code=dict(composition_entry_sha256=file_sha(Path(__file__)),
+867335	                  independent_baseline_sha256=file_sha(ROOT / "economy/b_baseline.py"),
+867336	                  capture_retrieval_seed_sha256=file_sha(ROOT / "teleprint_index.py"),
+867337	                  historical_identity_seed_sha256=file_sha(ROOT / "history.py")),
+867338	        scope=dict(
+867339	            measured="Fresh workers, filesystem cache uncontrolled, function wall/CPU excludes process bootstrap; worker peak RSS includes Python base.",
+867340	            bytes="Logical payload/index bytes read or whole mapped input length searched, excludes SQLite page reads and physical disk I/O.",
+867341	            equivalent="Both indexed implementations pin the retrieved section digest. Whole-capture mode scans framing and verifies the selected bytes against STARS; a separate common prerequisite checks the full capture and database hashes once.",
+867342	            ai="0 calls/tokens during invocations. Historical and authoring AI token totals, human decision counts, and development effort unavailable.",
+867343	            energy="Unavailable. GPU unused.",
+867344	            exclusions="Index creation accounted in Experiment A. No claims about selected source being the originally served network response, about runtime behaviour, or about deployment."),
+867347	    p.add_argument("--capture", type=Path)
+867348	    p.add_argument("--database", default=DB, type=Path)
+867349	    p.add_argument("--index", default=INDEX, type=Path)
+867350	    p.add_argument("--resource", help="Exact captured URL for a single audited invocation")
+867351	    p.add_argument("--sample", choices=MODES, help=argparse.SUPPRESS)
+867352	    p.add_argument("--repetitions", default=12, type=int)
+867353	    p.add_argument("--output", type=Path)
+867355	    if args.sample:
+867356	        print(json.dumps(sample(args.sample, args.capture, args.resource, args.database, args.index)))
+867357	    capture = args.capture
+867358	    if capture is None:
+867359	        capture = Path(json.loads(args.index.read_bytes())["input"])
+867360	    if args.resource:
+867361	        result = composed(capture, args.resource, args.database, args.index)[0]
+867362	        result = benchmark(capture, args.database, args.index, args.repetitions)
+867364	        with args.output.open("x", encoding="utf-8") as stream:
+867365	            json.dump(result, stream, indent=2)
+867366	            stream.write("\n")
+867367	        print(json.dumps(result, indent=2))
+867368	"""Verify tablet reconstruction and find exact cross-repository and historical bridges."""
+867371	from magnets import DB, ROOT, connect, file_sha, line_ids
+867373	    return hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+867374	def inspect(db):
+867375	    lines = dict(db.execute("select n,text from line"))
+867376	    tablets = {}
+867378	    for number, expected, encoded in db.execute("select n,git_blob,lines from tablet"):
+867379	        ids = line_ids(encoded)
+867380	        actual = git_blob(b"".join(lines[n] for n in ids))
+867381	        tablets[number] = ids
+867383	            mismatches.append([number, expected, actual])
+867384	    histories = defaultdict(dict)
+867385	    tablet_repos = defaultdict(set)
+867386	    for repo, commit, path, tablet, date in db.execute("""
+867387	        select o.repo,o.commit_sha,o.path,o.tablet,c.date from occurrence o
+867388	        left join commit_info c on c.repo=o.repo and c.sha=o.commit_sha
+867389	    """):
+867390	        tablet_repos[tablet].add(repo)
+867391	        if date:
+867392	            old = histories[(repo, path)].get(tablet)
+867393	            if old is None or (date, commit) < old:
+867394	                histories[(repo, path)][tablet] = (date, commit)
+867396	    for (repo, path), versions in histories.items():
+867397	        if len(versions) < 2:
+867399	        ordered = sorted(versions, key=lambda n: (datetime.fromisoformat(versions[n][0]), versions[n][1], n))
+867400	        start, end = ordered[0], ordered[-1]
+867401	        a, b = set(tablets[start]), set(tablets[end])
+867402	        changes.append(dict(repo=repo, path=path, first=[start, *versions[start]],
+867403	                            last=[end, *versions[end]], introduced=sorted(b-a)[:10],
+867404	                            absent=sorted(a-b)[:10], retained=len(a&b),
+867405	                            divergence=round(len(a^b)/max(1, len(a|b)), 4)))
+867406	    bridges = [[n, sorted(repos)] for n, repos in sorted(tablet_repos.items()) if len(repos) > 1]
+867407	    return dict(tablets_checked=len(tablets), mismatches=mismatches, exact_bridges=bridges,
+867408	                changed_paths=len(changes), change_witnesses=sorted(changes, key=lambda x:
+867409	                    (-x["divergence"], x["repo"], x["path"]))[:100])
+867410	def proof_provenance(db):
+867411	    repo = ROOT / "sources/gridatlas"
+867412	    for path in sorted((repo / "atlas/modules").glob("*.js")):
+867413	        digest = git_blob(path.read_bytes())
+867414	        row = db.execute("select n from tablet where git_blob=?", (digest,)).fetchone()
+867416	            # Git's Windows checkout can convert LF to CRLF.
+867417	            digest = git_blob(path.read_bytes().replace(b"\r\n", b"\n"))
+867418	            row = db.execute("select n from tablet where git_blob=?", (digest,)).fetchone()
+867419	        ids = []
+867420	        source = None
+867421	        if row:
+867422	            ids = list(db.execute("""select t.name, t.element,e.family,t.first,t.last
+867423	                  from tablet_element t join element e on e.n=t.element
+867424	                  where t.tablet=? order by t.first""", row))
+867425	            source = db.execute("""select repo,commit_sha,path from occurrence where tablet=?
+867426	                order by (repo='Ventusltd/gridatlas') desc, commit_sha, path limit 1""", row).fetchone()
+867427	        witnesses[path.name] = dict(git_blob=digest, tablet=row[0] if row else None,
+867428	                                    source=source, elements=ids)
+867429	    return witnesses
+867430	    parser.add_argument("--db", type=Path, default=DB)
+867432	    before = file_sha(args.db)
+867433	    with connect(args.db) as connection:
+867434	        results = inspect(connection)
+867435	        results["proof_modules"] = proof_provenance(connection)
+867436	    if file_sha(args.db) != before:
+867437	        raise RuntimeError("Original database changed during experiment")
+867438	        json.dump(dict(snapshot_sha256=before, **results), stream, indent=2)
+867439	"""Search observable-effect cues across the complete pinned corpus."""
+867442	DB = Path(os.environ.get("SEED_STARS_DB", "modular.sqlite"))
+867444	    return json.loads(path.read_text(encoding="utf-8-sig"))
+867445	def connect(path):
+867446	    connection = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)
+867447	    connection.execute("pragma query_only=on")
+867449	def file_sha(path):
+867451	        from functools import partial
+867452	        digest = hashlib.sha256()
+867453	        for chunk in iter(partial(stream.read, 1024 * 1024), b""):
+867455	        return digest.hexdigest()
+867456	def line_ids(blob):
+867457	    return [value for (value,) in struct.iter_unpack("<I", blob)]
+867458	def field(connection, objectives):
+867459	    patterns = [re.compile(s) for groups in objectives.values() for s in groups]
+867460	    vocabulary = re.compile("|".join(f"(?:{pattern.pattern})" for pattern in patterns))
+867461	    # Find each alternative's hits independently after the cheap union prefilter.
+867462	    def mask(value):
+867463	        value = value.lower()
+867464	        if not vocabulary.search(value):
+867466	        return sum(1 << i for i, pattern in enumerate(patterns) if pattern.search(value))
+867467	    lines = {n: mask(raw.decode("utf-8", "replace")) for n, raw in
+867468	             connection.execute("select n,text from line")}
+867469	    placements = defaultdict(list)
+867470	    query = """select t.tablet,t.element,e.family,t.first,t.last,t.name,e.needs
+867471	               from tablet_element t join element e on t.element=e.n"""
+867472	    element_cues = {}
+867473	    for tablet, element, family, first, last, name, needs in connection.execute(query):
+867474	        if element not in element_cues:
+867475	            element_cues[element] = mask((name or "") + " " + (needs or ""))
+867476	        placements[tablet].append((element, family, first, last, name, needs))
+867477	    history = {}
+867478	    for tablet, total, repos, repo, path in connection.execute("""
+867479	          select tablet,count(*),count(distinct repo),min(repo),min(path)
+867480	          from occurrence group by tablet"""):
+867481	        history[tablet] = (total, repos)
+867482	    candidates = defaultdict(list)
+867483	    line_positions = 0
+867484	    for tablet, git_blob, blob in connection.execute("select n,git_blob,lines from tablet"):
+867485	        ids = line_ids(blob)
+867486	        line_positions += len(ids)
+867487	        masks = [lines[n] for n in ids]
+867488	        combined = 0
+867489	        for value in set(masks):
+867490	            combined |= value
+867491	        members = placements[tablet]
+867492	        for element, *_ in members:
+867493	            combined |= element_cues[element]
+867494	        for index, objective in enumerate(objectives):
+867495	            offset = index * 3
+867496	            if (combined >> offset) & 7 != 7:
+867498	            witnesses = [next((n for n, value in zip(ids, masks) if value & (1 << (offset + j))), None)
+867499	                         for j in range(3)]
+867500	            supporting = []
+867501	            for element, family, first, last, name, needs in members:
+867502	                if element_cues[element] & (7 << offset):
+867503	                    supporting.append([element, family, first, last, name, json.loads(needs or "[]")])
+867504	            occurrences, repos = history.get(tablet, (0, 0))
+867505	            features = [sum(n is not None for n in witnesses)/3,
+867506	                        min(len(supporting), 5)/5, min(repos, 4)/4]
+867507	            candidates[objective].append({
+867508	                "tablet": tablet, "git_blob": git_blob, "line_witnesses": witnesses,
+867509	                "elements": supporting[:12], "occurrences": occurrences,
+867510	                "repositories": repos, "features": features, "status": "inferred"})
+867511	    return candidates, line_positions
+867512	def rank(candidates, labels, limit):
+867513	    """Learn a regularized linear reranker from append-only usefulness labels."""
+867515	    known = {(objective, entry["git_blob"]): entry["features"]
+867516	             for objective, entries in candidates.items() for entry in entries}
+867517	    observed = {(e["objective"], e["git_blob"]): e["outcome"] for e in labels}
+867518	    training = [(known[key], outcome) for key, outcome in observed.items() if key in known]
+867519	    weights = np.array([0.50, 0.35, 0.15])
+867520	    if training:
+867521	        inputs = np.asarray([features for features, _ in training])
+867522	        outcomes = np.asarray([outcome for _, outcome in training])
+867523	        prior = 2 * np.eye(len(weights))
+867524	        weights = np.linalg.solve(inputs.T @ inputs + prior, inputs.T @ outcomes + prior @ weights)
+867525	    for objective, entries in candidates.items():
+867526	        for entry in entries:
+867527	            entry["score"] = round(float(weights @ entry["features"]), 6)
+867528	        candidates[objective] = sorted(entries, key=lambda e: (-e["score"], e["tablet"]))[:limit]
+867529	    return weights.tolist(), len(training)
+867530	    parser.add_argument("--objectives", type=Path, default=ROOT / "objectives.json")
+867531	    parser.add_argument("--feedback", type=Path, default=ROOT / "feedback.jsonl")
+867532	    parser.add_argument("--limit", type=int, default=20)
+867533	    objectives = read_json(args.objectives)
+867534	    if any(len(group) != 3 for group in objectives.values()):
+867535	        parser.error("Each objective needs three independent regular expressions")
+867536	    labels = [json.loads(line) for line in args.feedback.read_text(encoding="utf-8-sig").splitlines()
+867537	              if line.strip()] if args.feedback.exists() else []
+867538	    with connect(args.db) as db:
+867539	        census = {table: db.execute(f"select count(*) from {table}").fetchone()[0] for table in
+867540	                  ("line", "tablet", "family", "element", "tablet_element", "occurrence",
+867541	                   "scan", "commit_info", "wander")}
+867542	        candidates, positions = field(db, objectives)
+867543	        totals = {objective: len(entries) for objective, entries in candidates.items()}
+867544	        weights, learned = rank(candidates, labels, args.limit)
+867545	        for entries in candidates.values():
+867546	            for entry in entries:
+867547	                entry["source"] = db.execute("""select repo,commit_sha,path from occurrence
+867548	                    where tablet=? order by repo,commit_sha,path limit 1""", (entry["tablet"],)).fetchone()
+867549	        json.dump(dict(snapshot_sha256=before, census=census, line_positions=positions,
+867550	                       candidate_counts=totals, training_examples=learned, weights=weights,
+867551	                       objectives=objectives, candidates=candidates), stream, indent=2)
+867552	"""Run equivalent captured-state comparison arms in interleaved fresh workers."""
+867553	from contextlib import ExitStack
+867555	from state_compare import compare, open_capture
+867556	from experiment_b import process_peak
+867557	from fixture import MECHANISM, SCOPE, make_fixture
+867558	from magnets import file_sha
+867559	from state_compare_baseline import compare as direct
+867560	MODES = {"composition": compare, "conventional_indexed": direct}
+867561	def sample(mode, inputs, scope, mechanism, limit, budget):
+867562	    start, cpu = time.perf_counter_ns(), time.process_time_ns()
+867563	    evidence, measured = MODES[mode](*inputs, scope, mechanism, limit, budget)
+867564	    cpu_ns = time.process_time_ns()-cpu
+867565	    elapsed_ns = time.perf_counter_ns()-start
+867566	    return evidence, dict(**measured, cpu_ns=cpu_ns, elapsed_ns=elapsed_ns,
+867567	                          peak_rss_bytes=process_peak())
+867568	def preflight(inputs):
+867569	    for capture, index_path in zip(inputs[::2][:2], inputs[1::2]):
+867570	        witness = open_capture(capture,index_path)
+867571	        if file_sha(capture) != witness.digest:
+867572	            raise ValueError("Capture preflight digest differs from index")
+867573	    return dict(elapsed_ns=time.perf_counter_ns()-start, cpu_ns=time.process_time_ns()-cpu,
+867574	                logical_capture_bytes=inputs[0].stat().st_size+inputs[2].stat().st_size)
+867575	def run(inputs, scope, mechanism, limit, budget, repeat):
+867576	    check = preflight(inputs)
+867577	    rounds = {key:[] for key in MODES}
+867578	    args = [*map(str,inputs),"--scope",scope,"--limit",str(limit),"--byte-budget",str(budget)]
+867579	    if mechanism:
+867580	        args += ["--mechanism",mechanism]
+867581	    expected = None
+867582	    for i in range(repeat):
+867583	        schedule = list(MODES) if i % 2 == 0 else list(reversed(MODES))
+867584	        for mode in schedule:
+867585	            start = time.perf_counter_ns()
+867586	            command = [sys.executable, str(Path(__file__).resolve()), *args, "--worker", mode]
+867587	            response = subprocess.run(command, check=True, text=True, capture_output=True, encoding="utf-8")
+867588	            fresh_ns = time.perf_counter_ns()-start
+867589	            evidence, usage = json.loads(response.stdout)
+867590	            if expected is None:
+867591	                expected = evidence
+867592	            elif expected != evidence:
+867593	                raise ValueError("Arms produced different evidence")
+867594	            rounds[mode].append(dict(**usage, fresh_process_ns=fresh_ns))
+867595	    medians = {mode:{key:statistics.median(sample[key] for sample in samples)
+867596	                     if samples[0][key] is not None else None for key in samples[0]}
+867597	               for mode,samples in rounds.items()}
+867598	    return dict(evidence=expected, preflight=check, medians=medians, rounds=rounds,
+867599	                interpretation=dict(cache="Filesystem cache uncontrolled",
+867600	                    physical_io="Unmeasured. Byte counters count logical index and selected payload reads.",
+867601	                    peak_rss="Fresh interpreter peak resident working set includes startup",
+867602	                    energy="Unmeasured because no validated meter was available",
+867603	                    gpu="Unused", execution_inference_calls=0, execution_human_interventions=0,
+867604	                    database_identity="Recorded identity from both indexes. STARS file digest verification is a prior prerequisite.",
+867605	                    authoring="Both arms use the same disclosure and evidence orchestration. Compared the state classifier and attribution implementation.",
+867606	                    timing="Timer granularity can report zero CPU time for short Windows operations."))
+867607	    parser.add_argument("inputs", type=Path, nargs="*")
+867608	    parser.add_argument("--scope")
+867609	    parser.add_argument("--mechanism")
+867610	    parser.add_argument("--limit", default=2, type=int)
+867611	    parser.add_argument("--byte-budget", default=1_000_000, type=int)
+867612	    parser.add_argument("--repeat", default=7, type=int)
+867613	    parser.add_argument("--fixture", action="store_true")
+867614	    parser.add_argument("--worker", choices=MODES, help=argparse.SUPPRESS)
+867616	    with ExitStack() as stack:
+867617	        if args.fixture and not args.inputs:
+867618	            folder = stack.enter_context(TemporaryDirectory())
+867619	            inputs = make_fixture(Path(folder))
+867620	            scope, mechanism = SCOPE, MECHANISM
+867621	        elif len(args.inputs) == 5 and args.scope and not args.fixture:
+867622	            inputs, scope, mechanism = args.inputs, args.scope, args.mechanism
+867623	            parser.error("provide --fixture or both captures, both indexes, a STARS database and --scope")
+867624	        if args.repeat < 1:
+867625	            parser.error("repeat must be positive")
+867626	        result = (sample(args.worker, inputs, scope, mechanism, args.limit, args.byte_budget)
+867627	                  if args.worker else run(inputs, scope, mechanism, args.limit, args.byte_budget, args.repeat))
+867628	    serialized = json.dumps(result, indent=2)
+867629	        with args.output.open("x", encoding="utf-8") as file:
+867630	            file.write(serialized+"\n")
+867631	        print(serialized)
+867632	"""Generate a small synthetic capture pair and read-only STARS witness inputs."""
+867633	import gc
+867634	from state_compare import git_blob
+867635	from teleprint_index import index
+867636	SCOPE = "https://example.invalid/history/"
+867637	MECHANISM = "https://example.invalid/overlay.js"
+867638	UNAVAILABLE = SCOPE + "unread.json"
+867639	CODE = b'const DATASET = "https://example.invalid/history/";\n'
+867640	RULE = "=" * 78
+867641	def create_capture(path, resources, generation, unread=()):
+867642	    assert all(isinstance(value, bytes) for value in resources.values())
+867643	    bodies = {key: value.decode("utf-8") for key, value in resources.items()}
+867644	    lengths = {url: len(body.encode("utf-16-le"))//2 for url, body in bodies.items()}
+867645	    content = [RULE, "THE SCREEN THIS CAME FROM", RULE, json.dumps({"generation":generation}),
+867646	               RULE, f"CONTENTS -- {len(bodies)} file(s), {sum(lengths.values())} characters", RULE]
+867647	    for n, url in enumerate(bodies, 1):
+867648	        content.append(f"{n}. {url}\n  {lengths[url]} chars · fixture")
+867649	    if unread:
+867650	        content.extend([RULE, f"NOT READ -- {len(unread)} resource(s)", RULE])
+867651	        content.extend(f"- {url}\n  Controlled refusal" for url in unread)
+867652	    for url, body in bodies.items():
+867653	        content.extend([RULE, "FILE: "+url, f"{lengths[url]} chars · fixture", RULE, body, ""])
+867654	    content.extend([RULE, "END OF TELEPRINT", RULE])
+867655	    path.write_text("\n".join(content), encoding="utf-8", newline="\n")
+867656	def make_fixture(directory: Path, alternate_mechanism=False):
+867657	    alternate = CODE+b"const CAP = 2;\n" if alternate_mechanism else CODE
+867658	    database = directory/"stars.sqlite"
+867659	    with closing(sqlite3.connect(database)) as db:
+867660	        db.executescript("""
+867661	          create table tablet(n integer,git_blob text unique,lines blob);
+867662	          create table line(n integer primary key,text blob);
+867663	          create table occurrence(repo text,commit_sha text,path text,tablet integer);
+867664	          create table commit_info(repo text,sha text,date text);
+867666	        db.execute("insert into line values(?,?)",(9,CODE))
+867667	        db.execute("insert into tablet values(?,?,?)",(7740,git_blob(CODE),struct.pack("<I",9)))
+867668	        db.execute("insert into occurrence values(?,?,?,?)",("fixture","ab"*20,"overlay.js",7740))
+867669	        db.execute("insert into commit_info values(?,?,?)",("fixture","ab"*20,"2026-01-01"))
+867670	        if alternate_mechanism:
+867671	            db.execute("insert into line values(?,?)",(10,alternate))
+867672	            db.execute("insert into tablet values(?,?,?)",(7741,git_blob(alternate),struct.pack("<I",10)))
+867673	            db.execute("insert into occurrence values(?,?,?,?)",("fixture","cd"*20,"overlay.js",7741))
+867674	        db.commit()
+867675	    before = directory/"before.txt"
+867676	    after = directory/"after.txt"
+867677	    first_idx = directory/"before.json"
+867678	    second_idx = directory/"after.json"
+867679	    common = {MECHANISM: CODE, SCOPE+"stable.json":b"[]"}
+867680	    create_capture(before, dict(common, **{SCOPE+"same-url.json":b"[1]", SCOPE+"before.json":b"[2]",
+867681	                                          UNAVAILABLE:b"[5]"}), "before-fixture")
+867682	    create_capture(after, dict(common, **{SCOPE+"same-url.json":b"[4]", SCOPE+"after.json":b"[3]", MECHANISM:alternate}),
+867683	                   "after-fixture", (UNAVAILABLE,))
+867684	    for target,capture in ((first_idx,before),(second_idx,after)):
+867685	        receipt = index(capture,database)
+867686	        # The retained pre-publication indexer leaves connection disposal to GC.
+867688	        receipt.pop("input",None)
+867689	        target.write_text(json.dumps(receipt),encoding="utf-8")
+867690	    return before, first_idx, after, second_idx, database
+867691	"""Compare captured resource states, then inspect selected evidence by exact identity."""
+867694	from experiment_b import composed
+867695	HEX256 = re.compile(r"[0-9a-f]{64}")
+867696	HEX160 = re.compile(r"[0-9a-f]{40}")
+867698	class Capture:
+867700	    index: Path
+867701	    digest: str
+867702	    database_digest: str
+867703	    generation: str | None
+867704	    captured_at: str | None
+867705	    records: dict
+867706	    unavailable: set
+867707	    index_bytes: int
+867708	def open_capture(path, index_path):
+867709	    raw = index_path.read_bytes()
+867711	    if (not HEX256.fullmatch(manifest["input_sha256"])
+867712	            or not HEX256.fullmatch(manifest["database_sha256"])):
+867713	        raise ValueError("Malformed capture or database digest")
+867714	    length = path.stat().st_size
+867715	    if type(manifest["bytes"]) is not int or length != manifest["bytes"]:
+867716	        raise ValueError("Capture and index lengths differ")
+867718	    for row in manifest["records"]:
+867719	        url, start, size = (row[k] for k in ("url", "byte_start", "byte_length"))
+867720	        if (not isinstance(url, str) or not url or url in rows or type(start) is not int
+867721	                or type(size) is not int or start < 0 or size < 0 or start + size > length
+867722	                or not HEX256.fullmatch(row["text_sha256"]) or not HEX160.fullmatch(row["git_blob"])):
+867723	            raise ValueError("Ambiguous or malformed indexed resource")
+867724	        rows[url] = row
+867725	    unavailable = set()
+867726	    for item in manifest["not_read"]:
+867727	        if (not isinstance(item, list) or len(item) != 2
+867728	                or not all(isinstance(value, str) and value for value in item)
+867729	                or item[0] in rows or item[0] in unavailable):
+867730	            raise ValueError("Ambiguous or malformed unread resource")
+867731	        unavailable.add(item[0])
+867732	    return Capture(path, index_path, manifest["input_sha256"], manifest["database_sha256"],
+867733	                   manifest.get("screen", {}).get("generation"),
+867734	                   manifest.get("screen", {}).get("capturedAt"), rows, unavailable, len(raw))
+867735	def classify(before, after, scope_prefix):
+867736	    urls = set(before.records) | set(after.records) | before.unavailable | after.unavailable
+867737	    counts = dict(identical=0, changed=0, before_only=0, after_only=0, unread=0)
+867738	    for url in sorted(urls):
+867739	        if not url.startswith(scope_prefix):
+867740	        left, right = before.records.get(url), after.records.get(url)
+867741	        a = left["text_sha256"] if left else None
+867742	        b = right["text_sha256"] if right else None
+867743	        if url in before.unavailable or url in after.unavailable:
+867744	            status = "unread"
+867745	        elif left is None:
+867746	            status = "after_only"
+867747	        elif right is None:
+867748	            status = "before_only"
+867749	            status = "identical" if a == b else "changed"
+867750	        counts[status] += 1
+867751	        if status != "identical":
+867752	            changes.append(dict(url=url, status=status, before_sha256=a, after_sha256=b,
+867753	                                before_unread=url in before.unavailable,
+867754	                                after_unread=url in after.unavailable))
+867755	    return counts, changes
+867756	def selected_source(capture, url, database):
+867757	    return composed(capture.path, url, database, capture.index)
+867758	def from_captures(before, after, database, scope_prefix, mechanism_url, limit, byte_budget,
+867759	                  compare_metadata=classify, audit_source=selected_source):
+867760	    if not scope_prefix or type(limit) is not int or type(byte_budget) is not int or limit < 0 or byte_budget < 0:
+867761	        raise ValueError("Use a nonempty scope and nonnegative integer witness limits")
+867762	    if before.database_digest != after.database_digest:
+867763	        raise ValueError("Capture indexes disagree on the recorded STARS database identity")
+867764	    counts, changes = compare_metadata(before, after, scope_prefix)
+867765	    result = dict(scope=scope_prefix, before_sha256=before.digest, after_sha256=after.digest,
+867766	                  before_generation=before.generation, after_generation=after.generation,
+867767	                  before_captured_at=before.captured_at, after_captured_at=after.captured_at,
+867768	                  recorded_database_sha256=before.database_digest, counts=counts, changes=changes,
+867769	                  mechanism=None, witnesses=[], deferred_witnesses=0)
+867770	    data = dict(index_bytes=before.index_bytes + after.index_bytes,
+867771	                payload_bytes=0, sqlite_queries=0)
+867772	    def payload(capture, url):
+867773	        record = capture.records[url]
+867774	        raw = retrieve(capture.path, record)
+867775	        if git_blob(raw) != record["git_blob"]:
+867776	            raise ValueError("Index Git identity differs from digest-verified payload")
+867777	        data["payload_bytes"] += len(raw)
+867778	    if mechanism_url:
+867779	        if mechanism_url not in before.records or mechanism_url not in after.records:
+867780	            raise ValueError("Requested mechanism must have an indexed body in both captures")
+867781	        results, inspected = [], {}
+867782	        for capture in (before, after):
+867783	            # The prior SEED verifies the bytes in each capture. Inspect a distinct
+867784	            # verified body once more for the scope literal.
+867785	            row = capture.records[mechanism_url]
+867786	            size, blob = row["byte_length"], row["git_blob"]
+867787	            extra = 0 if blob in inspected else size
+867788	            if data["payload_bytes"] + size + extra > byte_budget:
+867789	                raise ValueError("Payload budget is too small for both mechanism witnesses")
+867790	            proven, input_bytes, queries = audit_source(capture, mechanism_url, database)
+867791	            if proven["status"] != "byte-identical":
+867792	                raise ValueError("Mechanism attribution refused: " + proven["status"])
+867793	            data["index_bytes"] += capture.index_bytes
+867794	            data["payload_bytes"] += input_bytes - capture.index_bytes
+867795	            data["sqlite_queries"] += queries
+867796	            if blob not in inspected:
+867797	                inspected[blob] = scope_prefix.encode() in payload(capture, mechanism_url)
+867798	            results.append(dict(tablet=proven["tablet"], git_blob=proven["git_blob"],
+867799	                                occurrences=proven["occurrences"], scope_literal=inspected[blob]))
+867800	        result["mechanism"] = dict(url=mechanism_url, before=results[0], after=results[1],
+867801	                                   same_source=results[0]["git_blob"] == results[1]["git_blob"])
+867802	    for row in changes:
+867803	        if row["status"] == "unread":
+867804	        url = row["url"]
+867805	        sides = [(side, capture) for side, capture in (("before", before), ("after", after))
+867806	                 if url in capture.records]
+867807	        size = sum(capture.records[url]["byte_length"] for _, capture in sides)
+867808	        if (len(result["witnesses"]) >= limit or data["payload_bytes"] + size > byte_budget):
+867809	            result["deferred_witnesses"] += 1
+867810	        sample = {}
+867811	        for side, capture in sides:
+867812	            payload(capture, url)
+867813	            sample[side] = capture.records[url]["text_sha256"]
+867814	        result["witnesses"].append(dict(url=url, verified_sha256=sample))
+867815	    return result, data
+867816	def compare(before_capture: Path, before_index: Path, after_capture: Path, after_index: Path,
+867817	            database: Path, scope_prefix: str, mechanism_url: str | None = None,
+867818	            limit: int = 2, byte_budget: int = 1_000_000):
+867819	    return from_captures(open_capture(before_capture, before_index), open_capture(after_capture, after_index),
+867820	                         database, scope_prefix, mechanism_url, limit, byte_budget)
+867821	    for name in ("before_capture", "before_index", "after_capture", "after_index", "database"):
+867823	    parser.add_argument("--scope", required=True)
+867824	    parser.add_argument("--limit", type=int, default=2)
+867825	    parser.add_argument("--byte-budget", type=int, default=1_000_000)
+867826	    parser.add_argument("--verify-inputs", action="store_true",
+867827	                        help="Rehash the complete captures and STARS snapshot once before comparing")
+867828	    before = open_capture(args.before_capture, args.before_index)
+867829	    after = open_capture(args.after_capture, args.after_index)
+867830	    if args.verify_inputs:
+867831	        if any(file_sha(item.path) != item.digest for item in (before, after)):
+867832	            raise ValueError("Capture identity differs from index")
+867833	        if file_sha(args.database) != before.database_digest:
+867834	            raise ValueError("SQLite snapshot differs from the recorded source identity")
+867835	    proof, usage = from_captures(before, after, args.database, args.scope, args.mechanism,
+867836	                                 args.limit, args.byte_budget)
+867837	    print(json.dumps(dict(evidence=proof, resources=usage, full_inputs_rehashed=args.verify_inputs), indent=2))
+867838	"""Alternative indexed implementation of the same captured-state comparison."""
+867839	from state_compare import from_captures, open_capture
+867840	from economy.b_baseline import source_audit
+867841	SQL = """
+867842	with urls as (select url from b union select url from a),
+867843	states as (
+867844	 select urls.url, b.digest as before_sha256, a.digest as after_sha256,
+867845	        coalesce(b.unread,0) as before_unread, coalesce(a.unread,0) as after_unread,
+867846	        case
+867847	         when b.unread=1 or a.unread=1 then 'unread'
+867848	         when b.url is null then 'after_only'
+867849	         when a.url is null then 'before_only'
+867850	         when b.digest = a.digest then 'identical'
+867851	         else 'changed'
+867852	        end as status
+867853	 from urls left join b using(url) left join a using(url)
+867854	 where substr(urls.url,1,length(?))=?
+867856	select url,status,before_sha256,after_sha256,before_unread,after_unread from states order by url
+867858	def classify_sql(before, after, scope):
+867859	    outcomes = []
+867860	    with closing(sqlite3.connect(":memory:")) as con:
+867861	        for table, capture in (("b", before), ("a", after)):
+867862	            con.execute(f"create table {table}(url text primary key,digest text,unread int)")
+867863	            observed = [(url, r["text_sha256"], 0) for url, r in capture.records.items()]
+867864	            unread = [(url, None, 1) for url in capture.unavailable]
+867865	            con.executemany(f"insert into {table} values(?,?,?)", observed+unread)
+867866	        for url, status, a, b, unread_left, unread_right in con.execute(SQL, (scope,scope)):
+867867	            counts[status] += 1
+867868	            if status != "identical":
+867869	                outcomes.append(dict(url=url, status=status, before_sha256=a, after_sha256=b,
+867870	                                     before_unread=bool(unread_left), after_unread=bool(unread_right)))
+867871	    return counts, outcomes
+867872	def standalone(capture, url, db):
+867873	    return source_audit(capture.path, url, db, capture.index)
+867874	def compare(before_capture, before_index, after_capture, after_index, database, scope_prefix,
+867875	            mechanism_url=None, limit=2, byte_budget=1_000_000):
+867876	    before = open_capture(before_capture, before_index)
+867877	    after = open_capture(after_capture, after_index)
+867878	    return from_captures(before, after, database, scope_prefix, mechanism_url, limit, byte_budget,
+867879	                         compare_metadata=classify_sql, audit_source=standalone)
+867881	from fixture import CODE, MECHANISM, SCOPE, make_fixture
+867882	from state_compare import compare
+867883	class CompositionTests(unittest.TestCase):
+867885	        self.temp = TemporaryDirectory()
+867887	        self.inputs = make_fixture(Path(self.temp.name))
+867888	    def replace_index(self, edit):
+867889	        index = self.inputs[1]
+867890	        document = json.loads(index.read_text(encoding="utf-8"))
+867891	        edit(document)
+867892	        index.write_text(json.dumps(document), encoding="utf-8")
+867893	    def test_equal_outputs_and_verified_mechanism(self):
+867894	        args = (*self.inputs, SCOPE, MECHANISM, 3, 500)
+867895	        result, usage = compare(*args)
+867896	        self.assertEqual((result, usage), direct(*args))
+867897	        self.assertEqual(result["counts"], dict(identical=1, changed=1, before_only=1, after_only=1, unread=1))
+867898	        self.assertEqual(result["mechanism"]["before"]["tablet"], 7740)
+867899	        self.assertTrue(result["mechanism"]["same_source"])
+867900	        self.assertTrue(result["mechanism"]["after"]["scope_literal"])
+867901	        self.assertEqual(usage["payload_bytes"], 3*len(CODE)+12)
+867902	        self.assertEqual(len(result["witnesses"]), 3)
+867903	    def test_attribution_tracks_replaced_mechanism(self):
+867904	        with TemporaryDirectory() as folder:
+867905	            inputs = make_fixture(Path(folder), alternate_mechanism=True)
+867906	            args = (*inputs, SCOPE, MECHANISM, 2, 500)
+867907	            proof, stats = compare(*args)
+867908	            self.assertEqual((proof, stats), direct(*args))
+867909	            self.assertEqual(proof["mechanism"]["before"]["tablet"], 7740)
+867910	            self.assertEqual(proof["mechanism"]["after"]["tablet"], 7741)
+867911	            self.assertFalse(proof["mechanism"]["same_source"])
+867912	    def test_metadata_only_zero_payload(self):
+867913	        result, usage = compare(*self.inputs, SCOPE, limit=0, byte_budget=0)
+867914	        self.assertEqual(usage["payload_bytes"], 0)
+867915	        self.assertEqual(usage["sqlite_queries"], 0)
+867916	        self.assertEqual(result["deferred_witnesses"], 3)
+867917	    def test_duplicate_exact_url(self):
+867918	        self.replace_index(lambda d:d["records"].append(d["records"][0]))
+867919	        with self.assertRaisesRegex(ValueError, "Ambiguous"):
+867920	            compare(*self.inputs, SCOPE)
+867921	    def test_database_identity_mismatch(self):
+867922	        self.replace_index(lambda d:d.update(database_sha256="f"*64))
+867923	        with self.assertRaisesRegex(ValueError, "database identity"):
+867924	    def test_selected_corrupted_bytes(self):
+867925	        before, index = self.inputs[:2]
+867926	        data = json.loads(index.read_text())
+867927	        target = next(r for r in data["records"] if r["url"]==SCOPE+"before.json")
+867928	        with before.open("r+b") as f:
+867929	            f.seek(target["byte_start"])
+867930	            f.write(b"!")
+867932	    def test_historical_corruption_refused(self):
+867933	        with closing(sqlite3.connect(self.inputs[-1])) as db:
+867934	            with db:
+867935	                db.execute("update line set text=? where n=9", (b"x",))
+867936	        with self.assertRaisesRegex(ValueError, "tablet integrity"):
+867937	            compare(*self.inputs, SCOPE, MECHANISM)
+867938	    def test_metadata_malformed_range(self):
+867939	        self.replace_index(lambda d:d["records"][0].update(byte_start=d["bytes"]+1))
+867940	        with self.assertRaisesRegex(ValueError, "malformed"):
+867941	    def test_requested_mechanism_exceeds_budget(self):
+867942	        with self.assertRaisesRegex(ValueError, "budget"):
+867943	            compare(*self.inputs, SCOPE, MECHANISM, byte_budget=1)
+867945	const trenchlessClasses = new Set(["motorway", "trunk_road", "railway", "navigable_river", "canal",
+867946	    "protected_habitat", "open_water"]);
+867947	const openCutClasses = new Set(["minor_road", "watercourse"]);
+867948	function requireRecord(value, name) {
+867949	    if (value === null || typeof value !== "object" || Array.isArray(value)) {
+867950	        throw new TypeError(name + " must be an object");
+867951	function positive(value, name) {
+867952	    if (!Number.isFinite(value) || value <= 0) throw new RangeError(name + " must be finite and positive");
+867953	function nonnegative(value, name) {
+867954	    if (!Number.isFinite(value) || value < 0) throw new RangeError(name + " must be finite and nonnegative");
+867955	function finiteOutput(value, name) {
+867956	    if (!Number.isFinite(value)) throw new RangeError("Nonfinite " + name);
+867958	function addCount(value, count) {
+867959	    const total = value + count;
+867960	    if (!Number.isSafeInteger(total)) throw new RangeError("crossing count exceeds the exact integer range");
+867962	function crossingsReport(crossings) {
+867963	    if (!Array.isArray(crossings)) throw new TypeError("crossings must be an array");
+867964	    let blocked = false;
+867965	    const result = {count: 0, trenchless: 0, openCut: 0, declaredLengthM: 0, undeclaredCount: 0};
+867966	    for (const section of crossings) {
+867967	        requireRecord(section, "crossing");
+867968	        const {type, widthM, setbackM, depthM} = section;
+867969	        const count = Object.hasOwn(section, "count") ? section.count : 1;
+867970	        if (!Number.isSafeInteger(count) || count <= 0) throw new RangeError("crossing count must be a positive integer");
+867971	        const trenchless = trenchlessClasses.has(type);
+867972	        if (!trenchless && !openCutClasses.has(type)) throw new RangeError("unknown crossing type");
+867973	        result.count = addCount(result.count, count);
+867974	        if (trenchless) result.trenchless = addCount(result.trenchless, count);
+867975	        else result.openCut = addCount(result.openCut, count);
+867976	        blocked ||= type === "open_water";
+867977	        const hasWidth = Object.hasOwn(section, "widthM");
+867978	        const hasSetback = Object.hasOwn(section, "setbackM");
+867979	        const hasDepth = Object.hasOwn(section, "depthM");
+867980	        if (hasWidth !== hasSetback || (hasDepth && !hasWidth)) {
+867981	            throw new RangeError("width and setback must be supplied as a pair before using depth");
+867982	        if (!hasWidth) {
+867983	            result.undeclaredCount = addCount(result.undeclaredCount, count);
+867985	        positive(widthM, "width");
+867986	        positive(setbackM, "setback");
+867987	        if (hasDepth) nonnegative(depthM, "depth");
+867988	        const span = widthM + 2 * setbackM;
+867989	        const length = depthM > 0 ? 2 * Math.hypot(span / 2, depthM) : span;
+867990	        result.declaredLengthM = finiteOutput(result.declaredLengthM + count * length, "crossing length");
+867991	    return {result, blocked};
+867992	function electricalModel(electrical) {
+867993	    requireRecord(electrical, "electrical");
+867994	    const {currentA, nominalVolts, resistanceOhmPerKm, reactanceOhmPerKm, powerFactor, phases} = electrical;
+867995	    positive(currentA, "current");
+867996	    positive(nominalVolts, "nominal voltage");
+867997	    positive(resistanceOhmPerKm, "resistance");
+867998	    nonnegative(reactanceOhmPerKm, "reactance");
+867999	    positive(powerFactor, "power factor");
+868000	    if (powerFactor > 1) throw new RangeError("power factor exceeds one");
+868001	    if (phases !== "three" && phases !== "single") throw new RangeError("unknown phase configuration");
+868002	    const dropScale = phases === "three" ? Math.sqrt(3) : 2;
+868003	    const lossScale = phases === "three" ? 3 : 2;
+868004	    const effectiveImpedance = resistanceOhmPerKm * powerFactor
+868005	        + reactanceOhmPerKm * Math.sqrt(1 - powerFactor ** 2);
+868006	    return lengthM => {
+868007	        const km = lengthM / 1000;
+868008	        const dropV = finiteOutput(dropScale * currentA * km * effectiveImpedance, "voltage drop");
+868009	        const dropPct = finiteOutput(100 * dropV / nominalVolts, "percentage drop");
+868010	        const lossW = finiteOutput(lossScale * currentA ** 2 * resistanceOhmPerKm * km, "loss");
+868011	        return {status: "computed", lengthM, dropV, dropPct, lossW};
+868013	export function screen(input) {
+868014	    requireRecord(input, "input");
+868015	    const calculate = electricalModel(input.electrical);
+868016	    if (!Array.isArray(input.options) || !input.options.length) throw new RangeError("at least one route required");
+868018	    let minimum = Infinity;
+868019	    let lowestLossIds = [];
+868020	    const options = input.options.map(option => {
+868021	        requireRecord(option, "option");
+868022	        const {id, straightLineKm} = option;
+868023	        if (typeof id !== "string" || !id.trim() || ids.has(id)) throw new RangeError("route ID invalid or duplicated");
+868024	        ids.add(id);
+868025	        positive(straightLineKm, "straight-line length");
+868026	        const {result: crossings, blocked} = crossingsReport(option.crossings);
+868027	        const corridor = blocked ? {status: "blocked", km: null}
+868028	            : straightLineKm < 1 ? {status: "below_minimum", km: null}
+868029	                : {status: "indicative", km: finiteOutput(straightLineKm * 1.245, "corridor length")};
+868030	        const straightMetres = finiteOutput(straightLineKm * 1000, "straight-line metres");
+868031	        let electrical = {status: "needs_installed_length"};
+868032	        if (Object.hasOwn(option, "installedLengthM")) {
+868033	            positive(option.installedLengthM, "installed length");
+868034	            if (option.installedLengthM < straightMetres) {
+868035	                throw new RangeError("installed length is shorter than the straight-line distance");
+868037	            electrical = calculate(option.installedLengthM);
+868038	        if (electrical.status === "computed") {
+868039	            if (electrical.lossW < minimum) {
+868040	                minimum = electrical.lossW;
+868041	                lowestLossIds = [id];
+868042	            } else if (electrical.lossW === minimum) lowestLossIds.push(id);
+868043	        return {id, corridor, crossings, electrical};
+868045	    return {options, lowestLossIds: lowestLossIds.sort()};
+868047	import { screen } from "./baseline.mjs";
+868048	function input(options, electrical = {}) {
+868049	        electrical: {currentA: 10, nominalVolts: 400, resistanceOhmPerKm: 0.5,
+868050	            reactanceOhmPerKm: 0.25, powerFactor: 0.6, phases: "single", ...electrical},
+868052	function option(id = "A", extra = {}) {
+868053	    return {id, straightLineKm: 2, crossings: [], ...extra};
+868054	test("uses the installed length for independent AC calculations", () => {
+868055	    const result = screen(input([option("A", {installedLengthM: 2000})]));
+868056	    assert.deepEqual(result.options[0].electrical, {
+868057	        status: "computed", lengthM: 2000, dropV: 20, dropPct: 5, lossW: 200
+868058	    assert.deepEqual(result.lowestLossIds, ["A"]);
+868059	test("three-phase uses its own drop and loss factors", () => {
+868060	    const result = screen(input([option("B", {straightLineKm: 1, installedLengthM: 1000})], {
+868061	        phases: "three", currentA: 100, powerFactor: 1
+868062	    })).options[0].electrical;
+868063	    assert.ok(Math.abs(result.dropV - 86.60254037844386) < 1e-12);
+868064	    assert.equal(result.lossW, 15000);
+868065	test("corridor blocking, threshold and missing length stay distinct", () => {
+868066	    const result = screen(input([
+868067	        option("sea", {straightLineKm: 0.9, crossings: [{type: "open_water"}]}),
+868068	        option("short", {straightLineKm: 0.99}),
+868069	        option("boundary", {straightLineKm: 1})
+868071	    assert.deepEqual(result.options.map(x => x.corridor), [
+868072	        {status: "blocked", km: null}, {status: "below_minimum", km: null},
+868073	        {status: "indicative", km: 1.245}
+868075	    assert.ok(result.options.every(x => x.electrical.status === "needs_installed_length"));
+868076	    assert.deepEqual(result.lowestLossIds, []);
+868077	test("counts occurrences and measured crossing lengths using the requested profile", () => {
+868078	    const result = screen(input([option("A", {crossings: [
+868079	        {type: "railway", widthM: 6, setbackM: 1, depthM: 3, count: 2},
+868080	        {type: "minor_road", widthM: 5, setbackM: 1},
+868081	        {type: "watercourse", count: 3}
+868082	    ]})])).options[0];
+868083	    assert.deepEqual(result.crossings, {
+868084	        count: 6, trenchless: 2, openCut: 4, declaredLengthM: 27, undeclaredCount: 3
+868085	    assert.deepEqual(result.corridor, {status: "indicative", km: 2.49});
+868086	test("calculates with an explicit installed length if water blocks the corridor method", () => {
+868087	    const result = screen(input([option("sea", {
+868088	        crossings: [{type: "open_water"}], installedLengthM: 2000
+868089	    })])).options[0];
+868090	    assert.equal(result.corridor.status, "blocked");
+868091	    assert.equal(result.electrical.lossW, 200);
+868092	test("retains all tied minimal losses, independently of route order", () => {
+868093	        option("z", {straightLineKm: 0.049, installedLengthM: 51}), option("b", {straightLineKm: 0.049, installedLengthM: 50}),
+868094	        option("A", {straightLineKm: 0.049, installedLengthM: 50}), option("undefined")
+868095	    assert.deepEqual(result.lowestLossIds, ["A", "b"]);
+868096	test("rejects invalid configuration, missing widths or overflow", () => {
+868097	    for (const malformed of [
+868098	        input([]), input([option(), option()]), input([option(" ")]),
+868099	        input([option("bad", {straightLineKm: Infinity})]),
+868100	        input([option("bad", {installedLengthM: null})]),
+868101	        input([option("bad", {crossings: [{type: "x"}]})]),
+868102	        input([option("bad", {crossings: [{type: "canal", count: 1.5}]})]),
+868103	        input([option("bad", {crossings: [{type: "canal", count: 0}]})]),
+868104	        input([option("bad", {crossings: [{type: "canal", widthM: 2}]})]),
+868105	        input([option("bad", {crossings: [{type: "canal", depthM: 0}]})]),
+868106	        input([option("bad", {crossings: [{type: "canal", widthM: 2, setbackM: 0}]})]),
+868107	        input([option("bad", {crossings: [{type: "canal", widthM: 2, setbackM: 3, depthM: -1}]})]),
+868108	        input([option()], {powerFactor: 1.1}),
+868109	        input([option()], {reactanceOhmPerKm: -0.1}),
+868110	        input([option()], {phases: "five"}),
+868111	        input([option("bad", {installedLengthM: 1999})]),
+868112	        input([option("bad", {straightLineKm: 1e308})]),
+868113	        input([option("bad", {crossings: [
+868114	            {type: "minor_road", count: Number.MAX_SAFE_INTEGER}, {type: "railway", count: 1}
+868115	        ]})]),
+868116	        input([option("bad", {installedLengthM: 2000})], {currentA: 1e200})
+868117	    ]) assert.throws(() => screen(malformed));
+868118	/** Measure equivalent cable-option decisions in interleaved fresh workers. */
+868120	import { readFileSync, writeFileSync } from 'node:fs';
+868121	import { performance } from 'node:perf_hooks';
+868122	const HERE = fileURLToPath(import.meta.url);
+868123	const fixtureUrl = new URL('./fixture.json', import.meta.url);
+868124	const rounds = 7;
+868125	const iterations = 1024;
+868126	function normalized(value) {
+868127	  if (typeof value === 'number') return Number(value.toPrecision(11));
+868128	  if (Array.isArray(value)) return value.map(normalized);
+868129	  if (value && typeof value === 'object') {
+868130	    return Object.fromEntries(Object.keys(value).sort().map(key => [key, normalized(value[key])]));
+868132	async function sample(mode, repo) {
+868133	  const start = performance.now();
+868134	  const coldCpu = process.cpuUsage();
+868135	  const payload = readFileSync(fixtureUrl);
+868136	  const fixture = JSON.parse(payload);
+868137	  let invoke, logicalPinnedBytes = 0;
+868138	  if (mode === 'composed') {
+868139	    const { loadInstruments, screen } = await import('./route-screen.mjs');
+868140	    const modules = await loadInstruments(repo);
+868141	    logicalPinnedBytes = modules.logicalSourceBytes;
+868142	    invoke = data => screen(data, modules);
+868144	    ({screen: invoke} = await import('./baseline.mjs'));
+868145	  const first = invoke(fixture);
+868146	  const setupAndFirstResultMs = performance.now() - start;
+868147	  const setupAndFirstResultCpu = process.cpuUsage(coldCpu);
+868148	  const witness = createHash('sha256').update(JSON.stringify(normalized(first))).digest('hex');
+868149	  for (let i = 0; i < 128; i++) invoke(fixture);
+868150	  const t = performance.now();
+868151	  const cpu = process.cpuUsage();
+868152	  let warmWitness = 0;
+868153	  for (let i = 0; i < iterations; i++) warmWitness += invoke(fixture).options[0].electrical.lossW;
+868154	  const warmBatchMs = performance.now() - t;
+868155	  const warm = process.cpuUsage(cpu);
+868156	  assert.equal(warmWitness, first.options[0].electrical.lossW * iterations);
+868158	    mode, witness, setupAndFirstResultMs, warmBatchMs,
+868159	    setupAndFirstResultCpuUs: setupAndFirstResultCpu.user + setupAndFirstResultCpu.system,
+868160	    warmBatchCpuUs: warm.user + warm.system,
+868161	    peakWorkerRssBytes: process.resourceUsage().maxRSS * 1024,
+868162	    fixtureBytes: payload.length, pinnedDependencyPayloadBytes: logicalPinnedBytes,
+868163	    warmInvocations: iterations, inferenceCalls: 0, humanInterventions: 0
+868165	const [, , first, second, third] = process.argv;
+868166	if (first === '--worker') {
+868167	  assert(['composed', 'independent'].includes(second));
+868168	  console.log(JSON.stringify(await sample(second, third)));
+868169	  if (!first || !second) throw new Error('Usage: node benchmark.mjs <engine-checkout> <new-receipt.json>');
+868171	  for (let i = 0; i < rounds; i++) {
+868172	    const order = i % 2 ? ['independent', 'composed'] : ['composed', 'independent'];
+868173	    for (const mode of order) {
+868174	      const start = performance.now();
+868175	      const raw = execFileSync(process.execPath, [HERE, '--worker', mode, first]);
+868176	      const workerWallMs = performance.now() - start;
+868177	      samples.push({ ...JSON.parse(raw), workerWallMs });
+868178	  assert.equal(new Set(samples.map(sample => sample.witness)).size, 1, 'Comparable answers disagree');
+868179	  const metrics = ['setupAndFirstResultMs', 'setupAndFirstResultCpuUs', 'warmBatchMs', 'warmBatchCpuUs',
+868180	    'peakWorkerRssBytes', 'fixtureBytes', 'pinnedDependencyPayloadBytes', 'workerWallMs'];
+868181	  const medians = Object.fromEntries(['composed', 'independent'].map(mode => {
+868182	    const matched = samples.filter(sample => sample.mode === mode);
+868183	    return [mode, Object.fromEntries(metrics.map(name =>
+868184	      [name, matched.map(sample => sample[name]).sort((a, b) => a - b)[Math.floor(rounds / 2)]]))];
+868186	    schema: 'seed.cable-screen.cost-comparison.v1',
+868187	    platform: process.platform, node: process.version, rounds, iterations, medians, samples,
+868188	    boundaries: {
+868189	      startup: 'Worker wall includes launch. In-process setup includes pinned Git extraction for composition.',
+868190	      cpu: 'Node process CPU only. Git child CPU and RSS are outside process counters.',
+868191	      bytes: 'Counts the shared input JSON and explicit verified Git payload bytes. Implicit module loads, Git on-disk reads and physical movement are outside the counters.',
+868192	      operating_conditions: 'Interleaved fresh processes. Cache state and competing system activity uncontrolled.',
+868193	      energy: 'No validated joule or watt-hour instrumentation.',
+868194	      inference: 'No timed invocations used model or GPU execution. Authoring cost is recorded separately.'
+868195	  writeFileSync(second, JSON.stringify(receipt, null, 2) + '\n', { flag: 'wx' });
+868196	  console.log(JSON.stringify(medians, null, 2));
+868197	/** Compare declared cable-route options using three pinned SEED dependencies. */
+868200	export const REVISION = '00c5df92cf0c714f3e7e9824dcd170c634ce7d76';
+868201	export const SOURCES = [
+868202	  { path: 'engine/route-obstacles.js', tablet: 2689, blob: '36ab4d0b96d35c92691a048705dde56a27679f38' },
+868203	  { path: 'engine/corridor-estimate.js', tablet: 2675, blob: '6951c9652cdb7ab2a3b3e5c29450f0c97adc5395' },
+868204	  { path: 'engine/voltage-drop.js', tablet: 2692, blob: '85f48ecf7effabb47973b0a056f90e82b8196ef2' }
+868206	export async function loadInstruments(repo) {
+868207	  const request = SOURCES.map(({path}) => REVISION + ':' + path).join('\n') + '\n';
+868208	  const bodies = execFileSync('git', ['--no-lazy-fetch', '-C', repo, 'cat-file', '--batch'],
+868209	    { input: request, maxBuffer: 131072 });
+868211	  const pending = SOURCES.map(({path, blob}) => {
+868212	    const end = bodies.indexOf(10, offset);
+868213	    if (end === -1) throw new Error('Incomplete pinned Git response');
+868214	    const [id, type, sizeString] = bodies.toString('ascii', offset, end).split(' ');
+868215	    const size = Number(sizeString);
+868216	    const bytes = bodies.subarray(end + 1, end + 1 + size);
+868217	    if (id !== blob || type !== 'blob' || !Number.isSafeInteger(size) ||
+868218	        size <= 0 || size !== bytes.length || bodies[end + 1 + size] !== 10 ||
+868219	        createHash('sha1').update('blob ' + size + '\0').update(bytes).digest('hex') !== blob) {
+868220	      throw new Error('Missing or altered dependency: ' + path);
+868221	    offset = end + size + 2;
+868224	  if (offset !== bodies.length) throw new Error('Unexpected trailing source bytes');
+868225	  // Evaluate only the three verified blobs. No mutable module path enters the loader.
+868226	  const [obstacles, corridor, voltage] = await Promise.all(pending.map(bytes =>
+868227	    import('data:text/javascript;base64,' + bytes.toString('base64'))));
+868228	  return { obstacles, corridor, voltage, logicalSourceBytes: pending.reduce((n, body) => n + body.length, 0) };
+868229	const positive = value => Number.isFinite(value) && value > 0;
+868230	const nonnegative = value => Number.isFinite(value) && value >= 0;
+868231	const has = (row, key) => Object.hasOwn(row, key);
+868232	export function screen(input, { obstacles, corridor, voltage }) {
+868233	  const { electrical: e, options } = input || {};
+868234	  if (!e || !positive(e.currentA) || !positive(e.nominalVolts) || !positive(e.resistanceOhmPerKm) ||
+868235	      !nonnegative(e.reactanceOhmPerKm) || !positive(e.powerFactor) || e.powerFactor > 1 ||
+868236	      !['single', 'three'].includes(e.phases) || !Array.isArray(options) || !options.length) {
+868237	    throw new TypeError('Expected a complete electrical contract and at least one route option');
+868239	  const rows = options.map(route => {
+868240	    if (!route || typeof route.id !== 'string' || !route.id.trim() || seen.has(route.id) ||
+868241	        !positive(route.straightLineKm) || !Number.isFinite(route.straightLineKm * 1000) ||
+868242	        !Array.isArray(route.crossings)) throw new TypeError('Invalid or duplicate route option');
+868243	    seen.add(route.id);
+868244	    const declared = has(route, 'installedLengthM');
+868245	    if (declared && (!positive(route.installedLengthM) ||
+868246	        route.installedLengthM < route.straightLineKm * 1000)) {
+868247	      throw new RangeError('Installed length must cover the stated straight-line distance');
+868248	    for (const entry of route.crossings) {
+868249	      if (!entry || typeof entry.type !== 'string' || !Object.hasOwn(obstacles.OBSTACLES, entry.type) ||
+868250	          (has(entry, 'count') && (!Number.isSafeInteger(entry.count) || entry.count < 1)) ||
+868251	          has(entry, 'widthM') !== has(entry, 'setbackM') ||
+868252	          (has(entry, 'widthM') && (!positive(entry.widthM) || !positive(entry.setbackM))) ||
+868253	          (has(entry, 'depthM') && (!has(entry, 'widthM') || !nonnegative(entry.depthM)))) {
+868254	        throw new TypeError('Invalid crossing declaration');
+868255	    const schedule = obstacles.crossingSchedule({ crossings: route.crossings });
+868256	    if (!Number.isSafeInteger(schedule.crossingCount) || !Number.isFinite(schedule.addedLengthM)) {
+868257	      throw new RangeError('Crossing totals exceed the supported range');
+868258	    const estimate = schedule.corridorApplicable ? corridor.forCable(route.straightLineKm) : null;
+868259	    if (estimate?.km !== null && estimate?.km !== undefined && !Number.isFinite(estimate.km)) {
+868260	      throw new RangeError('Corridor estimate exceeds the supported range');
+868261	    let electrical = { status: 'needs_installed_length' };
+868263	      const lengthM = route.installedLengthM;
+868264	      const dropV = voltage.voltageDropVolts({ ...e, lengthM }).value;
+868265	      const dropPct = voltage.dropPercent({ dropVolts: dropV, nominalVolts: e.nominalVolts }).value;
+868266	      const lossW = voltage.lossesWatts({ ...e, lengthM }).value;
+868267	      if (![dropV, dropPct, lossW].every(positive)) throw new RangeError('Electrical result exceeds the supported range');
+868268	      electrical = { status: 'computed', lengthM, dropV, dropPct, lossW };
+868269	      id: route.id,
+868270	      corridor: { status: !estimate ? 'blocked' : estimate.km === null ? 'below_minimum' : 'indicative',
+868271	        km: estimate?.km ?? null },
+868272	      crossings: { count: schedule.crossingCount, trenchless: schedule.trenchlessCount,
+868273	        openCut: schedule.openCutCount, declaredLengthM: schedule.addedLengthM,
+868274	        undeclaredCount: schedule.items.reduce((n, entry) => n + (entry.lengthDeclared ? 0 : entry.count), 0) },
+868275	      electrical
+868276	  const lowest = rows.reduce((minimum, row) => Math.min(minimum, row.electrical.lossW ?? Infinity), Infinity);
+868277	  return { options: rows, lowestLossIds: rows.filter(row => row.electrical.lossW === lowest)
+868278	    .map(row => row.id).sort() };
+868279	if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
+868280	  const [input, repo, ...extra] = process.argv.slice(2);
+868281	  if (!input || !repo || extra.length) {
+868282	    console.error('Usage: node route-screen.mjs <declared-input.json> <engine-git-checkout>');
+868283	    process.exitCode = 2;
+868285	      const request = JSON.parse(readFileSync(input, 'utf8'));
+868286	      const runtime = await loadInstruments(repo);
+868287	      console.log(JSON.stringify({ ...screen(request, runtime), provenance: {
+868288	        repository: 'Ventusltd/ventus-grid-engine', revision: REVISION, sources: SOURCES }
+868289	      }, null, 2));
+868291	      console.error(error.message);
+868292	      process.exitCode = 1;
+868295	import { loadInstruments, screen } from './route-screen.mjs';
+868296	import { screen as conventional } from './baseline.mjs';
+868297	const repo = process.env.VENTUS_ENGINE_REPO;
+868298	assert(repo, 'Set VENTUS_ENGINE_REPO to a checkout containing the pinned Git commit');
+868299	const dependencies = await loadInstruments(repo);
+868300	const fixture = JSON.parse(readFileSync(new URL('./fixture.json', import.meta.url), 'utf8'));
+868301	const composed = input => screen(input, dependencies);
+868302	function equivalent(actual, expected, at = 'result') {
+868303	  if (typeof expected === 'number') {
+868304	    assert(Math.abs(actual - expected) <= 1e-10 * Math.max(1, Math.abs(expected)), at);
+868305	  } else if (expected && typeof expected === 'object') {
+868306	    assert.deepEqual(Object.keys(actual).sort(), Object.keys(expected).sort(), at);
+868307	    for (const key of Object.keys(expected)) equivalent(actual[key], expected[key], at + '.' + key);
+868308	    assert.equal(actual, expected, at);
+868309	test('model produces hand-checked voltage, loss and crossing length', () => {
+868310	  const answer = composed(fixture);
+868311	  const first = answer.options[0];
+868312	  equivalent(first.electrical, { status: 'computed', lengthM: 1000, dropV: 44, dropPct: 4.4, lossW: 4000 });
+868313	  assert.equal(first.crossings.declaredLengthM, 60);
+868314	  assert.equal(first.corridor.km, 1.245);
+868315	  assert.deepEqual(answer.lowestLossIds, ['alternative-land', 'land']);
+868316	test('marine refusal affects only the corridor and keeps declared-length arithmetic', () => {
+868317	  const water = composed(fixture).options[1];
+868318	  assert.deepEqual(water.corridor, { status: 'blocked', km: null });
+868319	  assert.equal(water.crossings.undeclaredCount, 2);
+868320	  assert.equal(water.electrical.lossW, 6000);
+868321	test('straight-line and indicative corridor lengths never become electrical inputs', () => {
+868322	  const row = composed(fixture).options[2];
+868323	  assert.deepEqual(row.corridor, { status: 'below_minimum', km: null });
+868324	  assert.deepEqual(row.electrical, { status: 'needs_installed_length' });
+868325	  const noMeasurements = structuredClone(fixture);
+868326	  for (const item of noMeasurements.options) delete item.installedLengthM;
+868327	  assert.deepEqual(composed(noMeasurements).lowestLossIds, []);
+868328	test('independently authored comparator matches both phase modes and deep crossing quantities', () => {
+868329	  equivalent(composed(fixture), conventional(fixture));
+868330	  const varied = structuredClone(fixture);
+868331	  varied.electrical.phases = 'three';
+868332	  varied.options[0].crossings[0].depthM = 8;
+868333	  varied.options[0].crossings[0].count = 2;
+868334	  const output = composed(varied);
+868335	  equivalent(output, conventional(varied));
+868336	  equivalent(output.options[0].crossings.declaredLengthM, 4 * Math.sqrt(30 ** 2 + 8 ** 2));
+868337	  equivalent(output.options[0].electrical.lossW, 6000);
+868338	  equivalent(output.options[0].electrical.dropV, Math.sqrt(3) * 22);
+868339	test('both paths refuse incomplete, contradictory or unsupported declarations', () => {
+868340	  const edits = [
+868341	    a => { delete a.electrical.reactanceOhmPerKm; },
+868342	    a => { a.electrical.powerFactor = 80; },
+868343	    a => { a.electrical.currentA = Number.MAX_VALUE; },
+868344	    a => { a.options[1].id = 'land'; },
+868345	    a => { a.options[0].installedLengthM = 999; },
+868346	    a => { a.options[0].crossings[0].type = '__proto__'; },
+868347	    a => { delete a.options[0].crossings[0].setbackM; },
+868348	    a => { a.options[0].crossings[0].count = 0; },
+868349	    a => { a.options[0].crossings[0].count = Number.MAX_SAFE_INTEGER + 1; },
+868350	    a => { a.options[0].crossings[0].widthM = Number.MAX_VALUE;
+868351	           a.options[0].crossings[0].setbackM = Number.MAX_VALUE; }
+868354	    const sample = structuredClone(fixture);
+868355	    edit(sample);
+868356	    assert.throws(() => composed(sample));
+868357	    assert.throws(() => conventional(sample));
+868358	test('expected source is unavailable in an unrelated checkout', async () => {
+868359	  await assert.rejects(() => loadInstruments(process.cwd()), /Missing or altered dependency|git/i);
+868362	import { runInNewContext } from "node:vm";
+868363	const revision = "34153fcbd5e91e4aead765fba9e9d0cac1ebf5ec";
+868364	const sourcePath = "measurements/exactness.mjs";
+868365	const sourceBlob = "3de6ed7d81591ffa737656e229858acb278dae4f";
+868366	const expectedSha256 = "867bb83466a9dbc35e86952b496b8f498fc0cc289f9d81cd1dcebdc21552db26";
+868367	const witnessLines = [[19, 393288], [53, 393317], [54, 393318], [55, 393319]];
+868368	const identity = (algorithm, bytes) => createHash(algorithm).update(bytes).digest("hex");
+868369	function extract(checkout) {
+868370	    const input = execFileSync("git", ["-C", checkout, "show", revision + ":" + sourcePath]);
+868371	    assert.equal(identity("sha256", input), expectedSha256);
+868372	    const blobBytes = Buffer.concat([Buffer.from("blob " + input.length + "\0"), input]);
+868373	    assert.equal(identity("sha1", blobBytes), sourceBlob);
+868374	    const lines = input.toString("utf8").split("\n");
+868375	    const closure = witnessLines.map(([line]) => lines[line - 1]).join("\n");
+868376	    const selected = runInNewContext(closure + "\n;({mulhi32, top32, C64, CHI, CLO})", {}, {
+868377	        timeout: 500, contextCodeGeneration: {strings: false, wasm: false}
+868378	    return {selected, inputBytes: input.length, evaluatedBytes: Buffer.byteLength(closure)};
+868379	function requireUint32(value) {
+868380	    if (!Number.isInteger(value) || value < 0 || value > 0xffffffff) {
+868381	        throw new RangeError("Expected an unsigned 32-bit integer");
+868382	function checkedTop(seed, slot) {
+868383	    requireUint32(slot);
+868384	    return seed.top32(slot);
+868385	const [, , checkout, slotArgument, ...rest] = process.argv;
+868386	if (!checkout || rest.length || (slotArgument !== undefined && !/^\d+$/.test(slotArgument))) {
+868387	    throw new Error("Usage: node rare-limb.mjs <particle-repository-checkout> [unsigned-slot]");
+868388	const suppliedSlot = slotArgument === undefined ? null : Number(slotArgument);
+868389	if (suppliedSlot !== null) requireUint32(suppliedSlot);
+868390	const {selected, inputBytes, evaluatedBytes} = extract(checkout);
+868391	if (suppliedSlot !== null) {
+868392	    console.log(JSON.stringify({revision, sourceBlob, inputBytes, evaluatedBytes, slot: suppliedSlot,
+868393	        highWord: checkedTop(selected, suppliedSlot)}, null, 2));
+868394	    const vectors = [
+868395	        0, 1, 2, 0x7fff, 0x8000, 0xfffe, 0xffff, 0x10000, 0x10001, 0x1ffff,
+868396	        0xffffff, 0x1000000, 0x1000001, 0x7fffffff, 0x80000000, 0x80000001, 0xfffffffe, 0xffffffff
+868398	    let genericProducts = 0;
+868399	    for (const a of vectors) {
+868400	        for (const b of vectors) {
+868401	            assert.equal(selected.mulhi32(a, b), Number((BigInt(a) * BigInt(b)) >> 32n));
+868402	            genericProducts += 1;
+868403	    const reference = slot => Number(((BigInt(slot) * selected.C64) & ((1n << 64n) - 1n)) >> 32n);
+868404	    for (const slot of vectors) assert.equal(checkedTop(selected, slot), reference(slot));
+868405	    for (const value of [-1, 2 ** 32, 0.5, NaN, Infinity]) assert.throws(() => checkedTop(selected, value));
+868406	    const changedCarry = slot => ((Math.imul(slot, selected.CHI | 0) >>> 0)
+868407	        + selected.mulhi32(slot, (selected.CLO + 1) >>> 0)) >>> 0;
+868408	    assert.notEqual(changedCarry(0xffffffff), reference(0xffffffff));
+868409	    assert.equal(Math.fround(0x1000000), Math.fround(0x1000001));
+868410	    assert.notEqual(checkedTop(selected, 0x1000000), checkedTop(selected, 0x1000001));
+868411	    console.log(JSON.stringify({
+868412	        schema: "seed.rare.unsigned-high-word.v1",
+868413	        result: "passed",
+868414	        source: {
+868415	            repository: "Ventusltd/particle-physics-drawing-engine", revision, path: sourcePath,
+868416	            gitBlob: sourceBlob, sha256: expectedSha256, tablet: 6082,
+868417	            lineWitnesses: Object.fromEntries(witnessLines),
+868418	            exactIndexedPlacementAtSourceRevision: false,
+868419	            sameBlobIndexedCommit: "027cc70c37955470fd72e9494595c89083a6f1f3"
+868421	        checked: {genericProducts, phaseSlots: vectors.length, refusedInputs: 5,
+868422	            alteredConstantDetected: true, float32IntegerAliasControl: true},
+868423	        boundary: {
+868424	            slotA: 0x1000000, slotB: 0x1000001, phaseA: checkedTop(selected, 0x1000000),
+868425	            phaseB: checkedTop(selected, 0x1000001), maximumSlotPhase: checkedTop(selected, 0xffffffff)
+868426	        resources: {pinnedSourceBlobBytes: inputBytes, evaluatedSourceBytes: evaluatedBytes,
+868427	            modelCalls: 0, gpuUsed: false},
+868428	        scope: "Known-answer boundary vectors in Node. A prior receipt covers a large deterministic sample. No browser, shader, cross-platform or performance replay."
+868429	    }, null, 2));
+868430	import { readFileSync } from 'node:fs';
+868431	import { REVISION, SOURCES } from '../cable-screen/route-screen.mjs';
+868432	import { prepareProjectedScreen } from './projected.mjs';
+868433	const [input, checkout, ...extra] = process.argv.slice(2);
+868434	if (!input || !checkout || extra.length) {
+868435	  console.error('Usage: node invoke.mjs <declared-input.json> <engine-git-checkout>');
+868436	  process.exitCode = 2;
+868438	    const request = JSON.parse(readFileSync(input, 'utf8'));
+868439	    const screen = await prepareProjectedScreen(checkout);
+868440	    console.log(JSON.stringify({ ...screen(request),
+868441	      provenance: { provider: 'projected_numeric_contract', revision: REVISION, sources: SOURCES },
+868443	    console.error(error.message);
+868445	import { loadInstruments, screen } from '../cable-screen/route-screen.mjs';
+868446	import { project } from './projected.mjs';
+868447	const fixture = JSON.parse(readFileSync(new URL('../cable-screen/fixture.json', import.meta.url)));
+868448	const n = 1024;
+868449	const here = fileURLToPath(import.meta.url);
+868450	if (process.argv[2] === '--worker') {
+868451	  const mode = process.argv[3];
+868453	  const runtime = await loadInstruments(process.argv[4]);
+868454	  const provider = mode === 'projected' ? project(runtime) : runtime;
+868455	  const setupMs = performance.now() - t0;
+868456	  const result = screen(fixture, provider);
+868457	  for (let i = 0; i < 128; i++) screen(fixture, provider);
+868458	  const t1 = performance.now();
+868459	  let witness = 0;
+868460	  for (let i = 0; i < n; i++) witness += screen(fixture, provider).options[0].electrical.lossW;
+868461	  const warmMs = performance.now() - t1;
+868462	  const used = process.cpuUsage(cpu);
+868463	  assert.equal(witness, result.options[0].electrical.lossW * n);
+868464	  console.log(JSON.stringify({ mode, setupMs, warmMs, cpuUs: used.user + used.system,
+868465	    peakProcessBytes: process.resourceUsage().maxRSS * 1024,
+868466	    pinnedInputBytes: runtime.logicalSourceBytes, result }));
+868467	  const [checkout, outfile] = process.argv.slice(2);
+868468	  assert(checkout && outfile, 'Usage: node measure.mjs <engine-checkout> <new-receipt.json>');
+868469	  for (let i = 0; i < 5; i++) {
+868470	    const order = i % 2 ? ['projected', 'reference'] : ['reference', 'projected'];
+868471	    for (const mode of order) samples.push(JSON.parse(execFileSync(process.execPath,
+868472	      [here, '--worker', mode, checkout], { encoding: 'utf8' })));
+868473	  for (const row of samples) assert.deepEqual(row.result, samples[0].result);
+868474	  const medians = {};
+868475	  for (const mode of ['reference', 'projected']) {
+868476	    const group = samples.filter(row => row.mode === mode);
+868477	    medians[mode] = Object.fromEntries(['setupMs', 'warmMs', 'cpuUs', 'peakProcessBytes',
+868478	      'pinnedInputBytes'].map(field => [field, group.map(x => x[field]).sort((a, b) => a - b)[2]]));
+868479	  writeFileSync(outfile, JSON.stringify({
+868480	    medians, batches: 5, invocationsPerWarmBatch: n, node: process.version, platform: process.platform,
+868481	    limits: 'Interleaved fresh workers. Setup performs the same Git pin checks in both modes. Reported CPU and memory describe Node. Timing is host- and workload-dependent. Energy unmeasured.',
+868482	    samples: samples.map(({result, ...row}) => row)
+868483	  }, null, 2) + '\n', { flag: 'wx' });
+868485	const A32 = 1n << 32n;
+868486	const MASK = A32 - 1n;
+868488	    cosmic: 'dbe20b06c1ac107e902b93354f8e8a37b0462ad0',
+868489	    kuiper: 'f7a4cb9e3a764a72b7133bb275bb5387ea083be2',
+868490	    particle: '34153fcbd5e91e4aead765fba9e9d0cac1ebf5ec',
+868491	const PARTICLE_BLOB = '3de6ed7d81591ffa737656e229858acb278dae4f';
+868492	const PARTICLE_SHA = '867bb83466a9dbc35e86952b496b8f498fc0cc289f9d81cd1dcebdc21552db26';
+868493	const [, , cosmic, kuiper, particle, ...rest] = process.argv;
+868494	if (!cosmic || !kuiper || !particle || rest.length) {
+868495	    throw new Error('Usage: node transfer.mjs <cosmic-checkout> <kuiper-belt-checkout> <particle-checkout>');
+868496	const checkouts = {cosmic, kuiper, particle};
+868497	const read = [];
+868498	function blob(project, path) {
+868499	    const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+868500	    const bytes = execFileSync('git', ['-C', checkouts[project], 'show', PINS[project] + ':' + path],
+868501	        {maxBuffer: 1_000_000, env: {...process.env, GIT_NO_LAZY_FETCH: '1'}});
+868502	    const gitBlob = createHash('sha1').update('blob ' + bytes.length + '\0').update(bytes).digest('hex');
+868503	    read.push({project, commit: PINS[project], path, gitBlob, sha256: sha256(bytes), bytes: bytes.length});
+868505	function table(source) {
+868506	    return source.trimEnd().split('\n').filter(row => row && !row.startsWith('#')).map(row => row.split('\t'));
+868507	function prefix(values, gaps = values.map(() => 0n)) {
+868508	    let address = 0n;
+868509	    return values.map((count, i) => {
+868510	        const start = address + gaps[i];
+868511	        address = start + count;
+868512	        return {i, start, count, end: address};
+868513	function locate(records, k) {
+868514	    if (k < 0n || k >= records.at(-1).end) return {status: 'outside'};
+868515	    let lo = 0;
+868516	    let hi = records.length;
+868517	    while (lo < hi) {
+868518	        const mid = (lo + hi) >> 1;
+868519	        if (records[mid].start <= k) lo = mid + 1;
+868520	        else hi = mid;
+868521	    const row = records[lo - 1];
+868522	    if (!row || k >= row.end) return {status: 'unissued'};
+868523	    return {status: 'issued', row: row.i, offset: (k - row.start).toString()};
+868524	function widths(counts) {
+868525	    const max = counts.reduce((a, b) => a > b ? a : b);
+868526	    return {rows: counts.length, maxCount: max.toString(), rowsThatFitLocalUint32: counts.filter(x => x <= A32).length};
+868527	function addressWidth(count) {
+868528	    return {units: count.toString(), largestAddress: (count - 1n).toString(),
+868529	        bits: (count - 1n).toString(2).length, fitsUint32: count <= A32};
+868530	const cosmosSource = blob('cosmic', 'index.html');
+868531	const kuiperSource = blob('kuiper', 'index.html');
+868532	const kuiperKey = blob('kuiper', 'tools/key.py');
+868533	const cosmicConstant = Number(cosmosSource.match(/const GOLD32 = (\d+);/)?.[1]);
+868534	const kuiperConstant = Number(kuiperSource.match(/const G32 = (\d+),/)?.[1]);
+868535	assert(Number.isSafeInteger(cosmicConstant) && cosmicConstant === kuiperConstant);
+868536	assert(cosmosSource.includes('const k32 = (node.seed + m) >>> 0'));
+868537	assert(cosmosSource.includes('Math.sqrt((m + 0.5) / node.value)'));
+868538	assert(kuiperSource.includes('Math.imul((k % 4294967296) >>> 0, G32)'));
+868539	assert(kuiperSource.includes('Math.sqrt(k + 0.5)'));
+868540	assert(kuiperSource.includes('uint m = (u_k0lo + uint(gl_VertexID)) *'));
+868541	assert(kuiperKey.includes("if not c['k0'] <= k < c['k0'] + c['lines']:"));
+868542	assert(kuiperKey.includes('was never issued: it is silence between commits'));
+868543	const universe = JSON.parse(blob('cosmic', 'universe.json'));
+868544	const cosmicKuiper = JSON.parse(blob('cosmic', 'kuiper.json'));
+868545	const wafer = JSON.parse(blob('cosmic', 'wafer.json'));
+868546	const belt = table(blob('cosmic', 'belt.tsv'));
+868547	const repoCounts = belt.map(row => BigInt(row[1]));
+868548	const repositorySpans = prefix(repoCounts);
+868549	assert.equal(repositorySpans.at(-1).end, BigInt(universe.total));
+868550	assert.equal(universe.total, cosmicKuiper.total);
+868551	assert.equal(cosmicKuiper.levels[0].child, null);
+868552	const selected = belt.findIndex(([label]) => label === 'globalgrid2050');
+868553	assert(selected >= 0);
+868554	const selectedRepository = repositorySpans[selected];
+868555	const childPath = universe.levels[0].child.replace('{i2}', String(selected).padStart(2, '0'));
+868556	const cosmicCommitCounts = table(blob('cosmic', childPath)).map(row => BigInt(row[1]));
+868557	assert.equal(prefix(cosmicCommitCounts).at(-1).end, selectedRepository.count);
+868558	const dieCounts = table(blob('cosmic', 'wafer/dies.tsv')).map(row => BigInt(row[1]));
+868559	assert.equal(prefix(dieCounts).at(-1).end, BigInt(wafer.total));
+868560	assert.equal(wafer.levels[0].law, 'explicit');
+868561	const kuiperMeta = JSON.parse(blob('kuiper', 'cosmos/wafer-meta.json'));
+868562	const waferRows = table(blob('kuiper', 'cosmos/wafer.tsv'));
+868563	const commitCounts = waferRows.map(row => BigInt(row[1]));
+868564	const gaps = waferRows.map(row => BigInt(row[4]));
+868565	const issued = commitCounts.reduce((a, b) => a + b, 0n);
+868566	const unissued = gaps.reduce((a, b) => a + b, 0n);
+868567	const chronology = prefix(commitCounts, gaps);
+868568	assert.equal(issued, BigInt(kuiperMeta.issued_keys));
+868569	assert.equal(unissued, BigInt(kuiperMeta.unissued_keys));
+868570	assert.equal(chronology.at(-1).end, BigInt(kuiperMeta.address_space));
+868571	assert.equal(chronology.length, kuiperMeta.commits);
+868572	const particleSource = blob('particle', 'measurements/exactness.mjs');
+868573	assert.equal(read.at(-1).gitBlob, PARTICLE_BLOB);
+868574	assert.equal(read.at(-1).sha256, PARTICLE_SHA);
+868575	const closure = [19, 53, 54, 55].map(n => particleSource.split('\n')[n - 1]).join('\n');
+868576	const limb = runInNewContext(closure + '\n;({mulhi32, top32, C64, CHI, CLO})', {}, {
+868577	    timeout: 500, contextCodeGeneration: {strings: false, wasm: false},
+868578	const MASK64 = (1n << 64n) - 1n;
+868579	function phase32(k) {
+868580	    if (typeof k !== 'bigint' || k < 0n || k > MASK) throw new RangeError('Address exceeds the uint32 domain');
+868581	    return limb.top32(Number(k));
+868582	function phase64(k) {
+868583	    if (typeof k !== 'bigint' || k < 0n || k > MASK64) throw new RangeError('Address exceeds the uint64 domain');
+868584	    const kLo = Number(k & MASK);
+868585	    const kHi = Number(k >> 32n);
+868586	    return (limb.mulhi32(kLo, limb.CLO) + Math.imul(kLo, limb.CHI) + Math.imul(kHi, limb.CLO)) >>> 0;
+868587	function oracle(k) {
+868588	    return Number(((k * limb.C64) & MASK64) >> 32n);
+868589	function legacyWord(k) {
+868590	    return Math.imul(Number(k & MASK), cosmicConstant) >>> 0;
+868591	const fitting = [
+868592	    ['COSMIC selected commit trailing offset', cosmicCommitCounts.reduce((a, b) => a > b ? a : b) - 1n],
+868593	    ['COSMIC largest die trailing offset', dieCounts.reduce((a, b) => a > b ? a : b) - 1n],
+868594	    ['KUIPER largest commit trailing offset', commitCounts.reduce((a, b) => a > b ? a : b) - 1n],
+868595	    ['uint32 last value', MASK],
+868596	const localChecks = fitting.map(([caseName, n]) => {
+868597	    const expected = oracle(n);
+868598	    assert.equal(phase32(n), expected);
+868599	    assert.equal(phase64(n), expected);
+868600	    return {case: caseName, offset: n.toString(), phaseWord: expected};
+868601	const bounds = [
+868602	    ['first address outside uint32', A32], ['COSMIC estate last', BigInt(universe.total) - 1n],
+868603	    ['COSMIC wafer last', BigInt(wafer.total) - 1n], ['KUIPER wafer last', chronology.at(-1).end - 1n],
+868604	const wideDomains = bounds.map(([caseName, key]) => {
+868605	    assert.throws(() => phase32(key), /uint32 domain/);
+868606	    assert.equal(phase64(key), oracle(key));
+868607	    return {case: caseName, key: key.toString(), narrowRefused: true, widePhaseWord: phase64(key)};
+868608	assert.throws(() => phase32(-1n), /uint32 domain/);
+868609	assert.throws(() => phase64(MASK64 + 1n), /uint64 domain/);
+868610	assert.equal(phase64(MASK64), oracle(MASK64));
+868611	const targetA = 15n;
+868612	const targetB = A32 + targetA;
+868613	const globalA = selectedRepository.start + targetA;
+868614	const globalB = selectedRepository.start + targetB;
+868615	assert.deepEqual(locate(repositorySpans, globalA), {row: selected, status: 'issued', offset: '15'});
+868616	assert.deepEqual(locate(repositorySpans, globalB), {row: selected, status: 'issued', offset: targetB.toString()});
+868617	const seed = BigInt((selected * 2654435761) >>> 0);
+868618	assert.equal(legacyWord(seed + targetA), legacyWord(seed + targetB));
+868619	const cosmicRadial = [targetA, targetB].map(offset => Math.sqrt((Number(offset) + 0.5) / Number(selectedRepository.count)));
+868620	assert.notEqual(cosmicRadial[0], cosmicRadial[1]);
+868621	function findChronologyAlias(status) {
+868622	    // Sample 64 evenly spaced actual published commit intervals, not 32-bit keys.
+868623	    const step = Math.floor(chronology.length / 64);
+868624	    for (let sample = 0; sample < 64; sample++) {
+868625	        const row = chronology[sample * step];
+868626	        for (const point of [row.start, row.start + (row.count - 1n) / 2n, row.end - 1n]) {
+868627	            const other = point + A32;
+868628	            const a = locate(chronology, point);
+868629	            const b = locate(chronology, other);
+868630	            if (a.status !== 'issued' || b.status !== status) continue;
+868631	            assert.equal(legacyWord(point), legacyWord(other));
+868632	            assert.notEqual(phase64(point), phase64(other));
+868633	            assert.equal(phase64(point), oracle(point));
+868634	            assert.equal(phase64(other), oracle(other));
+868635	            if (status === 'issued') assert.notEqual(a.row, b.row);
+868636	            return {addresses: [point.toString(), other.toString()], resolution: [a, b],
+868637	                sharedLegacyPhaseWord: legacyWord(point), candidateWidePhaseWords: [phase64(point), phase64(other)]};
+868638	    throw new Error('Expected a witness in the bounded chronological sample');
+868639	const kuiperAliases = {
+868640	    separateCommitAddresses: findChronologyAlias('issued'),
+868641	    issuedAndSilence: findChronologyAlias('unissued'),
+868642	const lawComparison = [0n, 1n, 2n, 3n, 17n, 65_535n].map(k => ({
+868643	    offset: k.toString(), existingLowWord: legacyWord(k), proposedHighWord: phase32(k),
+868644	assert(lawComparison.some(x => x.existingLowWord !== x.proposedHighWord));
+868646	    schema: 'seed.phase-transfer.v1',
+868647	    status: 'arithmetical_proof_and_address_width_findings',
+868648	    pins: PINS,
+868649	    sources: read,
+868650	    particleStars: {tablet: 6082, lines: [393288, 393317, 393318, 393319]},
+868651	    domains: {
+868652	        cosmic: {
+868653	            estate: addressWidth(BigInt(universe.total)),
+868654	            directKuiperView: addressWidth(BigInt(cosmicKuiper.total)),
+868655	            allRepositoryRows: widths(repoCounts),
+868656	            largestDirectLeaf: {label: 'globalgrid2050', ...addressWidth(selectedRepository.count)},
+868657	            selectedRepositoryCommitRows: widths(cosmicCommitCounts),
+868658	            wafer: addressWidth(BigInt(wafer.total)), allExplicitDieRows: widths(dieCounts),
+868659	        kuiper: {
+868660	            chronologicalWafer: addressWidth(chronology.at(-1).end),
+868661	            issuedKeys: issued.toString(), deliberateUnissuedKeys: unissued.toString(),
+868662	            allCommitRows: widths(commitCounts),
+868664	    proof: {
+868665	        knownLocalAddresses: localChecks, fullWidthRefusalsAndOracle: wideDomains,
+868666	        cosmicSameLegacyPhaseDifferentAddress: {
+868667	            bucket: 'globalgrid2050', globalAddresses: [globalA.toString(), globalB.toString()],
+868668	            localOffsets: [targetA.toString(), targetB.toString()],
+868669	            sharedLegacyPhaseWord: legacyWord(seed + targetA), normalizedRadii: cosmicRadial,
+868670	        kuiperActualChronologyAlias: kuiperAliases,
+868671	        phaseLawDifferenceWithinUint32: lawComparison,
+868672	        uint64UpperBoundaryMatched: true,
+868673	    resources: {
+868674	        inputBlobs: read.length, gitBlobBytes: read.reduce((n, row) => n + row.bytes, 0),
+868675	        particleSourceEvaluatedBytes: Buffer.byteLength(closure),
+868676	        chronologicalIntervalsAvailableToWitnessSearch: 64, inferenceCalls: 0, gpuUsed: false,
+868677	    bounds: 'Pinned CPU arithmetic and index witness only. Candidate phase mapping differs from legacy rendering. Existing address allocation, GPU rendering and inverse hit tests are outside scope.',
+868679	import { screen as conventional } from '../cable-screen/baseline.mjs';
+868680	export const fixture = JSON.parse(readFileSync(new URL('../cable-screen/fixture.json', import.meta.url)));
+868681	export function verify(runtime) {
+868682	  const reduced = project(runtime);
+868683	  const compare = input => assert.deepEqual(screen(input, reduced), screen(input, runtime));
+868684	  compare(fixture);
+868685	  let generatedVectors = 0;
+868686	  for (const phases of ['single', 'three']) {
+868687	    for (const powerFactor of [0.0001, 0.6, 0.8, 0.999, 1]) {
+868688	      for (const type of Object.keys(runtime.obstacles.OBSTACLES)) {
+868689	        const input = structuredClone(fixture);
+868690	        input.electrical.phases = phases;
+868691	        input.electrical.powerFactor = powerFactor;
+868692	        input.options[0].crossings = [
+868693	          { type, widthM: 31, setbackM: 15.5, depthM: 7.1, count: 3 },
+868694	          { type, count: 2 },
+868696	        compare(input);
+868697	        generatedVectors++;
+868698	  const extreme = structuredClone(fixture);
+868699	  extreme.electrical = {
+868700	    currentA: 1, nominalVolts: 1e308, resistanceOhmPerKm: 1e307,
+868701	    reactanceOhmPerKm: 0, powerFactor: 1, phases: 'single',
+868702	  compare(extreme);
+868703	  assert(Math.abs(screen(extreme, reduced).options[0].electrical.dropPct - 20) < 1e-12);
+868704	  let conventionalBoundary = 'finite percentage on the independent implementation';
+868705	  let independent;
+868706	    independent = conventional(extreme);
+868707	    assert.match(error.message, /percentage drop/);
+868708	    conventionalBoundary = '100 * drop overflows before division whereas pinned drop/nominal*100 remains finite';
+868709	  if (independent) assert(Math.abs(independent.options[0].electrical.dropPct - 20) < 1e-12);
+868710	  const invalid = [
+868711	    input => { input.electrical.currentA = Number.MIN_VALUE; },
+868712	    input => { input.electrical.currentA = Number.MAX_VALUE; },
+868713	    input => { input.electrical.powerFactor = 80; },
+868714	    input => { input.electrical.resistanceOhmPerKm = 0; },
+868715	    input => { input.options[0].installedLengthM = 999; },
+868716	    input => { input.options[0].crossings[0].type = '__proto__'; },
+868717	    input => { delete input.options[0].crossings[0].widthM; },
+868718	    input => { input.options[0].crossings[0].depthM = -1; },
+868719	    input => { input.options[0].crossings[0].count = Number.MAX_SAFE_INTEGER;
+868720	      input.options[0].crossings.push({type:'railway'}); },
+868721	    input => { input.options[0].crossings[0].widthM = Number.MAX_VALUE;
+868722	      input.options[0].crossings[0].setbackM = Number.MAX_VALUE; },
+868723	  for (const edit of invalid) {
+868724	    const input = structuredClone(fixture);
+868725	    edit(input);
+868726	    assert.throws(() => screen(input, runtime));
+868727	    assert.throws(() => screen(input, reduced));
+868728	  return { exactKnownAndGenerated: 2 + generatedVectors, alignedRefusals: invalid.length,
+868729	    conventionalExtremeRefusal: conventionalBoundary };
+868730	if (process.argv[2]) console.log(JSON.stringify(verify(await loadInstruments(process.argv[2])), null, 2));
+868731	/** Numeric projection of the pinned component contracts consumed by route-screen. */
+868732	export function project(runtime) {
+868733	  // The outer screen owns input validation, declared-length gating and ranking.
+868734	  // These providers only implement fields consumed by that screen.
+868735	  const classes = runtime.obstacles.OBSTACLES;
+868736	  function crossingSchedule({ crossings }) {
+868737	    let crossingCount = 0, trenchlessCount = 0, openCutCount = 0, addedLengthM = 0;
+868738	    let corridorApplicable = true;
+868739	    const items = [];
+868740	    for (const crossing of crossings) {
+868741	      const type = classes[crossing.type];
+868742	      const count = crossing.count ?? 1;
+868743	      const span = crossing.widthM === undefined ? 0 : crossing.widthM + 2 * crossing.setbackM;
+868744	      const depth = crossing.depthM ?? 0;
+868745	      const length = (depth > 0 ? Math.hypot(span / 2, depth) * 2 : span) * count;
+868746	      crossingCount += count;
+868747	      if (type.trenchless) trenchlessCount += count;
+868748	      else openCutCount += count;
+868749	      if (type.blocksCorridor) corridorApplicable = false;
+868750	      addedLengthM += length;
+868751	      items.push({ count, lengthDeclared: length > 0 });
+868752	    return { crossingCount, trenchlessCount, openCutCount, addedLengthM, corridorApplicable, items };
+868753	  function voltageDropVolts({ currentA, lengthM, resistanceOhmPerKm, reactanceOhmPerKm,
+868754	    powerFactor, phases }) {
+868755	    const effective = resistanceOhmPerKm * powerFactor
+868756	      + reactanceOhmPerKm * Math.sqrt(1 - powerFactor * powerFactor);
+868757	    return { value: runtime.voltage.PHASE_FACTOR[phases] * currentA * (lengthM / 1000) * effective };
+868758	  function dropPercent({ dropVolts, nominalVolts }) {
+868759	    if (!Number.isFinite(dropVolts) || dropVolts <= 0) throw new RangeError('Drop must be finite and positive');
+868760	    return { value: (dropVolts / nominalVolts) * 100 };
+868761	  function lossesWatts({ currentA, lengthM, resistanceOhmPerKm, phases }) {
+868763	    return { value: conductors * currentA * currentA * resistanceOhmPerKm * (lengthM / 1000) };
+868764	    obstacles: { OBSTACLES: classes, crossingSchedule },
+868765	    corridor: runtime.corridor,
+868766	    voltage: { voltageDropVolts, dropPercent, lossesWatts },
+868767	export async function prepareProjectedScreen(checkout) {
+868768	  const runtime = project(await loadInstruments(checkout));
+868769	  return request => screen(request, runtime);
+868770	"""Bounded evidence sufficiency for a fictional engineering bench question."""
+868772	QUESTION = "synthetic-sealed-bench-v1"
+868773	PREDICATES = {
+868774	    "peak_force": {"unit": "N", "op": ">=", "threshold": 12},
+868775	    "leak_volume": {"unit": "mL", "op": "<=", "threshold": 3},
+868776	NONOBSERVATIONS = {"missing", "unsearched", "withheld"}
+868778	TIMESTAMP = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z")
+868780	def unique_keys(pairs):
+868788	    return json.loads(data, object_pairs_hook=unique_keys)
+868789	def fields(value, expected):
+868790	    if not isinstance(value, dict) or set(value) != expected:
+868791	        raise ValueError("Unexpected input fields")
+868792	def time(value):
+868793	    if not isinstance(value, str) or not TIMESTAMP.fullmatch(value):
+868794	        raise ValueError("Use a whole-second UTC timestamp")
+868795	    return datetime.fromisoformat(value)
+868796	def uint(value):
+868797	    return type(value) is int and value >= 0
+868798	def valid_digest(value):
+868799	    return isinstance(value, str) and SHA256.fullmatch(value) is not None
+868800	def require_text(*values):
+868801	    if any(not isinstance(value, str) or not value.strip() for value in values):
+868802	        raise ValueError("Blank evidence identity or locator")
+868803	def indexed_observations(manifest, request, as_of):
+868804	    fields(manifest, {"schema", "subject", "evidence"})
+868805	    if manifest["schema"] != "seed.synthetic-bench-evidence.v1" or manifest["subject"] != request["subject"]:
+868806	        raise ValueError("Index question or subject mismatch")
+868807	    if not isinstance(manifest["evidence"], list):
+868808	        raise ValueError("Expected an evidence index")
+868809	    by_metric, ignored, identities = defaultdict(list), 0, set()
+868810	    for row in manifest["evidence"]:
+868812	            raise ValueError("Expected an evidence index record")
+868813	        base = {"id", "metric", "source", "state"}
+868814	        state = row.get("state")
+868815	        if state == "observed":
+868816	            fields(row, base | {"observed_at", "path", "sha256", "bytes"})
+868817	            timestamp = time(row["observed_at"])
+868818	            require_text(row["path"])
+868819	            if not valid_digest(row["sha256"]) or not uint(row["bytes"]):
+868820	                raise ValueError("Invalid observation identity or size")
+868821	            if timestamp > as_of:
+868822	                state = "future"
+868823	            elif (as_of - timestamp).total_seconds() > request["max_age_seconds"]:
+868824	                state = "stale"
+868825	        elif isinstance(state, str) and state in NONOBSERVATIONS:
+868826	            fields(row, base)
+868827	            raise ValueError("Unknown evidence completeness")
+868828	        require_text(row["id"], row["metric"], row["source"])
+868829	        if row["id"] in identities:
+868830	            raise ValueError("Duplicate evidence identity")
+868831	        identities.add(row["id"])
+868832	        if row["metric"] in PREDICATES:
+868833	            by_metric[row["metric"]].append((state, row))
+868834	            ignored += 1
+868835	    return by_metric, ignored
+868836	class Budget:
+868837	    def __init__(self, bundle, maximum):
+868838	        self.bundle = bundle.resolve()
+868839	        self.maximum = maximum
+868840	        self.used = 0
+868841	        self.opened = 0
+868842	    def inspect(self, row, request, rule):
+868843	        size = row["bytes"]
+868844	        if self.used + size > self.maximum:
+868845	            return "budget_exhausted", None
+868846	        name = Path(row["path"])
+868847	            path = (self.bundle / name).resolve()
+868848	            if name.anchor or not path.is_relative_to(self.bundle):
+868849	                return "invalid_locator", None
+868850	            metadata = path.stat()
+868851	            if not stat.S_ISREG(metadata.st_mode):
+868852	            if metadata.st_size != size:
+868853	                return "corrupted", None
+868854	            with path.open("rb") as stream:
+868855	                self.opened += 1
+868856	                raw = stream.read(size)
+868857	                self.used += len(raw)
+868858	            if len(raw) != size or sha256(raw) != row["sha256"] or path.stat().st_size != size:
+868860	            return "missing", None
+868862	            return "unavailable", None
+868863	        except (ValueError, RuntimeError):
+868864	            return "invalid_locator", None
+868865	            claim = decode(raw)
+868866	            fields(claim, {"subject", "metric", "observed_at", "value", "unit"})
+868868	            return "invalid_payload", None
+868869	        if (claim["subject"] != request["subject"] or claim["metric"] != row["metric"]
+868870	                or claim["observed_at"] != row["observed_at"] or claim["unit"] != rule["unit"]
+868871	                or not uint(claim["value"])):
+868872	        return "verified", claim["value"]
+868873	def witness(row, state, value=None):
+868874	    result = {"id": row["id"], "source": row["source"], "state": state}
+868875	    for key in ("observed_at", "sha256"):
+868876	        if key in row:
+868877	            result[key] = row[key]
+868879	        result["value"] = value
+868880	def metric_result(metric, rows, budget, request):
+868881	    rule = PREDICATES[metric]
+868882	    result = {"metric": metric, "predicate": rule, "status": "unknown", "witnesses": [],
+868883	              "unresolved": []}
+868885	    for state, row in sorted(rows, key=lambda item: item[1]["id"]):
+868886	            key = (row["sha256"], row["bytes"], row["observed_at"])
+868887	            groups.setdefault(key, []).append(row)
+868888	            result["witnesses"].append(witness(row, state))
+868889	            if state in NONOBSERVATIONS:
+868890	                result["unresolved"].append({"state": state, "ids": [row["id"]]})
+868891	    if result["unresolved"]:
+868892	        result["stop"] = "resolve_indexed_omissions_first"
+868893	        result["deferred_ids"] = [row["id"] for group in groups.values() for row in group]
+868896	        result["unresolved"] = [{"state": "fresh_observation_required",
+868897	                                "ids": [entry["id"] for entry in result["witnesses"]]}]
+868898	        result["stop"] = "no_current_payload"
+868899	    values = {}
+868900	    group_list = list(groups.values())
+868901	    for ordinal, group in enumerate(group_list):
+868902	        tried = []
+868903	        for position, row in enumerate(group):
+868904	            state, value = budget.inspect(row, request, rule)
+868905	            result["witnesses"].append(witness(row, state, value))
+868906	            if state == "verified":
+868907	                values[value] = row["id"]
+868908	                result["witnesses"].extend(witness(item, "duplicate_unread") for item in group[position + 1:])
+868910	            tried.append({"state": state, "ids": [row["id"]]})
+868911	            result["unresolved"].extend(tried)
+868912	            result["deferred_ids"] = [row["id"] for rest in group_list[ordinal + 1:] for row in rest]
+868913	            result["stop"] = "resolve_required_payloads"
+868915	        if len(values) > 1:
+868916	            result["unresolved"].append({"state": "conflicting", "ids": sorted(values.values())})
+868917	            result["stop"] = "reconcile_conflicting_values"
+868918	    value, = values
+868919	    passes = value >= rule["threshold"] if rule["op"] == ">=" else value <= rule["threshold"]
+868920	    result.update(status="supported" if passes else "contradicted", measured_value=value,
+868921	                  stop="predicate_answered")
+868922	def assess(request, index_raw, bundle):
+868923	    fields(request, {"question", "subject", "as_of", "max_age_seconds", "max_payload_bytes",
+868924	                     "manifest_sha256"})
+868925	    require_text(request["subject"])
+868926	    if request["question"] != QUESTION or not uint(request["max_age_seconds"]) or not uint(request["max_payload_bytes"]):
+868927	        raise ValueError("Unsupported question or invalid evidence budget")
+868928	    as_of = time(request["as_of"])
+868929	    digest = sha256(index_raw)
+868930	    if not valid_digest(request["manifest_sha256"]) or digest != request["manifest_sha256"]:
+868931	        raise ValueError("Evidence index SHA-256 differs from the declared pin")
+868932	    rows, ignored = indexed_observations(decode(index_raw), request, as_of)
+868933	    budget = Budget(bundle, request["max_payload_bytes"])
+868934	    results = [metric_result(metric, rows[metric], budget, request) for metric in PREDICATES]
+868935	    complete = all(row["status"] != "unknown" for row in results)
+868936	    return {"schema": "seed.synthetic-evidence-sufficiency.v1", "question": QUESTION,
+868937	            "subject": request["subject"], "as_of": request["as_of"], "manifest_sha256": digest,
+868938	            "status": "evidence_sufficient" if complete else "additional_evidence_required",
+868939	            "predicates": results, "resources": {"index_bytes": len(index_raw),
+868940	                                                 "payload_reads": budget.opened,
+868941	                                                 "payload_bytes": budget.used,
+868942	                                                 "ignored_index_rows": ignored}}
+868943	    parser.add_argument("--request", required=True, type=Path)
+868944	    parser.add_argument("--manifest", required=True, type=Path)
+868945	    parser.add_argument("--bundle", required=True, type=Path)
+868946	        result = assess(decode(args.request.read_bytes()), args.manifest.read_bytes(), args.bundle)
+868947	    except (ValueError, OSError, OverflowError) as error:
+868948	        print(json.dumps({"status": "refused", "reason": str(error)}))
+868953	"""Independent expected outcomes for the LEI-04 engineering-only candidate."""
+868956	from identify_missing_evidence import QUESTION, assess, sha256
+868957	OBSERVED = "2026-11-27T23:20:00Z"
+868958	OLD = "2026-11-26T08:20:00Z"
+868959	AS_OF = "2026-11-27T23:40:00Z"
+868960	FUTURE = "2026-11-28T00:10:00Z"
+868961	def wire(value):
+868962	    return json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+868964	    def __init__(self, root):
+868966	        self.rows = []
+868967	    def add(self, metric, tag, value, *, observed=OBSERVED, unit=None, subject="offline-bench"):
+868968	        unit = unit if unit is not None else {"peak_force": "N", "leak_volume": "mL"}.get(metric, "s")
+868969	        raw = wire(dict(subject=subject, metric=metric, observed_at=observed, value=value, unit=unit))
+868970	        (self.root / (tag + ".json")).write_bytes(raw)
+868971	        self.rows.append(dict(id=tag, metric=metric, source="fixture:" + tag,
+868972	                              state="observed", observed_at=observed, path=tag + ".json",
+868973	                              sha256=sha256(raw), bytes=len(raw)))
+868974	        return len(raw)
+868975	    def omit(self, metric, tag, state):
+868976	        self.rows.append(dict(id=tag, metric=metric, source="fixture:" + tag, state=state))
+868977	    def input(self, **overrides):
+868978	        manifest = wire({"schema": "seed.synthetic-bench-evidence.v1", "subject": "offline-bench",
+868979	                         "evidence": self.rows})
+868980	        request = dict(question=QUESTION, subject="offline-bench", as_of=AS_OF, max_age_seconds=3600,
+868981	                       max_payload_bytes=1024, manifest_sha256=sha256(manifest))
+868982	        request.update(overrides)
+868983	        return request, manifest
+868984	    def run(self, **overrides):
+868985	        request, manifest = self.input(**overrides)
+868986	        return assess(request, manifest, self.root)
+868987	class EvidenceTests(unittest.TestCase):
+868988	        directory = tempfile.TemporaryDirectory()
+868989	        self.addCleanup(directory.cleanup)
+868990	        self.fixture = Fixture(Path(directory.name))
+868991	    def test_healthy_zero_duplicate_and_unrelated_unread(self):
+868992	        f = self.fixture
+868993	        first = f.add("peak_force", "a-force", 13)
+868994	        f.add("peak_force", "b-duplicate", 13)
+868995	        second = f.add("leak_volume", "c-zero", 0)
+868996	        f.add("unrelated_cycle", "d-unneeded", 80)
+868997	        for ignored in ("b-duplicate", "d-unneeded"):
+868998	            (f.root / (ignored + ".json")).unlink()
+868999	        result = f.run()
+869000	        self.assertEqual(result["status"], "evidence_sufficient")
+869001	        self.assertEqual([row["status"] for row in result["predicates"]], ["supported", "supported"])
+869002	        self.assertEqual(result["predicates"][1]["measured_value"], 0)
+869003	        self.assertEqual(result["resources"]["payload_reads"], 2)
+869004	        self.assertEqual(result["resources"]["payload_bytes"], first + second)
+869005	        self.assertEqual(result["resources"]["ignored_index_rows"], 1)
+869006	        self.assertEqual(result["predicates"][0]["witnesses"][1]["state"], "duplicate_unread")
+869007	    def test_limit_failure_is_known_not_missing(self):
+869008	        f.add("peak_force", "valid-force", 11)
+869009	        f.add("leak_volume", "wet", 4)
+869010	        self.assertEqual([r["status"] for r in result["predicates"]], ["contradicted", "contradicted"])
+869011	    def test_omitted_evidence_remains_distinct_and_skips_unneeded_payloads(self):
+869012	        f.add("peak_force", "verified-if-needed", 13)
+869013	        for state in ("missing", "unsearched", "withheld"):
+869014	            f.omit("peak_force", state, state)
+869015	        f.omit("leak_volume", "no-leak-note", "missing")
+869016	        with patch("pathlib.Path.open", side_effect=AssertionError("Unnecessary payload open")):
+869017	            result = f.run()
+869018	        self.assertEqual(result["status"], "additional_evidence_required")
+869019	        first = result["predicates"][0]
+869020	        self.assertEqual({row["state"] for row in first["unresolved"]}, {"missing", "unsearched", "withheld"})
+869021	        self.assertEqual(first["deferred_ids"], ["verified-if-needed"])
+869022	        self.assertEqual(result["resources"]["payload_reads"], 0)
+869023	    def test_stale_and_future_excluded_without_reading(self):
+869024	        f.add("peak_force", "old", 15, observed=OLD)
+869025	        f.add("leak_volume", "future", 0, observed=FUTURE)
+869026	        with patch("pathlib.Path.open", side_effect=AssertionError("Opened ineligible bytes")):
+869027	        self.assertEqual([r["witnesses"][0]["state"] for r in result["predicates"]], ["stale", "future"])
+869028	        self.assertEqual([r["status"] for r in result["predicates"]], ["unknown", "unknown"])
+869029	    def test_age_boundary_is_inclusive(self):
+869030	        f.add("peak_force", "one", 12)
+869031	        f.add("leak_volume", "two", 3)
+869032	        self.assertEqual(f.run(max_age_seconds=1200)["status"], "evidence_sufficient")
+869033	        self.assertEqual(f.run(max_age_seconds=1199)["status"], "additional_evidence_required")
+869034	    def test_fresh_evidence_suffices_even_when_retired_observation_differs(self):
+869035	        f.add("peak_force", "a-retired", 11, observed=OLD)
+869036	        f.add("peak_force", "b-current", 12)
+869037	        f.add("leak_volume", "c-current", 3)
+869038	    def test_conflict_stops_after_two_witnesses_and_defers_third(self):
+869039	        f.add("peak_force", "a-source", 12)
+869040	        f.add("peak_force", "b-source", 14)
+869041	        f.add("peak_force", "c-source", 11)
+869042	        f.add("leak_volume", "d-leak", 0)
+869043	        real_open = Path.open
+869044	        def targeted_open(path, *args, **kwargs):
+869045	            if path.name == "c-source.json":
+869046	                raise AssertionError("Read after conflict already established")
+869047	            return real_open(path, *args, **kwargs)
+869048	        with patch("pathlib.Path.open", targeted_open):
+869049	        self.assertEqual(first["status"], "unknown")
+869050	        self.assertEqual(first["unresolved"], [{"state": "conflicting", "ids": ["a-source", "b-source"]}])
+869051	        self.assertEqual(first["deferred_ids"], ["c-source"])
+869052	        self.assertEqual(result["resources"]["payload_reads"], 3)
+869053	    def test_same_length_corruption_refuses_claim_but_charges_bytes(self):
+869054	        size = f.add("peak_force", "changed", 13)
+869055	        path = f.root / "changed.json"
+869056	        path.write_bytes(path.read_bytes().replace(b"13", b"18"))
+869057	        row = result["predicates"][0]
+869058	        self.assertEqual(row["status"], "unknown")
+869059	        self.assertEqual(row["unresolved"][0]["state"], "corrupted")
+869060	        self.assertEqual(result["resources"]["payload_bytes"], size)
+869061	    def test_unrecoverable_payload_defers_other_independent_claims(self):
+869062	        f.add("peak_force", "a-corrupted", 13)
+869063	        f.add("peak_force", "b-deferred", 14)
+869064	        (f.root / "a-corrupted.json").write_bytes(b"truncated")
+869065	        with patch("pathlib.Path.open", side_effect=AssertionError("Opened a deferred payload")):
+869066	        self.assertEqual(row["stop"], "resolve_required_payloads")
+869067	        self.assertEqual(row["deferred_ids"], ["b-deferred"])
+869068	    def test_corrupted_replica_does_not_dismiss_verified_exact_copy(self):
+869069	        f.add("peak_force", "a-bad", 13)
+869070	        f.add("peak_force", "b-good", 13)
+869071	        (f.root / "a-bad.json").write_bytes(b"truncated")
+869072	        self.assertEqual(first["status"], "supported")
+869073	        self.assertEqual([w["state"] for w in first["witnesses"]], ["corrupted", "verified"])
+869074	        self.assertEqual(result["resources"]["payload_reads"], 1)
+869075	    def test_same_pin_different_timestamp_is_not_a_duplicate(self):
+869076	        f.add("peak_force", "a-first", 13)
+869077	        f.add("peak_force", "b-timestamp-drift", 13)
+869078	        f.rows[-1]["observed_at"] = "2026-11-27T23:21:00Z"
+869079	        self.assertEqual(result["predicates"][0]["status"], "unknown")
+869080	        self.assertEqual(result["predicates"][0]["unresolved"][0]["state"], "invalid_payload")
+869081	    def test_valid_digest_cannot_cure_wrong_units_or_subject(self):
+869082	        f.add("peak_force", "force-kg", 13, unit="kg")
+869083	        f.add("leak_volume", "other-bench", 0, subject="different")
+869084	        self.assertEqual([row["unresolved"][0]["state"] for row in result["predicates"]],
+869085	                         ["invalid_payload", "invalid_payload"])
+869086	    def test_wrong_index_digest_refuses_before_payload_open(self):
+869087	        f.add("peak_force", "valid", 13)
+869088	        request, manifest = f.input()
+869089	        with patch("pathlib.Path.open", side_effect=AssertionError("Read a corrupt index witness")):
+869090	            with self.assertRaisesRegex(ValueError, "differs from the declared pin"):
+869091	                assess(request, manifest+b" ", f.root)
+869092	    def test_byte_budget_is_hard_cap_and_zero_budget_no_payload_reads(self):
+869093	        size = f.add("peak_force", "valid", 13)
+869094	        f.add("leak_volume", "zero", 0)
+869095	        self.assertEqual(f.run(max_payload_bytes=0)["resources"]["payload_reads"], 0)
+869096	        result = f.run(max_payload_bytes=size)
+869097	        self.assertEqual(result["predicates"][0]["status"], "supported")
+869098	        self.assertEqual(result["predicates"][1]["unresolved"][0]["state"], "budget_exhausted")
+869099	    def test_declared_payload_missing_and_locator_escape_refuse(self):
+869100	        f.add("peak_force", "gone", 13)
+869101	        f.add("leak_volume", "outside", 0)
+869102	        (f.root / "gone.json").unlink()
+869103	        f.rows[-1]["path"] = "../outside.json"
+869104	                         ["missing", "invalid_locator"])
+869105	    def test_duplicate_evidence_id_and_noninteger_budget_refuse(self):
+869106	        f.add("peak_force", "force", 13)
+869107	        with self.assertRaisesRegex(ValueError, "invalid evidence budget"):
+869108	            f.run(max_payload_bytes=True)
+869109	        f.rows.append(f.rows[0])
+869110	        with self.assertRaisesRegex(ValueError, "Duplicate evidence identity"):
+869111	            f.run()
+869112	    def test_order_independent_read_plan_after_pinning_manifest(self):
+869113	        f.add("leak_volume", "leak", 2)
+869114	        first = f.run()
+869115	        f.rows.reverse()
+869116	        second = f.run()
+869117	        self.assertNotEqual(first.pop("manifest_sha256"), second.pop("manifest_sha256"))
+869118	        self.assertEqual(first, second)
+869119	    def test_cli_supported_output_and_digest_drift_refusal(self):
+869120	        f.add("leak_volume", "leak", 0)
+869121	        request_file = f.root / "request.json"
+869122	        manifest_file = f.root / "manifest.json"
+869123	        request_file.write_bytes(wire(request))
+869124	        manifest_file.write_bytes(manifest)
+869125	        command = [sys.executable, "-B", str(Path(__file__).with_name("identify_missing_evidence.py")),
+869126	                   "--request", str(request_file), "--manifest", str(manifest_file), "--bundle", str(f.root)]
+869127	        run = partial(subprocess.run, command, capture_output=True, encoding="utf-8")
+869128	        self.assertEqual(json.loads(run(check=True).stdout)["status"], "evidence_sufficient")
+869129	        manifest_file.write_bytes(manifest + b" ")
+869130	        result = run()
+869131	        self.assertEqual(result.returncode, 2)
+869132	        self.assertEqual(json.loads(result.stdout)["status"], "refused")
+869133	"""Independent expected-outcome and refusal fixtures for the command adapter."""
+869135	from vedic_commands import COMPOSE, VERIFY, PACKAGE, Refusal, invoke, sha256, unique_fields
+869136	SEED = Path(os.environ["SEED_EXPERIMENT_ROOT"]).resolve()
+869137	sys.path.insert(0, str(SEED))
+869138	sys.path.insert(0, str(SEED / "next-compose"))
+869139	from seed_discover import base_catalogue, initialize
+869140	class VedicCommandTests(unittest.TestCase):
+869143	        scratch = tempfile.TemporaryDirectory()
+869144	        cls.addClassCleanup(scratch.cleanup)
+869145	        cls.catalogue = Path(scratch.name) / "catalogue.sqlite"
+869146	        instrument = json.loads((SEED / "next-compose/instrument.json").read_bytes())
+869147	        initialize(cls.catalogue, [*base_catalogue(), instrument])
+869148	        self.addCleanup(scratch.cleanup)
+869149	        self.bundle = Path(scratch.name)
+869150	        before, left, after, right, database = make_fixture(self.bundle, alternate_mechanism=True)
+869151	        self.request = {
+869152	            "composition": "compare-captured-state",
+869153	            "components": ["audit-captured-source", "capture-evidence"],
+869154	            "inputs": {
+869155	                "before_capture": before.name,
+869156	                "before_index": {"path": left.name, "sha256": sha256(left.read_bytes())},
+869157	                "after_capture": after.name,
+869158	                "after_index": {"path": right.name, "sha256": sha256(right.read_bytes())},
+869159	                "database": database.name,
+869161	            "scope_url": SCOPE,
+869162	            "mechanism_url": MECHANISM,
+869163	            "max_payload_bytes": 65536,
+869164	            "max_witnesses": 2,
+869165	            "proof_scope": "selected-payloads",
+869166	    def call(self, command, request=None, *, catalogue=None, seed=None):
+869167	        return invoke(command, self.request if request is None else request,
+869168	                      catalogue=catalogue or self.catalogue, bundle=self.bundle,
+869169	                      seed_root=seed or SEED)
+869170	    def change_stable_unselected_bytes(self):
+869171	        path = self.bundle / "before.txt"
+869172	        record = next(row for row in json.loads((self.bundle / "before.json").read_bytes())["records"]
+869173	                      if row["url"] == SCOPE + "stable.json")
+869174	        with path.open("r+b") as stream:
+869175	            stream.seek(record["byte_start"])
+869176	            stream.write(b"!")
+869177	    def test_compose_finds_exact_changes_and_changed_tablets(self):
+869178	        result = self.call("  compose\tinstruments ")
+869179	        proof = result["receipt"]["result"]["evidence"]
+869180	        self.assertEqual(result["admission"], "SHADOW_CANDIDATE")
+869181	        self.assertEqual(proof["counts"], {
+869182	            "identical": 1, "changed": 1, "before_only": 1, "after_only": 1, "unread": 1,
+869184	        self.assertEqual(proof["mechanism"]["before"]["tablet"], 7740)
+869185	        self.assertEqual(proof["mechanism"]["after"]["tablet"], 7741)
+869186	        self.assertFalse(proof["mechanism"]["same_source"])
+869187	        self.assertEqual(len(proof["witnesses"]), 2)
+869188	        self.assertEqual(proof["deferred_witnesses"], 1)
+869189	        self.assertFalse(result["receipt"]["result"]["full_inputs_rehashed"])
+869190	    def test_verify_matches_deterministic_receipt_digest(self):
+869191	        result = self.call(COMPOSE)
+869192	        verified = self.call(VERIFY, dict(self.request, expected_result_sha256=result["result_sha256"]))
+869193	        self.assertEqual(verified["status"], "verified_replay")
+869194	        self.assertEqual(verified["result_sha256"], result["result_sha256"])
+869195	        self.assertEqual(verified["receipt"], result["receipt"])
+869196	    def test_verify_refuses_tampered_result_digest(self):
+869197	        with self.assertRaisesRegex(Refusal, "differs from the replay"):
+869198	            self.call(VERIFY, dict(self.request, expected_result_sha256="f"*64))
+869199	    def test_scope_boundary_for_unselected_payload(self):
+869200	        selected = self.call(COMPOSE)
+869201	        whole_input_request = dict(self.request, proof_scope="whole-inputs")
+869202	        whole = self.call(COMPOSE, whole_input_request)
+869203	        self.assertTrue(whole["receipt"]["result"]["full_inputs_rehashed"])
+869204	        self.assertNotEqual(selected["result_sha256"], whole["result_sha256"])
+869205	        self.change_stable_unselected_bytes()
+869206	        self.assertEqual(self.call(COMPOSE)["result_sha256"], selected["result_sha256"])
+869207	        with self.assertRaisesRegex(Refusal, "refused the inputs"):
+869208	            self.call(VERIFY, dict(whole_input_request, expected_result_sha256=whole["result_sha256"]))
+869209	    def test_invalid_commands_components_and_units_stop_before_access(self):
+869210	        cases = [
+869211	            ("RUN ARBITRARY", self.request),
+869212	            (COMPOSE, dict(self.request, components=["replay", "capture-evidence"])),
+869213	            (COMPOSE, dict(self.request, components=list(reversed(self.request["components"])))),
+869214	            (COMPOSE, dict(self.request, max_payload_bytes=True)),
+869215	            (COMPOSE, dict(self.request, max_payload_bytes="64 KiB")),
+869216	            (COMPOSE, dict(self.request, max_witnesses=-1)),
+869217	            (COMPOSE, dict(self.request, scope_url="https://user@example.invalid/history/")),
+869218	            (COMPOSE, dict(self.request, proof_scope="everything")),
+869219	        with patch("vedic_commands.check_contracts", side_effect=AssertionError("Opened the catalogue")):
+869220	            for command, request in cases:
+869221	                with self.subTest(command=command, changes=request.keys()), self.assertRaises(Refusal):
+869222	                    self.call(command, request)
+869223	    def test_rejects_dependency_graph_tamper(self):
+869224	        altered = self.bundle / "catalogue.sqlite"
+869225	        shutil.copyfile(self.catalogue, altered)
+869226	        with closing(sqlite3.connect(altered)) as db:
+869227	            db.execute("delete from dependency where owner='audit-captured-source' and component='replay'")
+869228	            db.commit()
+869229	        with self.assertRaisesRegex(Refusal, "dependency closure changed"):
+869230	            self.call(COMPOSE, catalogue=altered)
+869231	    def test_rejects_source_package_tamper(self):
+869232	        copied = self.bundle / "seed"
+869233	        for relative in PACKAGE:
+869234	            file = copied / relative
+869235	            file.parent.mkdir(parents=True, exist_ok=True)
+869236	            shutil.copyfile(SEED / relative, file)
+869237	        (copied / "history.py").write_bytes(b"raise AssertionError('Unexpected execution')")
+869238	        with self.assertRaisesRegex(Refusal, "source identity changed"):
+869239	            self.call(COMPOSE, seed=copied)
+869240	    def test_rejects_index_drift_before_replay(self):
+869241	        path = self.bundle / "after.json"
+869243	        with self.assertRaisesRegex(Refusal, "Pinned input identity"):
+869244	            self.call(COMPOSE)
+869245	    def test_rejects_parent_escape_and_too_small_budget(self):
+869246	        escaped = copy.deepcopy(self.request)
+869247	        escaped["inputs"]["database"] = "../outside.sqlite"
+869248	        with self.assertRaisesRegex(Refusal, "escapes the supplied bundle"):
+869249	            self.call(COMPOSE, escaped)
+869250	            self.call(COMPOSE, dict(self.request, max_payload_bytes=1))
+869251	    def test_cli_check_and_structured_refusal(self):
+869252	        root = Path(__file__).resolve().parent
+869253	        path = self.bundle / "request.json"
+869254	        path.write_text(json.dumps(self.request), encoding="utf-8")
+869255	        args = [sys.executable, "-B", str(root / "vedic_commands.py"), COMPOSE,
+869256	                "--input", str(path), "--bundle", str(self.bundle),
+869257	                "--catalogue", str(self.catalogue), "--seed-root", str(SEED)]
+869258	        result = subprocess.run(args, capture_output=True, encoding="utf-8", check=True)
+869259	        self.assertEqual(json.loads(result.stdout)["result_sha256"], self.call(COMPOSE)["result_sha256"])
+869260	        path.write_text('{"composition": 1, "composition": 2}', encoding="utf-8")
+869261	        refused = subprocess.run(args, capture_output=True, encoding="utf-8")
+869262	        self.assertEqual(refused.returncode, 1)
+869263	        self.assertEqual(json.loads(refused.stdout)["reason"], "Duplicate JSON field")
+869264	    def test_duplicate_json_fields_refuse(self):
+869265	        with self.assertRaisesRegex(Refusal, "Duplicate JSON field"):
+869266	            json.loads('{"request": 1, "request": 2}', object_pairs_hook=unique_fields)
+869267	"""Exercise two VEDIC command candidates through one published SEED contract."""
+869268	COMPOSE = "COMPOSE INSTRUMENTS"
+869269	VERIFY = "VERIFY RESULT"
+869270	COMPOSITION = "compare-captured-state"
+869271	SEED_REVISION = "153c1159ff58edcb8be5f598c2c78d13c85b6afd"
+869273	    COMPOSITION: ("87a0877863ca38b51b8c879daeb9ad3358285f4ff507642fd2f354d7639f2134",
+869274	                  ("audit-captured-source", "capture-evidence")),
+869275	    "audit-captured-source": ("cc611a4b79dd7f6fb3d52d411a2610b0f120606a238c057c09b1eb57ced6615a",
+869276	                              ("capture-evidence", "replay")),
+869277	    "capture-evidence": ("31a984f028c99f767312b691c8642604635c35ab3f5e4df2de9a61329af91cca", ()),
+869278	    "replay": ("2561df4438106950ea004a5859aec959f19ca86cc521fa13d9b92f809bc84959", ()),
+869279	PACKAGE = {
+869280	    "next-compose/state_compare.py": "1c5a1b3d74e3adcb372ee37eb5b940bb840d79641b1d6525d2e28f1268df17d1",
+869281	    "experiment_b.py": "9b32751fbfbee4fb334add9af8ca24d58ffa0543d86f6d5eed0eff323dc1f21a",
+869282	    "history.py": "50fb4abe7dae00e59b82b32a1bf1f68c7eba7d2fa0d651eaf541bdb352783f22",
+869283	    "magnets.py": "64726f9618a4f4db132585e56bba4ac2a1a345f147cb55cee9e5272eb689e2e9",
+869284	    "teleprint_index.py": "a2d8c749bc009d39d957de1c113ada8fdc041f111a130a22ded1412a7951edb9",
+869285	    "economy/b_baseline.py": "720c9c2266bc0304815f8303516c3692143dd3b1e31f48912c7c1045cd5600a3",
+869286	REQUEST_FIELDS = {
+869287	    "composition", "components", "inputs", "scope_url", "mechanism_url",
+869288	    "max_payload_bytes", "max_witnesses", "proof_scope",
+869289	INPUT_FIELDS = {"before_capture", "before_index", "after_capture", "after_index", "database"}
+869290	MAX_REQUEST = 8192
+869292	    """The request did not meet the bounded execution contract."""
+869294	    return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"),
+869295	                      allow_nan=False).encode("utf-8")
+869296	def object_with_fields(value, fields, label):
+869297	    if not isinstance(value, dict) or value.keys() != fields:
+869298	        raise Refusal(f"Unexpected {label} fields")
+869300	def url(value, label):
+869301	    if not isinstance(value, str) or any(c.isspace() or ord(c) < 32 or ord(c) == 127 for c in value):
+869302	        raise Refusal(f"{label} must be an HTTPS resource identifier")
+869304	        parts.port
+869306	        raise Refusal(f"Invalid {label}") from error
+869307	    if (parts.scheme != "https" or not parts.hostname or parts.username is not None
+869308	            or parts.password is not None or parts.fragment):
+869309	def require_sha256(value, label):
+869310	    if not isinstance(value, str) or HEX256.fullmatch(value) is None:
+869311	        raise Refusal(f"{label} must be a lowercase SHA-256 digest")
+869312	def validate_request(words, request):
+869313	    command = " ".join(words.upper().split())
+869314	    if command not in {COMPOSE, VERIFY}:
+869315	        raise Refusal("Command has no shadow binding")
+869316	    fields = REQUEST_FIELDS | ({"expected_result_sha256"} if command == VERIFY else set())
+869317	    object_with_fields(request, fields, "request")
+869318	    if request["composition"] != COMPOSITION or request["components"] != list(CONTRACTS[COMPOSITION][1]):
+869319	        raise Refusal("Composition and ordered components must match the published contract")
+869320	    if request["proof_scope"] not in ("selected-payloads", "whole-inputs"):
+869321	        raise Refusal("Select proof scope selected-payloads or whole-inputs")
+869322	    for field in ("max_payload_bytes", "max_witnesses"):
+869323	        if type(request[field]) is not int or request[field] < 0:
+869324	            raise Refusal(f"{field} must be a nonnegative integer")
+869325	    url(request["scope_url"], "Scope")
+869326	    url(request["mechanism_url"], "Mechanism")
+869327	    inputs = object_with_fields(request["inputs"], INPUT_FIELDS, "input")
+869328	    for field in ("before_index", "after_index"):
+869329	        item = object_with_fields(inputs[field], {"path", "sha256"}, field)
+869330	        require_sha256(item["sha256"], field)
+869331	    if command == VERIFY:
+869332	        require_sha256(request["expected_result_sha256"], "Expected result")
+869333	    return command
+869334	def local_input(bundle, value):
+869335	    if not isinstance(value, str) or not value or Path(value).anchor:
+869336	        raise Refusal("Input paths must be relative to the supplied bundle")
+869337	    path = (bundle / value).resolve()
+869338	    if not path.is_relative_to(bundle) or not path.is_file():
+869339	        raise Refusal("An input is missing or escapes the supplied bundle")
+869341	def check_contracts(catalogue):
+869342	    uri = catalogue.resolve().as_uri() + "?mode=ro"
+869343	    with closing(sqlite3.connect(uri, uri=True)) as database:
+869344	        database.execute("pragma query_only=on")
+869345	        for key, (digest, components) in CONTRACTS.items():
+869346	            row = database.execute(
+869347	                "select status,contract from record where id=?", (key,)
+869348	            ).fetchone()
+869349	            if row is None:
+869350	                raise Refusal(f"Missing catalogue contract {key}")
+869351	            status, raw = row
+869352	            contract = json.loads(raw)
+869353	            if not isinstance(contract, dict) or not isinstance(status, str):
+869354	                raise Refusal(f"Malformed catalogue contract {key}")
+869355	            recorded_digest = contract.pop("digest", None)
+869356	            if (not status.startswith("demonstrated") or contract.get("status") != status
+869357	                    or contract.get("id") != key or contract.get("components") != list(components)
+869358	                    or recorded_digest != digest or sha256(canonical(contract)) != digest):
+869359	                raise Refusal(f"Catalogue contract identity changed for {key}")
+869360	            rows = database.execute(
+869361	                "select component from dependency where owner=? order by component", (key,)
+869363	            if tuple(item[0] for item in rows) != tuple(sorted(components)):
+869364	                raise Refusal(f"Catalogue dependency closure changed for {key}")
+869365	def stage_package(seed_root, scratch):
+869366	    for relative, expected in PACKAGE.items():
+869367	        source = (seed_root / relative).resolve()
+869368	        if not source.is_relative_to(seed_root):
+869369	            raise Refusal(f"Published source escaped the SEED checkout: {relative}")
+869370	        data = source.read_bytes()
+869371	        if sha256(data) != expected:
+869372	            raise Refusal(f"Published source identity changed for {relative}")
+869373	        target = scratch / relative
+869376	def run_composition(request, bundle, seed_root):
+869377	    supplied = request["inputs"]
+869378	    paths = {
+869379	        field: local_input(bundle, supplied[field]) for field in ("before_capture", "after_capture", "database")
+869382	        stage_package(seed_root, scratch)
+869383	        for field in ("before_index", "after_index"):
+869384	            item = supplied[field]
+869385	            data = local_input(bundle, item["path"]).read_bytes()
+869386	            if sha256(data) != item["sha256"]:
+869387	                raise Refusal(f"Pinned input identity changed for {field}")
+869388	            paths[field] = scratch / (field + ".json")
+869389	            paths[field].write_bytes(data)
+869390	        args = [
+869391	            sys.executable, "-I", "-B", str(scratch / "next-compose/state_compare.py"),
+869392	            *(str(paths[field]) for field in ("before_capture", "before_index", "after_capture",
+869393	                                              "after_index", "database")),
+869394	            "--scope=" + request["scope_url"], "--mechanism=" + request["mechanism_url"],
+869395	            "--limit", str(request["max_witnesses"]), "--byte-budget", str(request["max_payload_bytes"]),
+869396	        if request["proof_scope"] == "whole-inputs":
+869397	            args.append("--verify-inputs")
+869398	        result = subprocess.run(args, capture_output=True, encoding="utf-8", timeout=60)
+869399	        if result.returncode:
+869400	            raise Refusal("Pinned capture comparison refused the inputs")
+869401	        return json.loads(result.stdout)
+869402	def invoke(words, request, *, catalogue, bundle, seed_root):
+869403	    command = validate_request(words, request)
+869404	    check_contracts(catalogue)
+869405	    replay = run_composition(request, bundle.resolve(), seed_root.resolve())
+869407	        "schema": "seed.capture-composition-receipt.v1",
+869408	        "seed_revision": SEED_REVISION,
+869409	        "composition": COMPOSITION,
+869410	        "source_package_sha256": sha256(canonical(PACKAGE)),
+869411	        "contract_sha256": CONTRACTS[COMPOSITION][0],
+869412	        "proof_scope": request["proof_scope"],
+869413	        "input_indexes_sha256": {key: request["inputs"][key]["sha256"]
+869414	                                 for key in ("before_index", "after_index")},
+869415	        "limits": {"payload_bytes": request["max_payload_bytes"], "witness_count": request["max_witnesses"]},
+869416	        "result": replay,
+869417	    result_digest = sha256(canonical(receipt))
+869418	    if command == VERIFY and result_digest != request["expected_result_sha256"]:
+869419	        raise Refusal("Result digest differs from the replay")
+869420	        "candidate_command": command,
+869421	        "admission": "SHADOW_CANDIDATE",
+869422	        "status": "verified_replay" if command == VERIFY else "composed",
+869423	        "result_sha256": result_digest,
+869424	        "receipt": receipt,
+869425	def unique_fields(pairs):
+869426	            raise Refusal("Duplicate JSON field")
+869428	    parser.add_argument("--input", required=True, type=Path)
+869429	    parser.add_argument("--catalogue", required=True, type=Path)
+869430	    parser.add_argument("--seed-root", required=True, type=Path)
+869431	        with args.input.open("rb") as source:
+869432	            raw = source.read(MAX_REQUEST + 1)
+869433	        if len(raw) > MAX_REQUEST:
+869434	            raise Refusal("Request exceeds the command input budget")
+869435	        request = json.loads(raw, object_pairs_hook=unique_fields)
+869436	        response = invoke(args.command, request, catalogue=args.catalogue, bundle=args.bundle,
+869437	                          seed_root=args.seed_root)
+869438	    except (ValueError, OSError, sqlite3.Error, subprocess.TimeoutExpired) as error:
+869439	        response = {"admission": "SHADOW_CANDIDATE", "status": "refused", "reason": str(error)}
+869440	    print(json.dumps(response, indent=2, ensure_ascii=True))
+869441	    raise SystemExit(response["status"] == "refused")
+869443	import {mkdtemp, readFile, rm, writeFile} from 'node:fs/promises';
+869446	import {setTimeout as sleep} from 'node:timers/promises';
+869447	const [chrome, outfile = 'rail-browser.json', url = 'https://ventusltd.github.io/gridatlas/atlas/'] = process.argv.slice(2);
+869448	if (!chrome) throw Error('usage: node rail-browser.mjs CHROME [RECEIPT] [ATLAS_URL]');
+869450	  generation: '202611222343',
+869451	  bridge: '60be8215ba873ac2886786bf6e3fd51e5764e7c5e26684fde71ebe9974a329a2',
+869452	  partition: 'partitions/uk_mainline_railways.parquet',
+869453	  sha256: '4cbd1a2b59a33e5e7d8416301cbe357941c94d70db5ca1410a04a9da2a1884cc',
+869454	  rows: 89933,
+869455	const profile = await mkdtemp(join(tmpdir(), 'seed-rail-chrome-'));
+869456	const browser = spawn(chrome, ['--headless=new','--no-first-run','--no-default-browser-check',
+869457	  '--disable-background-networking','--remote-debugging-port=0','--window-size=1400,900',
+869458	  '--use-angle=swiftshader','--enable-unsafe-swiftshader', '--user-data-dir=' + profile, 'about:blank'],
+869459	{windowsHide:true, stdio:'ignore'});
+869460	let socket, sequence = 0, session;
+869461	const awaiting = new Map();
+869462	const requests = new Set();
+869463	const checks = {};
+869464	const started=Date.now();
+869465	let stage = 'chrome';
+869466	function until(fn, timeout, description) {
+869467	  const start = Date.now();
+869468	  return (async () => {
+869469	    while (Date.now() - start < timeout) {
+869470	      const result = await fn();
+869471	      if (result) return result;
+869472	      await sleep(200);
+869473	    throw new Error('Timeout: ' + description);
+869475	function call(method, params = {}, scoped = true) {
+869476	  const id = ++sequence;
+869477	  return new Promise((resolve,reject) => {
+869478	    const timeout = setTimeout(() => {
+869479	      awaiting.delete(id);
+869480	      reject(new Error('CDP timeout: ' + method));
+869481	    }, 12_000);
+869482	    awaiting.set(id, {resolve,reject,timeout});
+869483	    socket.send(JSON.stringify({id, method, params, ...(scoped && session ? {sessionId:session} : {})}));
+869484	async function run(expression) {
+869485	  const response = await call('Runtime.evaluate', {expression,returnByValue:true,awaitPromise:true});
+869486	  if (response.exceptionDetails) throw new Error(response.exceptionDetails.exception?.description || expression);
+869487	  return response.result.value;
+869488	const query = (expression, timeout = 30_000) => until(() => run(expression), timeout, expression);
+869489	const state = String.raw`(() => {
+869491	  const bridge = window.__GRIDATLAS_MAP_READY__;
+869492	  const atlas = window.__GRIDATLAS_ATLAS__;
+869493	  if (!map || !map.getLayer('l-mainline_rail') || !bridge || !atlas) return null;
+869494	  const selected = Object.entries(bridge.loaded_on_demand).find(([key]) => key.endsWith('/uk_mainline_railways.geojson'));
+869495	  return { generation: atlas.generation, bridgeDigest: atlas.loaded_cartridges.find(row => row.id === 'streaming-parquet-bridge')?.sha256,
+869496	    layer:map.getLayer('l-mainline_rail').type, source:map.getLayer('l-mainline_rail').source,
+869497	    visibility:map.getLayoutProperty('l-mainline_rail','visibility'),
+869498	    paint:{color:map.getPaintProperty('l-mainline_rail','line-color'),width:map.getPaintProperty('l-mainline_rail','line-width')},
+869499	    checkbox: Boolean(document.querySelector('input[data-layer-id=mainline_rail]')),
+869500	    rail: selected?.[1] || null, parquetRequests:bridge.parquet_requests, releasedPayloads:bridge.released_payloads,
+869501	    railFailure:bridge.stream_failures.find(x => x.pathname?.endsWith('/uk_mainline_railways.geojson'))?.message };
+869502	})()`;
+869503	const rendered = String.raw`(() => {
+869504	  const m=window.__GRIDATLAS_V9_MAP__, layer='l-mainline_rail';
+869505	  if (!m.isSourceLoaded('src-mainline_rail')) return null;
+869506	  const features=m.queryRenderedFeatures({layers:[layer]});
+869507	  if (!features.length) return null;
+869508	  const bounds=m.getCanvas().getBoundingClientRect();
+869509	  let click;
+869510	  outer: for(const f of features.slice(0,240)) {
+869511	    const sequences=f.geometry.type==='LineString'?[f.geometry.coordinates]:f.geometry.coordinates;
+869512	    for(const seq of sequences) {
+869513	      for(let i=1;i<Math.min(seq.length,12);i++) {
+869514	        const a=m.project(seq[i-1]),b=m.project(seq[i]);
+869515	        const p=[(a.x+b.x)/2,(a.y+b.y)/2];
+869516	        if (p[0] < bounds.width*0.27 || p[0]>bounds.width*0.85 || p[1]<150 || p[1]>bounds.height-100) continue;
+869517	        const x=p[0]+bounds.x,y=p[1]+bounds.y;
+869518	        if(document.elementFromPoint(x,y)!==m.getCanvas()) continue;
+869519	        const picked=m.queryRenderedFeatures(p,{layers:[layer]})[0];
+869520	        if (picked) { click={x,y,id:picked.id ?? null, name:picked.properties?.name ?? null}; break outer; }
+869521	  return {zoom:m.getZoom(),hits:features.length,geometry:[...new Set(features.map(f=>f.geometry.type))],
+869522	    identities:[...new Set(features.map(f=>f.id).filter(v=>v!=null))].slice(0,8), click};
+869523	  const port = await until(async () => {
+869524	    try {return (await readFile(join(profile,'DevToolsActivePort'),'utf8')).trim().split(/\r?\n/);} catch {return null;}
+869525	  }, 10_000, 'Chrome DevTools port');
+869526	  socket = new WebSocket('ws://127.0.0.1:' + port[0] + port[1]);
+869527	  socket.addEventListener('message', event => {
+869528	    const message = JSON.parse(event.data);
+869529	    if (message.id && awaiting.has(message.id)) {
+869530	      const work = awaiting.get(message.id); awaiting.delete(message.id); clearTimeout(work.timeout);
+869531	      message.error ? work.reject(new Error(message.error.message)) : work.resolve(message.result);
+869532	    if (message.method === 'Network.requestWillBeSent' && /uk_mainline_railways\.(geojson|parquet)/.test(message.params.request.url)) {
+869533	      requests.add(message.params.request.url);
+869534	  await new Promise((resolve,reject) => {
+869535	    socket.addEventListener('open',resolve,{once:true});
+869536	    socket.addEventListener('error',reject,{once:true});
+869537	  checks.browser = (await call('Browser.getVersion',{},false)).product;
+869538	  const {targetId} = await call('Target.createTarget',{url:'about:blank'},false);
+869539	  session = (await call('Target.attachToTarget',{targetId,flatten:true},false)).sessionId;
+869540	  await call('Page.enable'); await call('Runtime.enable'); await call('Network.enable');
+869541	  await call('Emulation.setDeviceMetricsOverride',{width:1400,height:900,deviceScaleFactor:1,mobile:false});
+869542	  stage='bootstrap';
+869543	  const nav = await call('Page.navigate',{url});
+869544	  assert(!nav.errorText, nav.errorText);
+869545	  checks.before=await query(state,55_000);
+869546	  assert.equal(checks.before.generation, expected.generation);
+869547	  assert.equal(checks.before.bridgeDigest,expected.bridge);
+869548	  assert.equal(checks.before.layer,'line');
+869549	  assert.equal(checks.before.source,'src-mainline_rail');
+869550	  assert.equal(checks.before.visibility,'none');
+869551	  assert.equal(checks.before.rail,null);
+869552	  assert(checks.before.checkbox);
+869553	  stage='activate UK mainline layer';
+869554	  await run("document.querySelector('input[data-layer-id=mainline_rail]').click(); true");
+869555	  checks.hydrated=await query('(() => { const s='+state+'; return (s?.rail && s.releasedPayloads > '+checks.before.releasedPayloads+' || s?.railFailure) ? s : null; })()', 95_000);
+869556	  assert(!checks.hydrated.railFailure, checks.hydrated.railFailure);
+869557	  assert.deepEqual(checks.hydrated.rail,{parquet:expected.partition,rows:expected.rows,sha256:expected.sha256});
+869558	  assert.equal(checks.hydrated.visibility,'visible');
+869559	  stage='national viewport';
+869560	  await run("window.__GRIDATLAS_V9_MAP__.jumpTo({center:[-3.5,54],zoom:5});true");
+869561	  checks.national=await query(rendered);
+869562	  assert.equal(checks.national.zoom,5);
+869563	  assert(checks.national.geometry.every(type => /LineString$/.test(type)));
+869564	  stage='detailed viewport';
+869565	  await run("window.__GRIDATLAS_V9_MAP__.jumpTo({center:[-0.125,51.515],zoom:12});true");
+869566	  checks.detail=await query('(() => { const r='+rendered+'; return r?.click ? r : null; })()');
+869567	  assert.equal(checks.detail.zoom,12);
+869568	  assert(checks.detail.geometry.every(type => /LineString$/.test(type)));
+869569	  stage='feature click';
+869570	  const {x,y}=checks.detail.click;
+869571	  await call('Input.dispatchMouseEvent',{type:'mousePressed',x,y,button:'left',clickCount:1});
+869572	  await call('Input.dispatchMouseEvent',{type:'mouseReleased',x,y,button:'left',clickCount:1});
+869573	  checks.popup=await query("document.querySelector('.maplibregl-popup-content')?.innerText?.trim()",8_000);
+869574	  assert(checks.detail.click.name);
+869575	  assert(checks.popup.includes(checks.detail.click.name));
+869576	  stage='visibility toggle and reuse';
+869577	  const settledBeforeToggle=await query(state);
+869578	  const toggle="document.querySelector('input[data-layer-id=mainline_rail]').click();true";
+869579	  await run(toggle);
+869580	  checks.hidden=await query("window.__GRIDATLAS_V9_MAP__.queryRenderedFeatures({layers:['l-mainline_rail']}).length === 0");
+869581	  checks.restored=await query(rendered);
+869582	  checks.after=await query(state);
+869583	  assert.equal(checks.after.parquetRequests,settledBeforeToggle.parquetRequests);
+869584	  assert.equal(checks.after.releasedPayloads,settledBeforeToggle.releasedPayloads);
+869585	  stage='pass';
+869586	  checks.error = String(error.message).replaceAll(profile,'<browser-profile>');
+869587	    checks.diagnostic=await run("({title:document.title,generation:window.__GRIDATLAS_ATLAS__?.generation ?? null, map:!!window.__GRIDATLAS_V9_MAP__, bridge:!!window.__GRIDATLAS_MAP_READY__, railwayFailures:window.__GRIDATLAS_MAP_READY__?.stream_failures?.filter(x=>x.pathname?.includes('mainline')) ?? []})");
+869591	  if (socket?.readyState === WebSocket.OPEN) {
+869592	    try { await Promise.race([call('Browser.close',{},false),sleep(1500)]); } catch {}
+869593	  socket?.close();
+869594	  browser.kill();
+869595	  for (const entry of awaiting.values()) clearTimeout(entry.timeout);
+869596	  await rm(profile,{recursive:true,force:true,maxRetries:4,retryDelay:100}).catch(()=>{});
+869597	  const receipt={status:stage==='pass'?'passed':'bounded failure',stage,scope:'Pinned live composition and desktop viewport; no complete coverage or timing guarantee.',url,expected,checks,elapsedMs:Date.now()-started,documentNetworkRequests:[...requests]};
+869598	  await writeFile(outfile,JSON.stringify(receipt,null,2)+'\n',{flag:'wx'});
+869599	  console.log(JSON.stringify({status:receipt.status,stage,error:checks.error}));
+869601	import {writeFile} from 'node:fs/promises';
+869602	const GRIDATLAS = 'afffa9781f6130529ae93052604cd3d98d172a35';
+869603	const R = 'atlas/releases/202608300453-atlas-v9/';
+869604	const BRIDGE = 'atlas/cartridges/202609241251-streaming-parquet-bridge-v9-5.js';
+869605	const DATA = 'https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/';
+869606	const [outfile = 'rail-source-receipt.json', repo] = process.argv.slice(2);
+869608	const gitBlob = bytes => createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex');
+869609	async function request(url) {
+869610	  const result = await fetch(url, {signal:AbortSignal.timeout(20000)});
+869611	  assert(result.ok, 'HTTP '+result.status+' at '+url);
+869612	  return Buffer.from(await result.arrayBuffer());
+869613	async function grid(path, pin) {
+869614	  const raw = repo ? execFileSync('git',['--no-lazy-fetch','-C',repo,'show',GRIDATLAS+':'+path])
+869615	    : await request('https://raw.githubusercontent.com/Ventusltd/gridatlas/'+GRIDATLAS+'/'+path);
+869616	  assert.equal(gitBlob(raw),pin, path);
+869617	  return raw.toString('utf8');
+869618	const [engine,shell,bridge,manifestBytes] = await Promise.all([
+869619	  grid(R+'ventus-corev8engine.js','c53342c2cab7086cbd26be90f5524647165f76aa'),
+869620	  grid(R+'index.html','0b27ff625f14a5dcccaca4901f481d06cf58e56c'),
+869621	  grid(BRIDGE,'62a6ade186de4ed6848d017b3b3b410b028efa87'),
+869622	  request(DATA+'manifest.json'),
+869624	assert.equal(sha256(manifestBytes),'3246dbdaa042ae8352ec9b7128cb6c2fe65e4f1aba0534302510661828df2526');
+869625	const manifest = JSON.parse(manifestBytes);
+869626	const partition = manifest.artifacts.find(row => row.path==='partitions/uk_mainline_railways.parquet');
+869627	assert.equal(partition.rows,89933);
+869628	assert.equal(partition.bytes,16109232);
+869629	assert.equal(partition.sha256,'4cbd1a2b59a33e5e7d8416301cbe357941c94d70db5ca1410a04a9da2a1884cc');
+869630	assert.equal(manifest.artifacts.find(row=>row.path==='partitions/railways.parquet').rows,3596);
+869631	function layer(id) {
+869632	  const source = shell.match(new RegExp(String.raw`\{ id: "\$\{id\}"[^\n]+\}`.replace('\\$\\{id\\}',id)));
+869633	  assert(source,id);
+869634	  return vm.runInNewContext('('+source[0]+')',{});
+869635	const line = layer('mainline_rail'), points = layer('rail');
+869636	assert.equal(line.url,'/uk_mainline_railways.geojson');
+869637	assert.equal(line.type,'line');
+869638	assert.equal(line.preload,false);
+869639	assert.equal(line.color,'#ff8800');
+869640	assert.equal(line.width,1.5);
+869641	assert.equal(points.type,'point');
+869642	assert.equal(points.preload,true);
+869643	assert.equal(points.url,'data/railways.geojson');
+869644	assert(shell.includes('maplibre-gl@3.6.2/dist/maplibre-gl.js'));
+869645	const fetches = [], queries = [], closed = [];
+869646	const sample = {
+869647	  type:'LineString',
+869648	  coordinates:[[-0.12,51.51],[-0.11,51.52]],
+869649	const fixture = {source_id:'mainline',feature_index:12, feature_id:'sample', geometry_json:JSON.stringify(sample),properties_json:'{"name":"fixture rail"}'};
+869651	  window:{location:{href:'https://ventusltd.github.io/gridatlas/atlas/'}},
+869652	  URL,TextDecoder,TextEncoder,Response,ReadableStream,DOMException,crypto:globalThis.crypto,
+869653	  performance,queueMicrotask:()=>{},console,
+869654	context.window.fetch = async (url, options) => {
+869655	  fetches.push({url,cache:options?.cache});
+869656	  assert.equal(url,DATA+'manifest.json');
+869657	  return new Response(manifestBytes);
+869658	context.window.__GRIDATLAS_DUCKDB_RUNTIME__ = {
+869659	  module_url:'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm',
+869660	  promise:Promise.resolve({database:{connect:async()=>({
+869661	    query: async sql => { queries.push(sql); return {toArray:()=>[fixture]}; },
+869662	    close: async () => closed.push(true),
+869663	  })}}),
+869664	vm.runInContext(bridge,context,{filename:BRIDGE});
+869665	const state = context.window.__GRIDATLAS_MAP_READY__;
+869666	assert.equal(state.parquet_requests,0);
+869667	assert.equal(state.duckdb_runtime_started,false);
+869668	assert.equal(fetches.length,0);
+869669	const response = await context.window.fetch(line.url);
+869670	const hydrated = await response.json();
+869671	assert.equal(queries.length,1);
+869672	assert.equal(response.headers.get('X-GridAtlas-Data-Plane'),'V9-PARQUET-DUCKDB-STREAMED-RESPONSE');
+869673	assert(queries[0].includes(DATA+partition.path));
+869674	assert(queries[0].includes('ORDER BY feature_index'));
+869675	assert.equal(hydrated.features[0].id,'sample');
+869676	assert.deepEqual(hydrated.features[0].geometry,sample);
+869677	assert.equal(hydrated.features[0].properties.name,'fixture rail');
+869678	assert.equal(closed.length,1);
+869679	assert.equal(state.released_payloads,1);
+869680	assert.equal(state.loaded_on_demand[line.url].parquet,partition.path);
+869681	const shellFrom = engine.indexOf('function handleLayerToggle');
+869682	const shellTo = engine.indexOf('map.on(\'load\',',shellFrom);
+869683	assert(shellFrom >= 0 && shellTo > shellFrom);
+869684	const requests=[], layout=[], geometry=[];
+869685	const shellContext = {
+869686	  map:{
+869687	    getLayer:id => id==='l-mainline_rail',
+869688	    setLayoutProperty: (_,key,value) => layout.push({key,value}),
+869689	    getSource:id => { assert.equal(id,'src-mainline_rail'); return {setData:value => geometry.push(value)}; },
+869690	  statusMode:false,
+869691	  _visibleInteractiveIds:[],
+869692	  _visibleHoverIds:[],
+869693	  layerConfigById:new Map([[line.id,line]]),
+869694	  RUNTIME_STATE:{[line.id]:{loaded:false,loading:false}},
+869695	  REPD_IDS:[], TRANSIT_IDS:[],
+869696	  networkQueue:{add:fn=>fn()},
+869697	  fetchAndParseGeoJSON:async url => {requests.push(url); return hydrated.features;},
+869698	  updateUIState:()=>{},
+869699	vm.createContext(shellContext);
+869700	vm.runInContext(engine.slice(shellFrom,shellTo),shellContext,{filename:R+'ventus-corev8engine.js'});
+869701	shellContext.handleLayerToggle(line.id,true);
+869702	await new Promise(setImmediate);
+869703	shellContext.handleLayerToggle(line.id,false);
+869704	assert.equal(requests.length,1);
+869705	assert.equal(requests[0],line.url);
+869706	assert.equal(geometry.length,1);
+869707	assert.equal(geometry[0].features[0].geometry.type,'LineString');
+869708	assert.deepEqual(layout.map(x=>x.value),['visible','none','visible']);
+869709	assert(engine.includes('queryRenderedFeatures(e.point, { layers: _visibleInteractiveIds })'));
+869711	  status:'passed',
+869712	  scope:'Exact source and declared dataset identity; one controlled DuckDB row and mock MapLibre source for mechanism checks.',
+869713	  source:{
+869714	    gridatlasCommit:GRIDATLAS,
+869715	    engine:{path:R+'ventus-corev8engine.js',blob:'c53342c2cab7086cbd26be90f5524647165f76aa',tablet:1732,elementIds:{fetchAndParseGeoJSON:5647,hydrateLayer:5804,selectRenderedFeature:5811,handleLayerToggle:8736}},
+869716	    shell:{path:R+'index.html',blob:'0b27ff625f14a5dcccaca4901f481d06cf58e56c',tablet:1731},
+869717	    bridge:{path:BRIDGE,blob:'62a6ade186de4ed6848d017b3b3b410b028efa87',tablet:6504,elementIds:{queryOnDemand:8351,resolvePartition:143597}},
+869718	    maplibreVersion:'3.6.2',
+869719	  data:{root:DATA,manifestSha256:sha256(manifestBytes),partition},
+869720	  layers:{line,points},fixture:{queries:queries.length,connectionClose:closed.length,releasedPayloads:state.released_payloads,
+869721	  initialParquetRequests:0,sourceUpdates:geometry.length,renderVisibility:layout.map(x=>x.value)},
+869722	await writeFile(outfile,JSON.stringify(summary,null,2)+'\n',{flag:'wx'});
+869723	console.log(JSON.stringify({status:summary.status, partition:partition.path, documentedRows:partition.rows}));
+869724	/* Probe the exact COSMIC addressing code from a pinned Git object. */
+869725	const revision = 'dbe20b06c1ac107e902b93354f8e8a37b0462ad0';
+869726	const repository = process.env.COSMIC_REPO || fileURLToPath(new URL('./cosmic-source/', import.meta.url));
+869727	const git = (...args) => execFileSync('git', ['--no-lazy-fetch', '-C', repository, ...args]);
+869728	const read = (path) => git('show', `${revision}:${path}`);
+869729	const sha256 = (data) => createHash('sha256').update(data).digest('hex');
+869730	const blobId = (data) => createHash('sha1').update(`blob ${data.length}\0`).update(data).digest('hex');
+869731	const htmlBytes = read('index.html');
+869732	const htmlBlob = blobId(htmlBytes);
+869733	assert.equal(htmlBlob, '41a9007eb8480538552240829c5cf7a137e0445c');
+869734	const html = htmlBytes.toString('utf8');
+869735	const placementBegin = html.indexOf('const RHO_MAX');
+869736	const camera = html.indexOf('// --------------------------------------------------------------------------------- the camera');
+869737	assert(placementBegin > 0 && camera > placementBegin);
+869738	const constants = ['GOLDEN', 'GOLD32', 'PER_PIXEL', 'fmt'].map(name => {
+869739	  const match = html.match(new RegExp(`^const ${name} = [^\n]+$`, 'm'));
+869740	  assert(match, name);
+869741	  return match[0];
+869742	constants.push(html.match(/^const words = [^\n]+$/m)?.[0] || (() => {
+869743	  const name = 'function words(';
+869744	  const start = html.indexOf(name);
+869745	  const end = html.indexOf('\n}', start);
+869746	  assert(start !== -1 && end !== -1);
+869747	  return html.slice(start, end + 2);
+869749	async function start(cartridge, fault) {
+869751	  const memory = {};
+869753	    URLSearchParams, location: { search: `?u=${cartridge}` },
+869754	    performance, hud: { textContent: 'starting' }, big: {}, sub: {},
+869755	    cv: { height: 847 }, memory,
+869756	    fetch: async (path) => {
+869757	      let bytes = read(path);
+869758	      const identity = { path, bytes: bytes.length, git_blob: blobId(bytes), sha256: sha256(bytes) };
+869759	      if (fault && /^commits\//.test(path)) bytes = Buffer.from(fault(bytes.toString('utf8')));
+869760	      calls.push({ ...identity, delivered_bytes: bytes.length });
+869761	      memory[path] = bytes.toString('utf8');
+869762	      return { ok: true, json: () => JSON.parse(memory[path]), text: () => memory[path] };
+869763	  vm.runInContext(`let scale = 0.92, pan = [0, 0], tween = null; function restart() {}
+869764	    ${constants.join('\n')}
+869765	    ${html.slice(placementBegin, camera)}
+869766	    Object.defineProperties(memory, {
+869767	      ready: { get: () => Boolean(root) },
+869768	      total: { get: () => TOTAL },
+869769	      rows: { get: () => root.children.map(n => [n.label, n.value]) },
+869770	    memory.collapse = async (k) => {
+869771	      target = null;
+869772	      await collapseTo(k);
+869773	      if (!target) return null;
+869774	      return { k: target.k, path: target.path.map(n => n.label), offset: target.m, x: target.x,
+869775	        y: target.y, fetches: target.fetches, childError: target.node.badChildren, shape: target.node.shape,
+869776	        expectsChild: Boolean(LEVELS[target.node.depth]?.child),
+869777	        center: [target.node.x,target.node.y], rho: target.node.rho,
+869778	        hw: target.node.hw, hh: target.node.hh, zoom: tween.s1 };
+869779	    };`, context, { filename: 'cosmic/index.html@' + revision });
+869780	  for (let i = 0; !memory.ready && i < 50; i++) await new Promise(setImmediate);
+869781	  assert(memory.ready, context.hud.textContent);
+869782	  return { memory, calls };
+869783	async function probe(system, k, expectedPath, expectedOffset, reads) {
+869784	  const startCount = system.calls.length;
+869785	  const output = await system.memory.collapse(k);
+869786	  const extra_reads = system.calls.slice(startCount);
+869787	  if (expectedPath) {
+869788	    assert.deepEqual(Array.from(output.path), expectedPath);
+869789	    assert.equal(output.offset, expectedOffset);
+869790	    assert.equal(output.fetches, reads);
+869791	    assert(Number.isFinite(output.x) && Number.isFinite(output.y) && output.zoom > 0);
+869792	    const [cx, cy] = output.center;
+869793	    if (output.shape === 'rect') {
+869794	      assert(Math.abs(output.x - cx) <= output.hw && Math.abs(output.y - cy) <= output.hh);
+869796	      assert(Math.hypot(output.x - cx, output.y - cy) <= output.rho);
+869797	    assert.equal(output, null);
+869798	  assert.equal(extra_reads.length, reads);
+869799	  return { ordinal: k, target: output, new_reads: extra_reads };
+869800	function exactTarget(target) {
+869801	  if (!target) throw new RangeError('Ordinal is outside the cartridge total');
+869802	  if (target.expectsChild) throw new Error(target.childError || 'Selected sector did not resolve');
+869804	async function invoke([ordinal, cartridge = 'universe.json', ...extra]) {
+869805	  const k = Number(ordinal);
+869806	  if (!/^\d+$/.test(ordinal) || !Number.isSafeInteger(k) || extra.length ||
+869807	    !['universe.json', 'wafer.json'].includes(cartridge)) {
+869808	    throw new Error('Usage: node rare_cosmic.mjs [ordinal [universe.json|wafer.json]]');
+869809	  const system = await start(cartridge);
+869810	  const bootstrap = system.calls.slice();
+869811	  const target = exactTarget(await system.memory.collapse(k));
+869812	  console.log(JSON.stringify({ cartridge, revision, tablet: 6187, total: system.memory.total,
+869813	    bootstrap, target, addressed_sector: system.calls.slice(bootstrap.length) }, null, 2));
+869814	async function prove() {
+869815	  const estate = await start('universe.json');
+869816	  assert.deepEqual(estate.calls.map(x => x.path), ['universe.json', 'belt.tsv']);
+869817	  assert.equal(estate.memory.total, 37_929_011_953);
+869818	  assert.equal(estate.memory.rows.length, 67);
+869819	  const estateBootstrap = estate.calls.slice();
+869820	  const first = await probe(estate, 17_901, ['cosmic', 'a1e5abcf3f62'], 0, 1);
+869821	  assert.equal(first.new_reads[0].path, 'commits/00.tsv');
+869822	  const cached = await probe(estate, 35_790, ['cosmic', 'a1e5abcf3f62'], 17_889, 0);
+869823	  const outside = [await probe(estate, -1, null, null, 0),
+869824	                   await probe(estate, estate.memory.total, null, null, 0)];
+869825	  // Independently linear-check the last line of the largest sector using only its
+869826	  // already-loaded rows and sibling counts. The addressing call never sees this oracle.
+869827	  const sectorIndex = estate.memory.rows.findIndex(([name]) => name === 'globalgrid2050');
+869828	  const precedingCounts = estate.memory.rows.slice(0, sectorIndex).map(([, count]) => count);
+869829	  const largestOrdinal = precedingCounts.reduce((sum, count) => sum + count, 0)
+869830	                         + estate.memory.rows[sectorIndex][1] - 1;
+869831	  assert(largestOrdinal > 2 ** 32);
+869832	  const expectedSector = `commits/${sectorIndex.toString().padStart(2, '0')}.tsv`;
+869833	  const endReadCount = estate.calls.length;
+869834	  const endTarget = await estate.memory.collapse(largestOrdinal);
+869835	  const lastReads = estate.calls.slice(endReadCount);
+869836	  assert.equal(lastReads.length, 1);
+869837	  assert.equal(lastReads[0].path, expectedSector);
+869838	  const rows = estate.memory[expectedSector].split('\n').filter(line => line && line[0] !== '#');
+869839	  const [, count, , label] = rows.at(-1).split('\t');
+869840	  const length = Number(count);
+869841	  assert.equal(rows.length, 5_054);
+869842	  assert.deepEqual(Array.from(endTarget.path), ['globalgrid2050', label]);
+869843	  assert.equal(endTarget.offset, length - 1);
+869844	  assert.equal(endTarget.fetches, 1);
+869845	  const wafer = await start('wafer.json');
+869846	  assert.equal(wafer.memory.total, 67_518_045_832);
+869847	  assert.equal(wafer.memory.rows.length, 97);
+869848	  const waferProbe = await probe(wafer, 858_000_000, ['die +1+0'], 0, 0);
+869849	  assert.equal(waferProbe.target.shape, 'rect');
+869850	  assert.equal(waferProbe.target.center[0], 26.08 / 150);
+869851	  assert.equal(waferProbe.target.center[1], 0);
+869852	  const mismatched = await start('universe.json', text => text.replace('\t17901\t', '\t17900\t'));
+869853	  const fallback = await mismatched.memory.collapse(17_901);
+869854	  assert.deepEqual(Array.from(fallback.path), ['cosmic']);
+869855	  assert.match(fallback.childError, /children sum to 35,790, parent holds 35,791/);
+869856	  assert.equal(fallback.offset, 17_901);
+869857	  assert.throws(() => exactTarget(fallback), /children sum/);
+869859	    status: 'bounded pass with witnessed failure fallback',
+869860	    contract: 'Select a member by an ordinal over additive ranges, opening only its relevant sector, with layout supplied by the cartridge.',
+869861	    applicability: 'Pinned two-level code estate and one-level computed wafer fixtures. No browser rendering, inverse pixel test, or complete data scan.',
+869862	    command: 'node rare_cosmic.mjs',
+869863	    example_invocation: 'node rare_cosmic.mjs 17901 universe.json',
+869865	      repository: 'Ventusltd/cosmic', revision, path: 'index.html', git_blob: htmlBlob,
+869866	      sha256: sha256(htmlBytes), stars_tablet: 6187,
+869867	      stars_elements: { ensureChildren: 134863, findByOrdinal: 134865, leafPosition: 134905, collapseTo: 134906 },
+869868	      source_link: `https://github.com/Ventusltd/cosmic/blob/${revision}/index.html#L435-L530`
+869869	    estate: { total: estate.memory.total, sectors: estate.memory.rows.length,
+869870	      bootstrap: estateBootstrap, cold_boundary: first, already_resident: cached,
+869871	      high_ordinal: { ordinal: largestOrdinal, target: endTarget, new_reads: lastReads }, outside },
+869872	    wafer: { total: wafer.memory.total, bootstrap: wafer.calls, boundary: waferProbe },
+869873	    malformed_child: {
+869874	      injected_change: 'Subtract one counted unit in the selected sector.',
+869875	      detected: fallback.childError,
+869876	      returned: fallback,
+869877	      violates_exact_leaf_contract: true,
+869878	      instrument_wrapper_refused: true,
+869879	      interpretation: 'The UI still receives a parent-level target. Exact callers need to reject this incomplete refinement explicitly.'
+869881	      'Fetch was substituted with local reads of pinned Git blobs. Read counts and bytes describe those artifacts, without a network latency claim.',
+869882	      'Rendering and inverse pixel addressing were outside this probe.',
+869883	      'Resolved estate leaf is an ordinal within a commit range. The cartridge does not map it to original file path and line bytes.',
+869884	      'Estates and wafer counts are prior cartridge measures, without a new historical sweep or a physical wafer measurement.'
+869886	    runtime_ai_calls: 0, gpu_used: false, energy_measured: false
+869888	if (process.argv.length > 2) {
+869889	    await invoke(process.argv.slice(2));
+869890	  await prove();
+869891	"""Index demonstrated instrument contracts and retrieve evidence only on request."""
+869892	from collections import deque
+869893	from magnets import ROOT, read_json
+869894	BASE = ROOT / "economy"
+869895	DEFAULT = BASE / "discovery.sqlite"
+869896	STOP_WORDS = set("""
+869897	a about all also an and any are as at be by can could do does find for from get give
+869898	have how i in into is it me of on or our please show so some tell than that the their
+869899	them there these this through to use want was we what when where which who will with would you
+869900	""".split())
+869902	create table record(
+869903	    id text primary key,
+869904	    title text not null,
+869905	    status text not null,
+869906	    observable text not null,
+869907	    locator text not null,
+869908	    contract text not null
+869910	create table dependency(
+869911	    owner text not null references record(id),
+869912	    component text not null references record(id),
+869913	    primary key(owner,component),
+869914	    check(owner<>component)
+869915	create virtual table objective_fts using fts5(id unindexed,title, observable, terms, status unindexed,
+869916	    tokenize='porter unicode61');
+869917	    return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+869918	def available_record(key, title, status, observable, locator, terms="", components=(), **details):
+869919	    return dict(id=key, title=title, status=status, observable=observable, locator=locator,
+869920	                terms=terms, components=list(components), **details)
+869921	def base_catalogue():
+869922	    return read_json(BASE / "catalogue.json")
+869923	def validate_record(record, workspace):
+869924	    required = ("id", "title", "status", "observable", "locator")
+869925	    if any(not isinstance(record.get(key), str) or not record[key].strip() for key in required):
+869926	        raise ValueError("An instrument needs an id, title, status, observable and evidence locator")
+869927	    locator = (workspace / record["locator"]).resolve()
+869928	    if not locator.is_relative_to(workspace.resolve()) or not locator.is_file():
+869929	        raise ValueError(f"Missing or outside-workspace evidence locator: {record['locator']}")
+869930	    stored = dict(record)
+869931	    stored.pop("digest", None)
+869932	    return dict(stored, digest=hashlib.sha256(canonical(stored).encode()).hexdigest())
+869933	def install(db, records, workspace=ROOT):
+869934	    records = [validate_record(record, workspace) for record in records]
+869936	        for record in records:
+869937	            values = tuple(record[name] for name in ("id", "title", "status", "observable", "locator"))
+869938	            db.execute("insert into record values(?,?,?,?,?,?)", (*values, canonical(record)))
+869939	            db.execute("insert into objective_fts values(?,?,?,?,?)",
+869940	                       (record["id"], record["title"], record["observable"], record.get("terms", ""),
+869941	                        record["status"]))
+869942	            db.executemany("insert into dependency values(?,?)",
+869943	                           ((record["id"], child) for child in record.get("components", [])))
+869944	            cycle = db.execute("""with recursive inputs(id) as (
+869945	                   select component from dependency where owner = ?
+869946	                   union
+869947	                   select dependency.component from dependency join inputs on dependency.owner=inputs.id
+869948	               ) select 1 from inputs where id=?""", (record["id"], record["id"])).fetchone()
+869949	            if cycle:
+869950	                raise ValueError(f"Recursive dependency cycle at {record['id']}")
+869951	def initialize(path, inputs):
+869952	    with path.open("xb"):
+869954	        with closing(sqlite3.connect(path)) as db:
+869955	            db.execute("pragma foreign_keys=on")
+869956	            db.executescript(SCHEMA)
+869957	            install(db, inputs)
+869959	        path.unlink()
+869961	def obj_terms(objective):
+869962	    return sorted(set(re.findall(r"[^\W_]+", objective.casefold())) - STOP_WORDS)
+869963	def expand(db, roots, depth, cap):
+869964	    scheduled = deque((item, 0) for item in roots)
+869965	    visited = set()
+869966	    details = []
+869967	    while scheduled and len(details) < cap:
+869968	        key, level = scheduled.popleft()
+869969	        if key in visited:
+869970	        visited.add(key)
+869971	        contract, = db.execute("select contract from record where id=?", (key,)).fetchone()
+869972	        details.append(dict(level=level, instrument=json.loads(contract)))
+869973	        if level < depth:
+869974	            scheduled.extend((child, level+1) for child, in db.execute(
+869975	                "select component from dependency where owner=? order by component", (key,)))
+869976	    return details, any(k not in visited for k, _ in scheduled)
+869977	def discover(path, objective, top, depth=None, cap=10, verified_only=False):
+869978	    cpu_start = time.process_time_ns()
+869979	    terms = obj_terms(objective)
+869980	    result = dict(objective=objective, terms=terms, hits=[], expanded=[], expansion_budget_exhausted=False)
+869981	    if terms:
+869982	        query = " OR ".join(f'"{term}"' for term in terms)
+869983	        with closing(sqlite3.connect(path.resolve().as_uri()+"?mode=ro", uri=True)) as db:
+869984	            db.execute("pragma query_only=on")
+869985	            rows = db.execute("""
+869986	              select r.id,r.title,r.status,r.observable,r.locator
+869987	              from objective_fts join record r on objective_fts.id=r.id
+869988	              where objective_fts match ? and (not ? or r.status like 'demonstrated%')
+869989	              order by bm25(objective_fts,0,5,2,1,0),
+869990	                       case when r.status like 'demonstrated%' then 0 else 1 end, r.id
+869991	              limit ?
+869992	            """, (query, verified_only, top)).fetchall()
+869993	            names = ("id", "title", "status", "observable", "locator")
+869994	            result["hits"] = [dict(zip(names, row)) for row in rows]
+869995	            if depth is not None:
+869996	                details, remaining = expand(db, [r[0] for r in rows], depth, cap)
+869997	                result.update(expanded=details, expansion_budget_exhausted=remaining)
+869998	    result["status"] = "candidate_matches" if result["hits"] else "no_indexed_match"
+869999	    result["metrics"] = dict(summary_rows=len(result["hits"]), detail_rows=len(result["expanded"]),
+870000	                             record_json_utf8_bytes=sum(len(canonical(row).encode())
+870001	                                 for row in result["hits"] + result["expanded"]),
+870002	                             estate_source_bytes_read=0, evidence_payload_bytes_read=0,
+870003	                             inference_calls=0, cpu_ms=(time.process_time_ns()-cpu_start)/1e6,
+870004	                             wall_ms=(time.perf_counter_ns()-start)/1e6)
+870005	    parser.add_argument("--catalogue", type=Path, default=DEFAULT)
+870006	    command = parser.add_subparsers(dest="command", required=True)
+870007	    build = command.add_parser("build", help="Read the existing small instrument receipts once")
+870008	    build.add_argument("--record", type=Path, action="append", default=[])
+870009	    register = command.add_parser("register", help="Append a new revision and its existing inputs")
+870010	    register.add_argument("record", type=Path, nargs="+")
+870011	    query = command.add_parser("find", help="Retrieve a few summaries for a human objective")
+870012	    query.add_argument("objective")
+870013	    query.add_argument("--top", type=int, default=3)
+870014	    query.add_argument("--expand-depth", type=int)
+870015	    query.add_argument("--max-details", type=int, default=8)
+870016	    query.add_argument("--demonstrated", action="store_true")
+870018	        start = time.perf_counter_ns()
+870019	        cpu_start = time.process_time_ns()
+870020	        records = list(base_catalogue()) + [read_json(path) for path in args.record]
+870021	        initialize(args.catalogue, records)
+870022	        print(json.dumps(dict(indexed=len(records), index_file_bytes=args.catalogue.stat().st_size,
+870023	                              wall_ms=(time.perf_counter_ns()-start)/1e6,
+870024	                              cpu_ms=(time.process_time_ns()-cpu_start)/1e6, inference_calls=0)))
+870025	    elif args.command == "register":
+870026	        with closing(sqlite3.connect(args.catalogue.resolve().as_uri()+"?mode=rw", uri=True)) as db:
+870027	            install(db, [read_json(path) for path in args.record])
+870028	        print(json.dumps(dict(registered=len(args.record))))
+870029	        if args.top < 1 or args.max_details < 1 or (args.expand_depth is not None and args.expand_depth < 0):
+870030	            parser.error("Limits must be positive and expansion depth must be non-negative")
+870031	        result = discover(args.catalogue, args.objective, args.top, args.expand_depth, args.max_details,
+870032	                          args.demonstrated)
+870033	"""Choose a verified, bounded invocation contract or return what is missing."""
+870034	from magnets import read_json
+870035	from seed_discover import BASE, DEFAULT, discover
+870036	def safe_url(value):
+870039	    return parsed.scheme in {"http", "https"} and bool(parsed.hostname) and not parsed.username
+870040	def supplied_values(values):
+870041	    for value in values:
+870042	        key, separator, provided = value.partition("=")
+870043	        if not separator or not key or not provided or key in result:
+870044	            raise ValueError("Inputs must be unique NAME=VALUE pairs")
+870045	        result[key] = provided
+870046	def valid_input(kind, value):
+870047	    if kind == "file":
+870048	        return Path(value).is_file()
+870049	    if kind == "ordinal":
+870050	        return bool(re.fullmatch(r"[0-9]{1,15}", value))
+870051	    if kind == "resource_url":
+870052	        return safe_url(value)
+870053	    if kind == "cartridge":
+870054	        return value in {"universe.json", "wafer.json"}
+870055	    raise ValueError(f"Unsupported contract input type: {kind}")
+870056	def plan(catalogue, routes, objective, supplied, explicit=None):
+870057	    text = objective.casefold()
+870058	    matched = [
+870059	        route for route in routes if (
+870060	            route["id"] == explicit if explicit is not None else
+870061	            all(any(re.search(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", text) for phrase in group)
+870062	                for group in route["match"])
+870065	    result = dict(objective=objective, ai_inference_calls=0, estate_payload_opened=False)
+870066	    if len(matched) != 1:
+870067	        result.update(status="ambiguous" if len(matched) > 1 else "investigate",
+870068	                      known_contracts=[route["id"] for route in matched])
+870069	        if not matched:
+870070	            result["candidates"] = discover(catalogue, objective, 3)["hits"]
+870071	            result["reason"] = "Catalogued similarity alone cannot establish a sufficient executable contract."
+870072	    route, = matched
+870073	    with closing(sqlite3.connect(catalogue.resolve().as_uri() + "?mode=ro", uri=True)) as database:
+870074	        record = database.execute("select title,status,locator from record where id=?", (route["id"],)).fetchone()
+870075	    if not record or not record[1].startswith("demonstrated"):
+870076	        result.update(status="investigate", reason="The route lacks a demonstrated record.")
+870077	    missing = [key for key in route["inputs"] if key not in supplied]
+870078	    invalid = [key for key, kind in route["inputs"].items()
+870079	               if key in supplied and not valid_input(kind, supplied[key])]
+870080	    extra = sorted(set(supplied) - set(route["inputs"]))
+870081	    result.update(instrument=route["id"], title=record[0], scope=route["scope"],
+870082	                  prior_evidence=record[2], missing=missing, invalid=invalid, unexpected=extra)
+870083	    if missing or invalid or extra:
+870084	        result["status"] = "supply_inputs"
+870085	        result.update(status="ready_for_checked_invocation", argv=[word.format(**supplied) for word in route["argv"]],
+870086	                      evidence_status="Execution still needs to verify this input and output.")
+870087	    parser.add_argument("objective")
+870088	    parser.add_argument("--instrument", help="Explicit route ID when the wording is unfamiliar")
+870089	    parser.add_argument("--routes", type=Path, default=BASE / "routes.json")
+870090	    parser.add_argument("--provide", action="append", default=[])
+870091	        result = plan(args.catalogue, read_json(args.routes), args.objective, supplied_values(args.provide), args.instrument)
+870092	    except (ValueError, OSError, sqlite3.Error) as error:
+870093	        parser.error(str(error))
+870094	"""Index a local GridAtlas teleprint and join exact text sections to Modular Star."""
+870095	from magnets import DB, connect, file_sha, read_json
+870096	RULE = r"={78}\n"
+870097	CONTENTS = re.compile(RULE + r"CONTENTS -- (\d+) file\(s\), (\d+) characters\n" + RULE)
+870098	ITEM = re.compile(r"^ *(\d+)\. (.+)\n +(\d+) chars · (.+)$", re.M)
+870099	SECTION = re.compile(RULE + r"FILE: (.+)\n(\d+) chars · (.+)\n" + RULE)
+870100	MISSING = re.compile(RULE + r"NOT READ -- (\d+) resource\(s\)\n" + RULE)
+870101	LIVE = RULE + r"THE LIVE PAGE AS IT STOOD \(document.documentElement.outerHTML\)\n"
+870102	END = RULE + r"END OF TELEPRINT\n={78}(?:\n|$)"
+870103	def index(path, database):
+870106	    contents = CONTENTS.search(text)
+870107	    if not contents:
+870108	        raise ValueError("Missing contents index")
+870109	    first = SECTION.search(text, contents.end())
+870110	    if not first:
+870111	        raise ValueError("Missing file sections")
+870112	    expected = [(url, int(size), kind) for _, url, size, kind in ITEM.findall(
+870113	        text[contents.end():first.start()])]
+870114	    matches = list(SECTION.finditer(text, first.start()))
+870115	    end = re.search(END, text[matches[-1].end():])
+870116	    if not end or len(expected) != len(matches) or len(matches) != int(contents[1]):
+870117	        raise ValueError("Incomplete capture or unexpected framing")
+870118	    if sum(x[1] for x in expected) != int(contents[2]):
+870119	        raise ValueError("Index character total mismatch")
+870120	    end_offset = matches[-1].end() + end.start()
+870121	    missing = MISSING.search(text, contents.end(), first.start())
+870122	    missing_items = []
+870124	        live = re.search(LIVE, text[missing.end():first.start()])
+870125	        boundary = missing.end() + live.start() if live else first.start()
+870126	        missing_items = re.findall(r"^- (.+)\n +(.*)$", text[missing.end():boundary], re.M)
+870127	        if len(missing_items) != int(missing[1]):
+870128	            raise ValueError("Omission list count mismatch")
+870129	    state_block = re.search(RULE + r"THE SCREEN THIS CAME FROM\n" + RULE, text)
+870130	    state, _ = json.JSONDecoder().raw_decode(text[state_block.end():].lstrip())
+870132	    previous_end = 0
+870133	    byte_end = 3 if raw.startswith(bytes.fromhex("efbbbf")) else 0
+870134	    with closing(connect(database)) as connection:
+870135	        for i, match in enumerate(matches):
+870136	            url, size, role = match.groups()
+870137	            finish = matches[i+1].start() if i+1 < len(matches) else end_offset
+870138	            section = text[match.end():finish]
+870139	            if (url, int(size), role.replace("shown in full", "in full")) != expected[i] or not section.endswith("\n\n"):
+870140	                raise ValueError(f"Index or boundary mismatch in section {i+1}")
+870141	            body = section[:-2]
+870142	            if len(body.encode("utf-16-le"))//2 != int(size):
+870143	                raise ValueError(f"Character count mismatch in section {i+1}")
+870144	            data = body.encode("utf-8")
+870145	            byte_start = byte_end + len(text[previous_end:match.end()].encode("utf-8"))
+870146	            byte_end = byte_start + len(data)
+870147	            previous_end = finish-2
+870148	            blob = git_blob(data)
+870149	            tablet = connection.execute("select n from tablet where git_blob=?", (blob,)).fetchone()
+870150	            records.append(dict(section=i+1, url=url, kind=role, utf16_units=int(size),
+870151	                                byte_start=byte_start, byte_length=len(data),
+870152	                                text_sha256=hashlib.sha256(data).hexdigest(), git_blob=blob,
+870153	                                tablet=tablet[0] if tablet else None))
+870154	    return dict(input=str(path), input_sha256=hashlib.sha256(raw).hexdigest(), bytes=len(raw),
+870155	                newline_count=text.count("\n"), database_sha256=file_sha(database),
+870156	                screen={k: state.get(k) for k in ("generation", "capturedAt", "viewport")},
+870157	                records=records, not_read=missing_items)
+870158	def retrieve(path, record):
+870159	        stream.seek(record["byte_start"])
+870160	        raw = stream.read(record["byte_length"])
+870161	    if hashlib.sha256(raw).hexdigest() != record["text_sha256"]:
+870162	        raise ValueError("Selected section content differs from the index")
+870164	    parser.add_argument("capture", type=Path)
+870165	    modes = parser.add_mutually_exclusive_group(required=True)
+870166	    modes.add_argument("--index", type=Path)
+870167	    modes.add_argument("--from-index", type=Path)
+870168	    parser.add_argument("--extract", help="Exact resource URL or a unique URL suffix")
+870169	    parser.add_argument("--output", type=Path, help="Destination for verified resource bytes")
+870170	    parser.add_argument("--find", default="rail|metro|tram")
+870171	    if args.from_index:
+870172	        if not args.extract or not args.output:
+870173	            parser.error("--from-index requires --extract and --output")
+870174	        receipt = read_json(args.from_index)
+870175	        selected = [r for r in receipt["records"] if r["url"].endswith(args.extract)]
+870176	        if len(selected) != 1:
+870177	            parser.error(f"Expected one resource match, found {len(selected)}")
+870178	        payload = retrieve(args.capture, selected[0])
+870179	        with args.output.open("xb") as stream:
+870180	            stream.write(payload)
+870181	        print(json.dumps(selected[0], indent=2))
+870182	        raise SystemExit(0)
+870183	    before = file_sha(DB)
+870184	    result = index(args.capture, DB)
+870185	    if result["database_sha256"] != before:
+870186	        raise ValueError("Database changed during indexing")
+870187	    with args.index.open("x", encoding="utf-8") as stream:
+870188	        json.dump(result, stream, indent=2)
+870189	    hits = [r for r in result["records"] if re.search(args.find, r["url"], re.I)]
+870190	    print(json.dumps(dict(bytes=result["bytes"], sections=len(result["records"]),
+870191	                          exact_tablets=sum(r["tablet"] is not None for r in result["records"]),
+870192	                          omissions=len(result["not_read"]), query=args.find, hits=hits), indent=2))
+870193	"""Check one draft command with no estate, network or model inputs."""
+870194	from vedic_candidate import invoke
+870195	class CandidateTests(unittest.TestCase):
+870196	        initialize(cls.catalogue, list(base_catalogue()))
+870197	    def test_single_lookup_returns_evidence_without_opening_a_payload(self):
+870198	        objective = "verify a captured component against exact historical source"
+870199	        with patch("io.open", side_effect=AssertionError("Candidate opened a payload")):
+870200	            result = invoke(" find \t capability ", {"objective": objective, "limit": 1}, self.catalogue)
+870201	        self.assertEqual(result["matches"][0]["id"], "audit-captured-source")
+870202	        self.assertEqual(result["metrics"]["inference_calls"], 0)
+870203	    def test_unknown_objective_is_empty(self):
+870204	        result = invoke("FIND CAPABILITY", {"objective": "predict volcanic eruptions from seismic readings"},
+870205	                        self.catalogue)
+870206	        self.assertEqual(result["status"], "no_indexed_match")
+870207	    def test_unbound_command_and_malformed_contract_refuse_before_querying(self):
+870208	        for command, request in [
+870209	            ("COMPOSE INSTRUMENTS", {"objective": "audit source"}),
+870210	            ("FIND CAPABILITY", {"objective": "audit source", "limit": True}),
+870211	            ("FIND CAPABILITY", {"objective": "audit source", "shell": "arbitrary"}),
+870213	            with self.subTest(command=command, request=request), patch(
+870214	                "vedic_candidate.discover", side_effect=AssertionError("Invalid request queried the index")
+870215	            ), self.assertRaises(ValueError):
+870216	                invoke(command, request, self.catalogue)
+870217	"""Shadow-test a candidate VEDIC command against the verified SEED catalogue."""
+870218	from seed_discover import DEFAULT, discover
+870219	COMMAND = "FIND CAPABILITY"
+870220	MAX_INPUT_BYTES = 8192
+870221	def invoke(words, request, catalogue=DEFAULT):
+870222	    normalized = " ".join(words.upper().split())
+870223	    if normalized != COMMAND:
+870224	        raise ValueError("Command has no candidate binding")
+870225	    if not isinstance(request, dict) or set(request) - {"objective", "limit"}:
+870226	        raise ValueError("Expected an objective and optional result limit")
+870227	    objective = request.get("objective")
+870228	    limit = request.get("limit", 3)
+870229	    if not isinstance(objective, str) or not objective.strip():
+870230	        raise ValueError("Expected a non-blank objective")
+870231	    if type(limit) is not int or not 1 <= limit <= 5:
+870232	        raise ValueError("Limit must be an integer from one to five")
+870233	    evidence = discover(catalogue, objective, limit, verified_only=True)
+870234	        "candidate_command": COMMAND,
+870235	        "status": evidence["status"],
+870236	        "matches": evidence["hits"],
+870237	        "metrics": evidence["metrics"],
+870239	            raw = source.read(MAX_INPUT_BYTES + 1)
+870240	        if len(raw) > MAX_INPUT_BYTES:
+870241	            raise ValueError("Candidate request exceeds the input budget")
+870242	        print(json.dumps(invoke(args.command, json.loads(raw), args.catalogue), indent=2))
+870243	    except (ValueError, OSError) as error:
+870244	import { packet } from './session.mjs';
+870245	const root = new URL('../../economical-seeds/next-invention/', import.meta.url);
+870246	const pinned = {
+870247	  'reduction/projected.mjs': 'e3ac6314fcefc1351c6c6b3c569e630bf96f6160d66f8392c7a3f7ad36615c3f',
+870248	  'cable-screen/route-screen.mjs': '315ab43679156e2ba19516e7d76526bbd305dc78bf2a02ed8094cb760139f7b8',
+870249	for (const [rel, digest] of Object.entries(pinned)) {
+870250	  const actual = createHash('sha256').update(readFileSync(new URL(rel, root))).digest('hex');
+870251	  if (actual !== digest) throw new Error('Screener source differs from pin');
+870252	const { prepareProjectedScreen } = await import(new URL('reduction/projected.mjs', root));
+870253	const screen = await prepareProjectedScreen(process.env.EXPLAIN_ENGINE || 'ventus-grid-engine');
+870254	const num = v => Number(v.toFixed(6));
+870255	const bounds = (n, low, high) => Number.isFinite(n) && n >= low && n <= high;
+870256	function validate(input) {
+870257	  if (!input || typeof input !== 'object' || Object.keys(input).sort().join() !== 'after,before') {
+870258	    throw new Error('Expected before and after scenarios');
+870259	  for (const side of [input.before, input.after]) {
+870260	    if (!side || typeof side !== 'object' ||
+870261	        Object.keys(side).some(key => key !== 'currentA' && key !== 'lengthM') ||
+870262	        !bounds(side.currentA, 1, 1000) || (Object.hasOwn(side, 'lengthM') && !bounds(side.lengthM, 1000, 10000))) {
+870263	      throw new Error('Invalid current or declared installed length');
+870264	function result(side) {
+870265	  const route = { id: 'fictional', straightLineKm: 1, crossings: [] };
+870266	  if (Object.hasOwn(side, 'lengthM')) route.installedLengthM = side.lengthM;
+870267	  return screen({
+870268	    electrical: { currentA: side.currentA, nominalVolts: 1000, resistanceOhmPerKm: 0.2,
+870269	      reactanceOhmPerKm: 0.1, powerFactor: 0.8, phases: 'single' },
+870270	    options: [route],
+870271	  }).options[0].electrical;
+870272	const describe = r => r.status === 'computed' ? num(r.dropV) + ' V and ' + num(r.lossW) + ' W' : 'unavailable';
+870273	const exact = (a,b) => a.dropV === b.dropV && a.lossW === b.lossW;
+870274	export async function explain(input, session, version = 'v1') {
+870275	  validate(input);
+870276	  const {before, after} = input, changes = [];
+870277	  const length = before.lengthM !== after.lengthM, current = before.currentA !== after.currentA;
+870278	  const metres = v => v === undefined ? 'unknown' : num(v) + ' m';
+870279	  if (length) changes.push('Installed length ' + metres(before.lengthM) + ' to ' + metres(after.lengthM));
+870280	  if (current) changes.push((length ? 'current ' : 'Current ') + num(before.currentA) + ' A to ' + num(after.currentA) + ' A');
+870281	  const scope = JSON.stringify([before.currentA, before.lengthM, after.currentA, after.lengthM]);
+870282	  const work = await session.exchange(packet({
+870283	    before_length: Object.hasOwn(before, 'lengthM'),
+870284	    after_length: Object.hasOwn(after, 'lengthM')
+870285	  }, version, scope));
+870286	  if (work.status !== 'ok') throw new Error(work.reason);
+870287	  const { coverage } = work;
+870288	  const a = result(before), b = result(after);
+870289	  if (coverage.before_length !== (a.status === 'computed') || coverage.after_length !== (b.status === 'computed')) {
+870290	    throw new Error('Evidence and screener disagree');
+870291	  let difference, reason;
+870292	  if (!coverage.before_length || !coverage.after_length) {
+870293	    difference = 'Before: ' + describe(a) + '. After: ' + describe(b) + '.';
+870294	    const missing = !coverage.before_length && !coverage.after_length ? 'Both cases need'
+870295	      : coverage.before_length ? 'The after case needs' : 'The before case needs';
+870296	    reason = missing + ' a declared installed length. The change cannot be explained.';
+870297	    difference = 'Voltage drop ' + num(a.dropV) + ' V to ' + num(b.dropV)
+870298	      + ' V; loss ' + num(a.lossW) + ' W to ' + num(b.lossW) + ' W.';
+870299	    if (!length && !current) {
+870300	      if (!exact(a,b)) throw new Error('Identical inputs produced different results');
+870301	      reason = 'The model returned the same result. There is no change to explain.';
+870302	    } else if (length && current) {
+870303	      const l = result({...before, lengthM: after.lengthM}), c = result({...before, currentA: after.currentA});
+870304	      reason = 'With the before case as the baseline, length alone produced ' + describe(l)
+870305	        + '; current alone produced ' + describe(c) + '. These replays do not establish a unique split of the joint change.';
+870306	      const replay = result(length ? {...before, lengthM: after.lengthM} : {...before, currentA: after.currentA});
+870307	      if (!exact(replay,b)) throw new Error('Controlled replay failed to reproduce result');
+870308	      reason = 'Changing only ' + (length ? 'installed length' : 'current') + ' in the model reproduced the result.';
+870309	  const text = 'Inputs: ' + (changes.length ? changes.join('; ') + '.' : 'No changes.')
+870310	    + '\nResult: ' + difference + '\nEvidence: ' + reason;
+870311	  return { text, work };
+870315	const here = rel => fileURLToPath(new URL(rel, import.meta.url));
+870316	const metrics = ['before_length', 'after_length'];
+870318	export function packet(flags, version = 'v1', scope = '') {
+870319	  const payloads = {}, subject = 'fictional-cable', time = '2026-11-28T00:00:00Z';
+870320	  const evidence = metrics.map(metric => {
+870321	    const row = { id: metric, metric, source: 'validated_case_input:' + hash(scope), state: 'missing' };
+870322	    if (!flags[metric]) return row;
+870323	    const path = metric + '.json';
+870324	    const raw = JSON.stringify({ subject, metric, observed_at: time, value: 1, unit: 'flag' });
+870325	    payloads[path] = raw;
+870326	    return { ...row, state: 'observed', path, observed_at: time, sha256: hash(raw), bytes: Buffer.byteLength(raw) };
+870327	  const manifest = JSON.stringify({ schema: 'seed.synthetic-bench-evidence.v1', subject, evidence });
+870328	  return { version, manifest, digest: hash(manifest), payloads };
+870329	export async function open(mode) {
+870330	  const child = spawn(process.env.EXPLAIN_PYTHON || 'python', [
+870331	    '-u', here('worker.py'),
+870332	    here('../../economical-seeds/next-invention/reduction/sufficiency/identify_missing_evidence.py'), mode,
+870333	  ], { stdio: ['pipe', 'pipe', 'inherit'] });
+870334	  const reader = createInterface({ input: child.stdout });
+870335	  const replies = reader[Symbol.asyncIterator]();
+870336	  const exited = once(child, 'close');
+870337	  exited.catch(() => {});
+870338	  async function next() {
+870339	    const reply = await Promise.race([replies.next(), exited.then(() => ({ done: true }))]);
+870340	    if (reply.done) throw new Error('Persistent evidence adapter ended before replying');
+870341	    return JSON.parse(reply.value);
+870342	    const ready = await next();
+870343	    if (ready.status !== 'ready' || ready.mode !== mode) throw new Error('Unexpected evidence adapter handshake');
+870344	    child.kill();
+870346	    async exchange(value) {
+870347	      child.stdin.write(JSON.stringify(value) + '\n');
+870348	      return next();
+870349	    async close() {
+870350	      child.stdin.end();
+870351	      await exited;
+870352	      reader.close();
+870353	import { open, packet } from './session.mjs';
+870354	const contract = readFileSync(new URL('../original/acceptance.json', import.meta.url));
+870355	assert.equal(createHash('sha256').update(contract).digest('hex'),
+870356	  '0dc63a1b98d1606eaf642b681f153e660d9adfb0075c2327cc34c4c742adfcbf');
+870357	const cases = JSON.parse(contract);
+870358	const joint = cases.cases.find(row => row.id === 'joint');
+870359	async function acceptance(mode) {
+870360	  const { explain } = await import('./explain.mjs');
+870361	  const session = await open(mode);
+870362	    for (const {input, expected} of cases.cases) assert.equal((await explain(input, session)).text, expected);
+870363	    for (const input of cases.refusals) await assert.rejects(() => explain(input, session));
+870364	    const flags = { before_length: true, after_length: true };
+870365	    const v1 = packet(flags, 'v1', 'changed-evidence-control');
+870366	    const v2 = packet(flags, 'v2', 'changed-evidence-control');
+870367	    assert.equal(v1.digest, v2.digest);
+870368	    const first = await session.exchange(v1);
+870369	    assert.equal(first.full_verifications, 1);
+870370	    const repeat = await session.exchange(v1);
+870371	    assert.equal(repeat.cache_hit, mode === 'reuse');
+870372	    const differentVersion = await session.exchange(v2);
+870373	    assert.equal(differentVersion.full_verifications, 1);
+870374	    assert.equal(differentVersion.cache_hit, false);
+870375	    const changed = structuredClone(v1);
+870376	    const key = 'after_length.json';
+870377	    changed.payloads[key] = changed.payloads[key].replace('"value":1', '"value":0');
+870378	    assert.notEqual(changed.payloads[key], v1.payloads[key]);
+870379	    assert.equal(Buffer.byteLength(changed.payloads[key]), Buffer.byteLength(v1.payloads[key]));
+870380	    const refusal = await session.exchange(changed);
+870381	    assert.deepEqual(refusal, { status: 'refused', reason: 'Changed evidence payload' });
+870382	    const afterRefusal = await session.exchange(v1);
+870383	    assert.equal(afterRefusal.cache_hit, mode === 'reuse');
+870384	    assert.deepEqual(afterRefusal.coverage, first.coverage);
+870385	    return { golden: cases.cases.length, refusedInputs: cases.refusals.length,
+870386	      repeatWasHit: repeat.cache_hit, sameDigestNewVersionWasReverified: true,
+870387	      unchangedManifestSameSizeTamper: refusal, originalResultRecoveredAfterRefusal: true };
+870389	    await session.close();
+870390	function work(rows) {
+870391	  const keys = ['full_verifications', 'manifest_bytes', 'payload_bytes_hashed', 'prototype_payload_bytes'];
+870392	  return Object.fromEntries(keys.map(k => [k, rows.reduce((sum, row) => sum + row[k], 0)]));
+870393	async function measurement(mode) {
+870394	  const init = performance.now();
+870395	  const startupMs = performance.now() - init;
+870397	    const first = await explain(joint.input, session);
+870398	    const firstMs = performance.now() - start;
+870399	    assert.equal(first.text, joint.expected);
+870400	    assert.equal(first.work.full_verifications, 1);
+870401	    const repeated = [], repeatStart = performance.now();
+870402	    for (let i = 0; i < 8; i++) {
+870403	      const result = await explain(joint.input, session);
+870404	      assert.equal(result.text, joint.expected);
+870405	      assert.equal(result.work.cache_hit, mode === 'reuse');
+870406	      repeated.push(result.work);
+870407	    return { mode, startupMs, firstMs, repeatedMs: performance.now()-repeatStart,
+870408	      first: work([first.work]), repeated: work(repeated) };
+870409	const [, , arg, mode] = process.argv;
+870410	if (arg === '--worker') {
+870411	  console.log(JSON.stringify(await measurement(mode)));
+870412	  assert(arg, 'Usage: node trial.mjs <new-receipt.json>');
+870413	  const checks = { verify: await acceptance('verify'), reuse: await acceptance('reuse') };
+870414	    for (const nextMode of i % 2 ? ['reuse','verify'] : ['verify','reuse']) {
+870415	      const result = execFileSync(process.execPath, [fileURLToPath(import.meta.url), '--worker', nextMode],
+870416	        { encoding: 'utf8', timeout: 20000 });
+870417	      samples.push(JSON.parse(result));
+870418	  for (const k of ['verify','reuse']) {
+870419	    const subset = samples.filter(row => row.mode === k);
+870420	    medians[k] = Object.fromEntries(['startupMs', 'firstMs', 'repeatedMs'].map(field =>
+870421	      [field, subset.map(row => row[field]).sort((a,b)=>a-b)[2]]));
+870422	  const receipt = { checks, medians, samples, platform:process.platform,node:process.version,
+870423	    scope: 'Five interleaved Node workers per mode. Startup ends at persistent adapter ready, including screener imports and exact Git blob checks, excluding Node process launch. First explanation starts on a cold evidence cache. Repeat is eight calls on the same fixture. Every request verifies manifest hash and actual body hashes before lookup. The cache is process-local with fixed policy, date, budget and code pin.' };
+870424	  writeFileSync(arg, JSON.stringify(receipt,null,2)+'\n',{flag:'wx'});
+870425	  console.log(JSON.stringify({checks,medians},null,2));
+870426	"""Verify a bounded evidence packet; share work only for the same digest and version."""
+870427	from collections import OrderedDict
+870428	PIN = "4e1460f1064550367492463e907ce4e0d7e9b6af630783ebfcb3426e3e551a2b"
+870429	QUESTION = "explain-cable-declared-length-v1"
+870430	WHEN = "2026-11-28T00:00:00Z"
+870431	METRICS = ("before_length", "after_length")
+870432	CAP = 512
+870433	def emit(data):
+870434	    print(json.dumps(data, separators=(",", ":")), flush=True)
+870435	class Adapter:
+870436	    def __init__(self, source, reuse):
+870437	        if sha(source) != PIN:
+870438	            raise ValueError("Evidence implementation differs from its pin")
+870439	        module = {}
+870440	        exec(compile(source, "pinned-lei04", "exec"), module)
+870441	        module["QUESTION"] = QUESTION
+870442	        module["PREDICATES"] = {m: {"unit": "flag", "op": ">=", "threshold": 1} for m in METRICS}
+870443	        self.assess = module["assess"]
+870444	        self.decode = module["decode"]
+870445	        self.reuse = reuse
+870446	        self.cache = OrderedDict()
+870447	    def reply(self, packet):
+870448	        if (not isinstance(packet, dict) or set(packet) != {"version", "manifest", "digest", "payloads"}
+870449	                or packet["version"] not in ("v1", "v2") or not isinstance(packet["manifest"], str)
+870450	                or not isinstance(packet["digest"], str) or not isinstance(packet["payloads"], dict)):
+870451	            raise ValueError("Invalid packet or unsupported version")
+870452	        manifest = packet["manifest"].encode()
+870453	        if sha(manifest) != packet["digest"]:
+870454	            raise ValueError("Changed manifest")
+870455	        data = self.decode(manifest)
+870456	        if not isinstance(data, dict) or data.get("subject") != "fictional-cable":
+870457	            raise ValueError("Invalid manifest subject")
+870458	        rows = data.get("evidence")
+870459	        if not isinstance(rows, list) or len(rows) != len(METRICS):
+870460	            raise ValueError("Expected two indexed facts")
+870461	        bodies = {}
+870462	        for metric, row in zip(METRICS, rows):
+870463	            if not isinstance(row, dict) or row.get("metric") != metric:
+870464	                raise ValueError("Unexpected metric")
+870465	            state = row.get("state")
+870466	            if state == "missing":
+870467	            path = metric + ".json"
+870468	            if state != "observed" or row.get("path") != path:
+870469	                raise ValueError("Unexpected evidence locator or state")
+870470	            supplied = packet["payloads"].get(path)
+870471	            if not isinstance(supplied, str):
+870472	                raise ValueError("Missing indexed evidence")
+870473	            raw = supplied.encode()
+870474	            if len(raw) != row.get("bytes") or sha(raw) != row.get("sha256"):
+870475	                raise ValueError("Changed evidence payload")
+870476	            bodies[path] = raw
+870477	        count = sum(map(len, bodies.values()))
+870478	        if set(bodies) != set(packet["payloads"]) or count > CAP:
+870479	            raise ValueError("Unexpected evidence or exhausted byte budget")
+870480	        # Manifest binds the body hashes. Each body is hashed before the lookup.
+870481	        # Code pin, policy, subject, as-of time and budget are fixed for this worker.
+870482	        key = (packet["version"], packet["digest"])
+870483	        work = dict(manifest_bytes=len(manifest), payload_bytes_hashed=count)
+870484	        if self.reuse and key in self.cache:
+870485	            self.cache.move_to_end(key)
+870486	            return dict(status="ok", coverage=self.cache[key], cache_hit=True,
+870487	                        full_verifications=0, prototype_payload_bytes=0, **work)
+870489	            path = Path(folder)
+870490	            for name, raw in bodies.items():
+870491	                (path / name).write_bytes(raw)
+870492	            req = dict(question=QUESTION, subject="fictional-cable", as_of=WHEN, max_age_seconds=0,
+870493	                       max_payload_bytes=CAP, manifest_sha256=packet["digest"])
+870494	            verified = self.assess(req, manifest, path)
+870495	        coverage = {p["metric"]: p["status"] == "supported" for p in verified["predicates"]}
+870496	        if self.reuse:
+870497	            self.cache[key] = coverage
+870498	            if len(self.cache) > 16:
+870499	                self.cache.popitem(last=False)
+870500	        return dict(status="ok", coverage=coverage, cache_hit=False, full_verifications=1,
+870501	                    prototype_payload_bytes=verified["resources"]["payload_bytes"], **work)
+870502	    source, mode = sys.argv[1:]
+870503	    if mode not in ("verify", "reuse"):
+870504	        raise ValueError("Invalid adapter mode")
+870505	    engine = Adapter(Path(source).read_bytes(), mode == "reuse")
+870506	    emit({"status": "ready", "mode": mode})
+870507	    for line in sys.stdin:
+870508	            emit(engine.reply(engine.decode(line)))
+870509	        except (ValueError, OSError) as error:
+870510	            emit({"status": "refused", "reason": str(error)})
+870514	const raw = readFileSync(new URL('acceptance.json', import.meta.url));
+870515	assert.equal(createHash('sha256').update(raw).digest('hex'),
+870516	const spec = JSON.parse(raw);
+870517	const arms = process.argv.slice(2);
+870518	assert(arms.length, 'Give one or more arm filenames');
+870519	const scratch = mkdtempSync(join(tmpdir(), 'explain-change-'));
+870520	const results = {};
+870521	  for (const arm of arms) {
+870522	    const url = new URL(arm, import.meta.url);
+870523	    const { explain } = await import(url);
+870524	    for (const row of spec.cases) assert.equal(explain(row.input), row.expected, arm + ': ' + row.id);
+870525	    for (const input of spec.refusals) assert.throws(() => explain(input), arm);
+870526	    const file = join(scratch, 'request.json');
+870527	    const joint = spec.cases.find(row => row.id === 'joint');
+870528	    writeFileSync(file, JSON.stringify(joint.input));
+870529	    const args = [fileURLToPath(url), file];
+870530	    assert.equal(execFileSync(process.execPath, args, { encoding:'utf8' }).trimEnd(), joint.expected);
+870531	    writeFileSync(file, JSON.stringify(spec.refusals[0]));
+870532	    const rejection = spawnSync(process.execPath, args, { encoding:'utf8' });
+870533	    assert.notEqual(rejection.status, 0);
+870534	    assert.equal(rejection.stdout, '');
+870535	    results[arm] = { successfulFixtures: spec.cases.length, refusals: spec.refusals.length,
+870536	      identicalCliWitness: joint.id, invalidCliWithoutSuccessfulOutput: true };
+870537	  rmSync(scratch, { recursive: true });
+870538	console.log(JSON.stringify(results, null, 2));
+870539	"""Reuse LEI-04 for fixture length-presence facts, without changing its source."""
+870541	    return json.dumps(value, separators=(",", ":")).encode()
+870544	source = Path(sys.argv[1]).read_bytes()
+870545	if sha(source) != PIN:
+870546	    raise SystemExit("Evidence implementation differs from its pin")
+870547	module = {}
+870548	exec(compile(source, "pinned-lei04", "exec"), module)
+870549	present = json.loads(sys.stdin.buffer.read())
+870550	metrics = ("before_length", "after_length")
+870551	if set(present) != set(metrics) or any(type(v) is not bool for v in present.values()):
+870552	    raise SystemExit("Expected two declared presence flags")
+870553	module["QUESTION"] = QUESTION
+870554	module["PREDICATES"] = {metric: {"unit": "flag", "op": ">=", "threshold": 1} for metric in metrics}
+870555	subject = "fictional-cable"
+870556	with tempfile.TemporaryDirectory() as scratch:
+870557	    path = Path(scratch)
+870559	    for metric in metrics:
+870560	        row = {"id": metric, "metric": metric, "source": "validated_case_input", "state": "missing"}
+870561	        if present[metric]:
+870562	            payload = encode({"subject": subject, "metric": metric, "observed_at": WHEN,
+870563	                              "value": 1, "unit": "flag"})
+870564	            filename = metric + ".json"
+870565	            (path / filename).write_bytes(payload)
+870566	            row.update(state="observed", observed_at=WHEN, path=filename, sha256=sha(payload),
+870567	                       bytes=len(payload))
+870569	    manifest = encode({"schema": "seed.synthetic-bench-evidence.v1", "subject": subject, "evidence": rows})
+870570	    request = dict(question=QUESTION, subject=subject, as_of=WHEN, max_age_seconds=0,
+870571	                   max_payload_bytes=512, manifest_sha256=sha(manifest))
+870572	    result = module["assess"](request, manifest, path)
+870573	print(json.dumps({p["metric"]: p["status"] == "supported" for p in result["predicates"]}))
+870574	const joint = JSON.parse(readFileSync(new URL('acceptance.json', import.meta.url))).cases.find(row => row.id === 'joint');
+870575	const repeats = 8;
+870576	const [, , mode, arm] = process.argv;
+870577	if (mode === '--worker') {
+870578	  const { explain } = await import(new URL(arm, import.meta.url));
+870579	  const initMs = performance.now() - start;
+870580	  const first = performance.now();
+870581	  assert.equal(explain(joint.input), joint.expected);
+870582	  const firstMs = performance.now() - first;
+870583	  const warm = performance.now();
+870584	  for (let i = 0; i < repeats; i++) assert.equal(explain(joint.input), joint.expected);
+870585	  console.log(JSON.stringify({ arm, initMs, firstMs, repeatedMs: performance.now()-warm }));
+870586	  assert(mode, 'Pass a new measurement output file');
+870587	  const here = fileURLToPath(import.meta.url);
+870588	    const order = i % 2 ? ['standalone.mjs','reuse.mjs'] : ['reuse.mjs','standalone.mjs'];
+870589	    for (const name of order) {
+870590	      const child = execFileSync(process.execPath,[here,'--worker',name],{encoding:'utf8'});
+870591	      samples.push({ ...JSON.parse(child), workerWallMs: performance.now()-start });
+870592	  for (const name of ['reuse.mjs','standalone.mjs']) {
+870593	    const rows = samples.filter(row => row.arm === name);
+870594	    medians[name] = Object.fromEntries(['initMs','firstMs','repeatedMs','workerWallMs'].map(key =>
+870595	      [key, rows.map(row => row[key]).sort((a,b)=>a-b)[2]]));
+870596	  const report = { repeats, workersPerArm: 5, scenario: joint.id, medians, samples,
+870597	    scope: 'Fresh Node processes interleaved. Init includes exact pins and Git source checks for reuse. Each reuse call starts one Python adapter and verifies its generated evidence. The repeated interval excludes Node startup and includes the assertion in both arms. Energy unmeasured.' };
+870598	  writeFileSync(mode, JSON.stringify(report,null,2)+'\n',{flag:'wx'});
+870599	  console.log(JSON.stringify(medians,null,2));
+870600	import { execFileSync } from 'node:child_process';
+870602	const root = new URL('../reduction-publish/experiments/economical-seeds/next-invention/', import.meta.url);
+870603	const adapter = fileURLToPath(new URL('./evidence_adapter.py', import.meta.url));
+870604	const evidencePath = fileURLToPath(new URL('reduction/sufficiency/identify_missing_evidence.py', root));
+870605	export function explain(input) {
+870606	  const coverage = JSON.parse(execFileSync(process.env.EXPLAIN_PYTHON || 'python', [adapter, evidencePath], {
+870607	    input: JSON.stringify({before_length: Object.hasOwn(before,'lengthM'), after_length: Object.hasOwn(after,'lengthM')}),
+870608	    encoding: 'utf8', maxBuffer: 16384,
+870609	  return 'Inputs: ' + (changes.length ? changes.join('; ') + '.' : 'No changes.')
+870610	    console.log(explain(JSON.parse(readFileSync(process.argv[2], 'utf8'))));
+870611	const RESISTANCE_OHM_PER_KM = 0.2;
+870612	const REACTANCE_OHM_PER_KM = 0.1;
+870613	const POWER_FACTOR = 0.8;
+870614	const REACTIVE_FACTOR = Math.sqrt(1 - POWER_FACTOR * POWER_FACTOR);
+870615	function checkObject(value, fields) {
+870616	  if (typeof value !== 'object' || value === null || Array.isArray(value)
+870617	      || Reflect.ownKeys(value).some(key => !fields.includes(key))) {
+870618	    throw new TypeError('Unexpected input fields or shape.');
+870619	function numberInRange(value, lower, upper, field) {
+870620	  if (!Number.isFinite(value) || value < lower || value > upper) {
+870621	    throw new RangeError(field + ' must be a finite number in [' + lower + ', ' + upper + '].');
+870622	function checkCase(value) {
+870623	  checkObject(value, ['currentA', 'lengthM']);
+870624	  if (!Object.hasOwn(value, 'currentA')) {
+870625	    throw new TypeError('Each case requires currentA.');
+870626	  numberInRange(value.currentA, 1, 1000, 'Current');
+870627	  if (!Object.hasOwn(value, 'lengthM')) {
+870628	    return { currentA: value.currentA };
+870629	  numberInRange(value.lengthM, 1000, 10000, 'Installed length');
+870630	  return { currentA: value.currentA, lengthM: value.lengthM };
+870631	function model({ currentA, lengthM }) {
+870632	  if (lengthM === undefined) {
+870634	  const kilometres = lengthM / 1000;
+870635	    voltage: 2 * currentA * kilometres
+870636	      * (RESISTANCE_OHM_PER_KM * POWER_FACTOR + REACTANCE_OHM_PER_KM * REACTIVE_FACTOR),
+870637	    loss: 2 * currentA * currentA * RESISTANCE_OHM_PER_KM * kilometres,
+870638	function format(value, unit) {
+870639	  return value === undefined ? 'unknown' : Number(value.toFixed(6)) + ' ' + unit;
+870640	function amount(result) {
+870641	  return result ? format(result.voltage, 'V') + ' and ' + format(result.loss, 'W') : 'unavailable';
+870642	  checkObject(input, ['before', 'after']);
+870643	  if (!Object.hasOwn(input, 'before') || !Object.hasOwn(input, 'after')) {
+870644	    throw new TypeError('Input requires before and after cases.');
+870645	  const before = checkCase(input.before);
+870646	  const after = checkCase(input.after);
+870647	  const lengthChanged = before.lengthM !== after.lengthM;
+870648	  const currentChanged = before.currentA !== after.currentA;
+870649	  const changes = [];
+870650	  if (lengthChanged) {
+870651	    changes.push('Installed length ' + format(before.lengthM, 'm') + ' to ' + format(after.lengthM, 'm'));
+870652	  if (currentChanged) {
+870653	    const label = lengthChanged ? 'current' : 'Current';
+870654	    changes.push(label + ' ' + format(before.currentA, 'A') + ' to ' + format(after.currentA, 'A'));
+870655	  const inputs = 'Inputs: ' + (changes.length ? changes.join('; ') + '.' : 'No changes.');
+870656	  const original = model(before);
+870657	  const changed = model(after);
+870658	  if (!original || !changed) {
+870659	    const subject = !original && !changed ? 'Both cases need' : (!original
+870660	      ? 'The before case needs' : 'The after case needs');
+870662	      inputs,
+870663	      'Result: Before: ' + amount(original) + '. After: ' + amount(changed) + '.',
+870664	      'Evidence: ' + subject + ' a declared installed length. The change cannot be explained.',
+870666	  const result = 'Result: Voltage drop ' + format(original.voltage, 'V') + ' to '
+870667	    + format(changed.voltage, 'V') + '; loss ' + format(original.loss, 'W') + ' to '
+870668	    + format(changed.loss, 'W') + '.';
+870669	  let evidence;
+870670	  if (lengthChanged && currentChanged) {
+870671	    const lengthOnly = model({ ...before, lengthM: after.lengthM });
+870672	    const currentOnly = model({ ...before, currentA: after.currentA });
+870673	    evidence = 'With the before case as the baseline, length alone produced ' + amount(lengthOnly)
+870674	      + '; current alone produced ' + amount(currentOnly)
+870675	      + '. These replays do not establish a unique split of the joint change.';
+870676	  } else if (lengthChanged || currentChanged) {
+870677	    const changedInput = lengthChanged ? 'installed length' : 'current';
+870678	    evidence = 'Changing only ' + changedInput + ' in the model reproduced the result.';
+870679	    evidence = 'The model returned the same result. There is no change to explain.';
+870680	  return [inputs, result, 'Evidence: ' + evidence].join('\n');
+870681	if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+870682	    if (process.argv.length !== 3) {
+870683	      throw new TypeError('Provide one JSON input file.');
+870684	    const input = JSON.parse(readFileSync(process.argv[2], 'utf8').replace(/^\uFEFF/, ''));
+870685	    console.log(explain(input));
+870707	<a class="card" href="https://github.com/Ventusltd/spiders/blob/main/docs/SEED_KERNEL_LINKS.md#what-seed-should-let-the-next-person-inherit"><b>SEED Computational Instruments</b><span>Explore reusable capabilities, their evidence, and the copies across SEED, CVAA, COSMIC and Neural Link.</span></a>
+870786	FIND_CAPABILITY_SOURCE = {
+870787	    "repo": "Ventusltd/seed-data",
+870788	    "commit": "153c1159ff58edcb8be5f598c2c78d13c85b6afd",
+870789	    "blob": "b67bcb84f2a5efb1e88885f97a910bf857e05c21",
+870790	    "path": "experiments/economical-seeds/vedic_candidate.py",
+870791	    "first": 12,
+870792	    "last": 31,
+870793	FIND_CAPABILITY_CONTRACT = {
+870794	    "word": "FIND CAPABILITY",
+870795	    "purpose": "Find candidate instruments for a stated objective in a bounded SEED catalogue.",
+870796	    "inputs": ["Non-blank objective text", "Curated SEED SQLite catalogue",
+870797	               "Optional integer result limit from one to five, default three"],
+870798	    "output": "Lookup status, up to the requested number of demonstrated instrument matches with evidence locators, and query metrics.",
+870799	    "limits": "Lexical lookup over the selected catalogue. An empty result only describes that catalogue. The result is a shortlist; execution planning and actual invocation remain separate.",
+870800	    "symbol": "invoke",
+870801	    "source": FIND_CAPABILITY_SOURCE,
+870802	    "estate_group": "SEED",
+870803	    "discipline": "Capability retrieval",
+870804	    "periodic_category": "evidence catalogue lookup",
+870805	    "vedic_class_candidate": "Data",
+870806	    "receipt": source_link(FIND_CAPABILITY_SOURCE),
+870807	EXPLICIT_CONTRACTS = (LIGHTNING_CONTRACT, SOLAR_LOOP_AREA_CONTRACT, FIND_CAPABILITY_CONTRACT)
+870863	from semantic_compiler import BINDINGS, DICTIONARY, Refusal, execute, resolve, strict_json
+870864	class FindCapabilityAdmissionTests(unittest.TestCase):
+870865	        self.dictionary = strict_json(DICTIONARY.read_bytes())
+870866	        self.bindings = strict_json(BINDINGS.read_bytes())
+870867	    def test_reviewed_source_row_resolves_without_claiming_a_runtime_binding(self):
+870868	        plan = resolve("  find\tcapability  ", self.dictionary, self.bindings)
+870869	        self.assertEqual(plan["command_id"], "GG2050-VEDIC-000095")
+870870	        self.assertEqual(plan["canonical"], "FIND CAPABILITY")
+870871	        self.assertEqual(plan["dictionary_status"], "STATIC_POLICY_REPRODUCED")
+870872	        self.assertEqual(plan["execution_readiness"], "NO_REVIEWED_PACKAGE_BINDING")
+870873	        self.assertNotIn(plan["command_id"], self.bindings["bindings"])
+870874	    def test_executor_refuses_static_row_before_accessing_package_material(self):
+870875	        plan = resolve("FIND CAPABILITY", self.dictionary, self.bindings)
+870876	        with self.assertRaisesRegex(Refusal, "^PACKAGE_NOT_ADMITTED$"):
+870877	            execute(plan, {"objective": "audit a captured component"}, None, None, None)
 ```

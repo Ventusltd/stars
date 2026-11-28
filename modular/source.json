@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-27T19:37:53.699Z",
+  "generated_utc": "2026-11-28T02:08:43.967Z",
   "repositories": [
     {
       "repo": "Ventusltd/132kV",
@@ -68,13 +68,13 @@
     },
     {
       "repo": "Ventusltd/cosmic",
-      "commit": "983447a7eedb82efdedd02fe3f36086671099691",
+      "commit": "68a1721ee01a0829255744300f3abdb1343fd3e2",
       "code_files": 4
     },
     {
       "repo": "Ventusltd/cvaa",
-      "commit": "b124c39e5343b24dd5b546a0c279a1c06360bdad",
-      "code_files": 9
+      "commit": "f14e8fa17d228f2b15fb48570907d9d295292720",
+      "code_files": 14
     },
     {
       "repo": "Ventusltd/cyber-resilience",
@@ -158,12 +158,12 @@
     },
     {
       "repo": "Ventusltd/globalgrid2050",
-      "commit": "58e003ee77c4e90b6ee9c8a0e7b042218a2dba28",
-      "code_files": 19056
+      "commit": "6747c4df28216ae5b396befffdfe81a864187623",
+      "code_files": 19222
     },
     {
       "repo": "Ventusltd/globalgrid2050-homepage",
-      "commit": "afc78df0ca740cb709ac9901999905b7e703f2d4",
+      "commit": "4ea3dda490d5662b3031dbfcacc49173949506ca",
       "code_files": 15
     },
     {
@@ -203,8 +203,8 @@
     },
     {
       "repo": "Ventusltd/gridatlas",
-      "commit": "afffa9781f6130529ae93052604cd3d98d172a35",
-      "code_files": 739
+      "commit": "be0af87d7485527872c047a2365d8d3126313059",
+      "code_files": 742
     },
     {
       "repo": "Ventusltd/gridmachine1",
@@ -218,7 +218,7 @@
     },
     {
       "repo": "Ventusltd/kuiper-belt",
-      "commit": "bfd9728bc36a03b5fdaca840003cf135de9c226e",
+      "commit": "0d5ec945b87b6730e4390beefa8072ff01d63504",
       "code_files": 296
     },
     {
@@ -242,6 +242,11 @@
       "code_files": 24
     },
     {
+      "repo": "Ventusltd/legislation",
+      "commit": "960afbd0f5393e818b400a7f1a523acd6814e217",
+      "code_files": 27
+    },
+    {
       "repo": "Ventusltd/lidar",
       "commit": "2ddf7257e4847e5f387e03aaecbc1cc425c4e387",
       "code_files": 13
@@ -263,17 +268,17 @@
     },
     {
       "repo": "Ventusltd/neural-link-between-agents",
-      "commit": "18cd8fdd899c02127c4e88a6d699ab4df6f3d77d",
+      "commit": "36dc35bff5b772c7f6cd61030de229320fcd0c08",
       "code_files": 133
     },
     {
       "repo": "Ventusltd/particle-physics-drawing-engine",
-      "commit": "a1534abb5f304338fe15bb0690bb35f0849204c5",
+      "commit": "34153fcbd5e91e4aead765fba9e9d0cac1ebf5ec",
       "code_files": 11
     },
     {
       "repo": "Ventusltd/pipelinenews",
-      "commit": "30d3d94e7bf6ab6dc6605c195457bf4358363e58",
+      "commit": "051b45492f384cfafee0fc15e9398a22bc0ee82d",
       "code_files": 1026
     },
     {
@@ -303,8 +308,8 @@
     },
     {
       "repo": "Ventusltd/seed-data",
-      "commit": "016f2a101ca589a680f227e85490b0cd68986e46",
-      "code_files": 0
+      "commit": "a0e0f04d2b7abd48cc3b2ce06fc3d1df8f6b3ed9",
+      "code_files": 42
     },
     {
       "repo": "Ventusltd/site-energy",
@@ -348,7 +353,7 @@
     },
     {
       "repo": "Ventusltd/spiders",
-      "commit": "1244b9178ac3e3634b0d6f282ddd0c0679b40de0",
+      "commit": "fb5be9bb4da5543e3bf2f54ea47334cce4118655",
       "code_files": 50
     },
     {
@@ -413,7 +418,7 @@
     },
     {
       "repo": "Ventusltd/time-stone",
-      "commit": "26ddd81db164585f510b986b866e470ef84ad951",
+      "commit": "d4d5d4ece9e4e9ad550137867b0ed4fb58d8938d",
       "code_files": 1
     },
     {
@@ -438,8 +443,8 @@
     },
     {
       "repo": "Ventusltd/vedic-",
-      "commit": "7f73db3d896bd49f5d35d4017fc9b33b19e98f0d",
-      "code_files": 55
+      "commit": "f287b2f1ee0b6926525bd67db097f3d87ddcd75d",
+      "code_files": 56
     },
     {
       "repo": "Ventusltd/ventus-grid-engine",

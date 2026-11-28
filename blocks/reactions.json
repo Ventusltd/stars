@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-27T19:39:20.331Z",
+ "generated_utc": "2026-11-28T02:09:55.861Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -425,17 +425,6 @@
    "gh": "https://github.com/Ventusltd/data-gb-electricity/tree/main/pipelines"
   },
   {
-   "folder": "gridatlas/atman",
-   "title": "Atman",
-   "repo": "Ventusltd/gridatlas",
-   "blocks": [
-    "Dt",
-    "Pr"
-   ],
-   "live": "https://ventusltd.github.io/gridatlas/atman/",
-   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atman"
-  },
-  {
    "folder": "globalgrid2050/uk_renewables_pipeline/{stamp}/scripts/data",
    "title": "Uk renewables pipeline",
    "repo": "Ventusltd/globalgrid2050",
@@ -533,6 +522,17 @@
    ],
    "live": null,
    "gh": "https://github.com/Ventusltd/teleprinter/tree/main/drivers/gridatlas"
+  },
+  {
+   "folder": "gridatlas/atman",
+   "title": "Atman",
+   "repo": "Ventusltd/gridatlas",
+   "blocks": [
+    "Dt",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/gridatlas/atman/",
+   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atman"
   },
   {
    "folder": "ventus-grid-engine/proofs",
@@ -744,6 +744,17 @@
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611221243/scripts/plugins"
   },
   {
+   "folder": "seed-data/experiments/economical-seeds/next-invention/cable-screen",
+   "title": "Cable screen",
+   "repo": "Ventusltd/seed-data",
+   "blocks": [
+    "Dc",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/seed-data/experiments/economical-seeds/next-invention/cable-screen/",
+   "gh": "https://github.com/Ventusltd/seed-data/tree/main/experiments/economical-seeds/next-invention/cable-screen"
+  },
+  {
    "folder": "pipelinenews/tools/intelligence/cartridges/wider-fleet/assets",
    "title": "Wider fleet",
    "repo": "Ventusltd/pipelinenews",
@@ -799,8 +810,8 @@
    "b": "Pr",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 8 app folders, never composition-tested",
-   "together": 8,
+   "basis": "already used together in 9 app folders, never composition-tested",
+   "together": 9,
    "examples": [
     {
      "title": "Globalgrid2050",
